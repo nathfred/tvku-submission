@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/logout', function () {
-    return view('welcome');
+    return view('logout');
 });

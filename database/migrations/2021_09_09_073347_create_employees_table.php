@@ -18,6 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('user_id')->unique();
             $table->string('nip')->unique();
             $table->string('position');
+            $table->string('joined')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

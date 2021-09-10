@@ -62,7 +62,8 @@ class DatabaseSeeder extends Seeder
             Employee::create([
                 'user_id' => $i,
                 'nip' => mt_rand(1000, 9000),
-                'position' => $position_array[array_rand($position_array)]
+                'position' => $position_array[array_rand($position_array)],
+                'joined' => mt_rand(1995, 2021)
             ]);
         }
 

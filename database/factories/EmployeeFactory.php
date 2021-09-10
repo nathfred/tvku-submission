@@ -22,7 +22,7 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
-        $position_array = ['Manager', 'Financial', 'IT', 'Marketing', 'Technical', 'Talent', 'MCR'];
+        $position_array = ['Manager', 'Financial', 'IT', 'Marketing', 'Technical', 'Talent', 'MCR', 'Social Media'];
         return [
             'id' => mt_rand(1, env('SAMPLE_USER', 10)),
             'user_id' => mt_rand(1, env('SAMPLE_USER', 10)),

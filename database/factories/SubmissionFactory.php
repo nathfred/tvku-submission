@@ -31,10 +31,9 @@ class SubmissionFactory extends Factory
         ];
         $status_array = ['Past', 'Upcoming'];
         $approval_array = ['Accepted', 'Declined', 'Unconfirmed'];
-        $approval_desc_array = ['Saya ijinkan', 'Saya tidak ijinkan', 'Alasan kurang konkrit!'];
+        $approval_desc_array = ['Saya ijinkan', 'Saya tidak ijinkan', 'Alasan kurang konkrit!', ' '];
 
         return [
-            'id' => mt_rand(1, env('SAMPLE_USER', 5)),
             'employee_id' => mt_rand(1, env('SAMPLE_USER', 5)),
             'description' => $description_array[array_rand($description_array)],
             'start_date' => $this->faker->dateTimeThisYear(),

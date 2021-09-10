@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin TVKU',
             'role' => 'admin',
-            'ktp' => $faker->nik(),
+            'ktp' => $faker->unique()->nik(),
             'address' => 'Jl. Nakula 1 No. 5-11, Semarang',
             'birth' => '2000-08-25',
             'last_education' => 'Universitas TVKU',
@@ -37,9 +37,34 @@ class DatabaseSeeder extends Seeder
 
         // USER
         User::factory(env('SAMPLE_USER', 10))->create();
+        // for ($i = 2; $i < 12; $i++) {
+        //     User::create([
+        //         'id' => $i,
+        //         'name' => $faker->name,
+        //         'role' => 'employee',
+        //         'ktp' => $faker->unique()->nik(),
+        //         'address' => $faker->streetAddress() . ', ' . $this->faker->state(),
+        //         'birth' => $faker->dateTimeBetween,
+        //         'last_education' => 'Universitas Dian Nuswantoro',
+        //         'phone' => $faker->phoneNumber(),
+        //         'email' => $faker->unique()->safeEmail(),
+        //         'email_verified_at' => now(),
+        //         'password' => bcrypt('123123'), // password
+        //         'remember_token' => Str::random(10),
+        //     ]);
+        // }
+
 
         // EMPLOYEE
-        Employee::factory(env('SAMPLE_USER', 10))->create();
+        // Employee::factory(env('SAMPLE_USER', 10))->create();
+        $position_array = ['Manager', 'Financial', 'IT', 'Marketing', 'Technical', 'Talent', 'MCR'];
+        for ($i = 2; $i < env('SAMPLE_USER', 12); $i++) {
+            Employee::create([
+                'user_id' => $i,
+                'nip' => mt_rand(1000, 9000),
+                'position' => $position_array[array_rand($position_array)]
+            ]);
+        }
 
         // SUBMISSION
         Submission::factory(5)->create();

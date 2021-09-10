@@ -22,7 +22,7 @@ class CreateSubmissionsTable extends Migration
             $table->date('end_date');
             $table->string('status')->nullable();
             $table->string('approval')->nullable();
-            $table->string('aprroval_description')->nullable();
+            $table->string('approval_description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

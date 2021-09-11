@@ -24,4 +24,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function () {
+    Route::get('/index', [AdminController::class, 'index'])->name('admin-index');
+});
+
+Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], function () {
+    Route::post('/index', [EmployeeController::class, 'index'])->name('employee-index');
+});
+
 require __DIR__ . '/auth.php';

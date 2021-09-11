@@ -1,9 +1,8 @@
-<title>TVKU | {{ $title }}</title>
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <img class="h-20 fill-current text-gray-500" src="{{ asset('img/tvku_logo_ori.png') }}"</>
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
 
@@ -15,44 +14,9 @@
 
             <!-- Name -->
             <div>
-                <x-label for="name" :value="__('Nama Lengkap')" />
+                <x-label for="name" :value="__('Name')" />
 
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
-
-            <!-- KTP -->
-            <div class="mt-4">
-                <x-label for="ktp" :value="__('No. KTP')" />
-
-                <x-input id="ktp" class="block mt-1 w-full" type="text" name="ktp" :value="old('ktp')" required />
-            </div>
-
-            <!-- Address -->
-            <div class="mt-4">
-                <x-label for="address" :value="__('Alamat')" />
-
-                <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required />
-            </div>
-
-            <!-- Birth -->
-            <div class="mt-4">
-                <x-label for="birth" :value="__('Tanggal Lahir (Contoh: 1990-05-31)')" />
-
-                <x-input id="birth" class="block mt-1 w-full" type="text" name="birth" :value="old('birth')" required />
-            </div>
-
-            <!-- Last Education -->
-            <div class="mt-4">
-                <x-label for="last_education" :value="__('Pendidikan Terakhir')" />
-
-                <x-input id="last_education" class="block mt-1 w-full" type="text" name="last_education" :value="old('last_education')" required />
-            </div>
-
-            <!-- Phone -->
-            <div class="mt-4">
-                <x-label for="phone" :value="__('No. HP')" />
-
-                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
             </div>
 
             <!-- Email Address -->

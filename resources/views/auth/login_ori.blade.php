@@ -1,9 +1,8 @@
-<title>TVKU | {{ $title }}</title>
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/login">
-                <img class="h-20 fill-current text-gray-500" src="{{ asset('img/tvku_logo_ori.png') }}"</>
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
 

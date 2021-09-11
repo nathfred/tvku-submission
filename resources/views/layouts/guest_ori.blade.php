@@ -5,15 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Compatibility -->
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="nathanaelfredericko@gmail.com">
-        <meta name="author" content="nathfred">
-
-        <!-- Favicon-->
-        <link rel="icon" href="{{ asset('img/tvku_favicon.png') }}" type="image/x-icon"/>
-
-        <title>TVKU</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">

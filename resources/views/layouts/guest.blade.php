@@ -21,6 +21,9 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+        <!-- Custom Styles : Mazer Bootstrap-->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>

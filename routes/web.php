@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +31,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
 });
 
 Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], function () {
-    Route::post('/index', [EmployeeController::class, 'index'])->name('employee-index');
+    Route::get('/index', [EmployeeController::class, 'index'])->name('employee-index');
 });
 
 require __DIR__ . '/auth.php';

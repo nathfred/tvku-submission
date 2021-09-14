@@ -17,12 +17,18 @@ class CreateSubmissionsTable extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
             $table->integer('employee_id');
-            $table->string('description')->nullable();
+            $table->string('type'); // SAKIT ATAU LAINNYA
+            $table->string('description')->nullable(); // KETERANGAN IJIN
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('status')->nullable();
-            $table->string('approval')->nullable();
-            $table->string('approval_description')->nullable();
+            $table->int('duration_in_days')->nullable();
+            $table->string('status')->nullable(); // AKAN ATAU SEDANG ATAU SUDAH BERLANGSUNG
+            $table->string('division_id')->nullable(); // ID DIVISI MANAGER
+            $table->boolean('division_approval')->nullable(); // TANDA TANGAN DIVISI MANAGER
+            $table->date('division_signed_date')->nullable(); // TANGGAL TANDA TANGAN DIVISI MANAGER
+            $table->string('hrd_id')->nullable(); // ID HRD MANAGER
+            $table->boolean('hrd_approval')->nullable(); // TANDA TANGAN HRD MANAGER
+            $table->date('hrd_signed_date')->nullable(); // TANGGAL TANDA TANGAN HRD MANAGER
             $table->timestamps();
             $table->softDeletes();
         });

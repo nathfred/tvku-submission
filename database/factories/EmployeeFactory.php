@@ -22,11 +22,13 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
-        $position_array = ['Manager', 'Financial', 'IT', 'Marketing', 'Technical', 'Talent', 'MCR', 'Social Media'];
+        $position_array = ['Manager', 'Head', 'Member'];
+        $division_array = ['Production', 'IT', 'Technical', 'Marketing', 'Financial', 'Common'];
         return [
             'id' => mt_rand(1, env('SAMPLE_USER', 10)),
             'user_id' => mt_rand(1, env('SAMPLE_USER', 10)),
-            'nip' => mt_rand(1000, 9000),
+            'npp' => mt_rand(1000, 9000),
+            'division' => $division_array[array_rand($division_array)],
             'position' => $position_array[array_rand($position_array)],
             'joined' => mt_rand(1995, 2021)
         ];

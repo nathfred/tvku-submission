@@ -43,11 +43,11 @@ class SubmissionFactory extends Factory
             // 'duration_in_days' => 0,
             'status' => $status_array[array_rand($status_array)],
             // 'division_id' => mt_rand(2, 6),
-            'division_approval' => 0,
-            'division_signed_date' => '1990-12-31',
+            'division_approval' => NULL,
+            'division_signed_date' => NULL,
             // 'hrd_id' => '1',
-            'hrd_approval' => 0,
-            'hrd_signed_date' => '2000-11-30'
+            'hrd_approval' => NULL,
+            'hrd_signed_date' => NULL
         ];
     }
 }

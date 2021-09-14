@@ -82,4 +82,9 @@ class SubmissionController extends Controller
     {
         //
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

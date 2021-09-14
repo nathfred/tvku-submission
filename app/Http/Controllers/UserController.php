@@ -14,4 +14,9 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
 }

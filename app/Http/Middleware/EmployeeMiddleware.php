@@ -20,6 +20,6 @@ class EmployeeMiddleware
         if (Auth::user()->role == 'employee') {
             return $next($request);
         }
-        return redirect(url('/'))->with('message', 'forbidden-employee-access');
+        return redirect(route('employee-index'))->with('message', 'forbidden-employee-access');
     }
 }

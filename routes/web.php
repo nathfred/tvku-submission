@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
 
 Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], function () {
     Route::get('/index', [EmployeeController::class, 'index'])->name('employee-index');
+    Route::get('/profile', [EmployeeController::class, 'show'])->name('employee-profile');
 });
 
 require __DIR__ . '/auth.php';

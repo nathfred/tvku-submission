@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Employee;
+use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -49,7 +52,20 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+        $employee = Employee::where('user_id', $user_id)->first();
+
+        $user->npp = $employee->npp;
+        $user->position = $employee->position;
+        $user->division = $employee->division;
+        $user->joined = $employee->joined;
+
+        return view('employee.profile', [
+            "title" => "Profile",
+            "active" => "profile",
+            "employee" => $user
+        ]);
     }
 
     /**
@@ -84,5 +100,15 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         //
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function submission()
+    {
+        return $this->hasMany(Submission::class);
     }
 }

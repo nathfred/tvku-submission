@@ -40,14 +40,14 @@ class SubmissionFactory extends Factory
             'description' => $description_array[array_rand($description_array)],
             'start_date' => $this->faker->dateTimeThisYear(),
             'end_date' => $this->faker->dateTimeThisYear(),
-            'duration_in_days' => '',
+            // 'duration_in_days' => 0,
             'status' => $status_array[array_rand($status_array)],
-            'division_id' => mt_rand(2, 6),
-            'division_approval' => $approval_array[array_rand($approval_array)],
-            'division_signed_date',
-            'hrd_id' => '1',
-            'hrd_approval' => $approval_array[array_rand($approval_array)],
-            'hrd_signed_date',
+            // 'division_id' => mt_rand(2, 6),
+            'division_approval' => 0,
+            'division_signed_date' => '1990-12-31',
+            // 'hrd_id' => '1',
+            'hrd_approval' => 0,
+            'hrd_signed_date' => '2000-11-30'
         ];
     }
 }

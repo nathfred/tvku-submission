@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
         // ADMIN
         User::create([
-            'name' => 'Admin TVKU',
+            'name' => 'Agung HRD',
             'role' => 'admin',
             'ktp' => $faker->unique()->nik(),
             'address' => 'Jl. Nakula 1 No. 5-11, Semarang',
@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123123'), // password
             'remember_token' => Str::random(10),
         ]);
+
+        $division_array = ['Production', 'IT', 'Technical', 'Marketing', 'Financial', 'Common'];
 
         // USER
         User::factory(env('SAMPLE_USER', 10))->create();

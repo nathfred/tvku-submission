@@ -22,10 +22,11 @@
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href=""><img src="{{ asset('img/tvku_logo_ori.png') }}" alt="TVKU Logo" width="400%" height="400%"></a>
+                <div class="sidebar-header py-0" style="height: 10%;">
+                    <div class="d-flex justify-content-between" style="position: relative;">
+                        <div class="logo"></div>
+                        <div class="logo center text-center mt-4" style="position: absolute;">
+                            <a href="{{ route('employee-index') }}"><img src="{{ asset('img/tvku_logo_ori.png') }}" alt="TVKU Logo" style="width: 50%; height: 75%;"></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -393,10 +394,10 @@
             </footer>
         </div>
     </div>
-    <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}/"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}/"></script>
+    <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
-    <script src="{{ asset('vendors/apexcharts/apexcharts.js') }}/"></script>
+    <script src="{{ asset('vendors/apexcharts/apexcharts.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard.js') }}"></script>
 
     <script src="{{ asset('js/main.js') }}"></script>

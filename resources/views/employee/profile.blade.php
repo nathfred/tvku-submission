@@ -5,8 +5,8 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Data Pegawai</h3>
-                <p class="text-subtitle text-muted">Data Diri & Profil Pegawai</p>
+                <h3>Profil Pegawai</h3>
+                <p class="text-subtitle text-muted">Profil Diri & Data Pegawai</p>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
             <div class="col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Data Diri</h4>
+                        <h4 class="card-title">Profil Diri</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -83,7 +83,7 @@
             <div class="col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Profil Pegawai</h4>
+                        <h4 class="card-title">Data Pegawai</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -109,7 +109,18 @@
                                             @if ($already_employee == "TRUE")
                                                 <input type="text" id="position" class="form-control" name="position" value="{{ $employee->position }}" disabled>
                                             @elseif ($already_employee == "FALSE")
-                                                <input type="text" id="position" class="form-control" name="position">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="position" id="position" value="Manager">
+                                                    <label class="form-check-label" for="position">
+                                                        Manager
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="position" id="position" value="Anggota">
+                                                    <label class="form-check-label" for="position">
+                                                        Anggota
+                                                    </label>
+                                                </div>
                                             @endif
                                         </div>
                                         <div class="col-md-4">
@@ -119,7 +130,42 @@
                                             @if ($already_employee == "TRUE")
                                                 <input type="text" id="division" class="form-control" name="division" value="{{ $employee->division }}" disabled>
                                             @elseif ($already_employee == "FALSE")
-                                                <input type="text" id="division" class="form-control" name="division">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="division" id="division" value="IT">
+                                                <label class="form-check-label" for="division">
+                                                    IT
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="division" id="division" value="Keuangan">
+                                                <label class="form-check-label" for="division">
+                                                    Keuangan
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="division" id="division" value="Produksi">
+                                                <label class="form-check-label" for="division">
+                                                Produksi
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="division" id="division" value="Teknis">
+                                                <label class="form-check-label" for="division">
+                                                    Teknis
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="division" id="division" value="Marketing">
+                                                <label class="form-check-label" for="division">
+                                                    Marketing
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="division" id="division" value="Umum">
+                                                <label class="form-check-label" for="division">
+                                                    Umum
+                                                </label>
+                                            </div>
                                             @endif
                                         </div>
                                         <div class="col-md-4">
@@ -132,11 +178,13 @@
                                                 <input type="text" id="joined" class="form-control" name="joined">
                                             @endif
                                         </div>
-                                        @if ($already_employee == "FALSE")
-                                            <div class="col-sm-12 d-flex justify-content-end">
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            @if ($already_employee == "TRUE")
+                                                {{-- <a href="{{ route('employee-profile-edit') }}" class="btn btn-light-secondary me-1 mb-1">Reset</a> --}}
+                                            @elseif($already_employee == "FALSE")
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                            </div>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </form>

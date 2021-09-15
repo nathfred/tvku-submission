@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +33,13 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
 
 Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], function () {
     Route::get('/index', [EmployeeController::class, 'index'])->name('employee-index');
+
     Route::get('/profile', [EmployeeController::class, 'show'])->name('employee-profile');
     Route::post('/profile', [EmployeeController::class, 'create'])->name('employee-profile-post');
+    // Route::post('/profile/edit', [EmployeeController::class, 'edit'])->name('employee-profile-edit');
+
+    Route::get('/submission', [SubmissionController::class, 'index'])->name('employee-submission');
+    Route::get('/submission/create', [SubmissionController::class, 'create'])->name('employee-submission-create');
 });
 
 require __DIR__ . '/auth.php';

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Employee;
 use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
@@ -104,7 +105,11 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        dd($employee);
+        $user_id = Auth::id();
+        // $employee = Employee::where('user_id', $user_id)->first();
+
+        DB::update('UPDATE employees SET npp = ' .  $employee->npp . ' AND position = ' . $employee->postion . ' AND division = ' . $employee->division . 'AND joined = ' . $employee->joined . ' where id = ' . $employee->id);
     }
 
     /**

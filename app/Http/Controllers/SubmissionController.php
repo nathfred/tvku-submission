@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Employee;
 use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubmissionController extends Controller
 {
@@ -14,7 +17,20 @@ class SubmissionController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+        $employee = Employee::where('user_id', $user_id)->first();
+
+        $user_submissions = Submission::where('employee_id', $employee->id)->get();
+        // dd($user_submissions);
+
+        return view('employee.submissions', [
+            "title" => "Daftar Pengajuan Cuti",
+            "active" => "submission",
+            "user_submissions" => $user_submissions,
+            "employee" => $employee,
+            "user" => $user
+        ]);
     }
 
     /**

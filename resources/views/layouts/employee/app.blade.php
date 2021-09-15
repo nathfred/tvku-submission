@@ -46,9 +46,24 @@
 
                         <li class="sidebar-item {{ ($active === "profile") ? 'active' : '' }}">
                             <a href="{{ route('employee-profile') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-person-badge-fill"></i>
                                 <span>Profile</span>
                             </a>
+                        </li>
+
+                        <li class="sidebar-item has-sub {{ ($active === "cuti") ? 'active' : '' }}">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Cuti</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="{{ route('employee-submission') }}">Daftar Pengajuan</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="{{ route('employee-submission-create') }}">Buat Pengajuan</a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="sidebar-item  has-sub">

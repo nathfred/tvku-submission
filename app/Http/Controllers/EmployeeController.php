@@ -28,9 +28,22 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $user_id = Auth::id();
+        Employee::create([
+            "user_id" => $user_id,
+            "npp" => $request->npp,
+            "position" => $request->position,
+            "division" => $request->division,
+            "joined" => $request->joined
+        ]);
+
+        return redirect(route('employee-profile', [
+            "title" => "Profile",
+            "active" => "profile",
+            "message" => "Berhasil menyimpan data."
+        ]));
     }
 
     /**
@@ -56,15 +69,28 @@ class EmployeeController extends Controller
         $user = User::where('id', $user_id)->first();
         $employee = Employee::where('user_id', $user_id)->first();
 
-        $user->npp = $employee->npp;
-        $user->position = $employee->position;
-        $user->division = $employee->division;
-        $user->joined = $employee->joined;
+        // $user->npp = $employee->npp;
+        // $user->position = $employee->position;
+        // $user->division = $employee->division;
+        // $user->joined = $employee->joined;
+
+        // PERIKSA APAKAH USER SUDAH DAFTAR EMPLOYEE
+        if ($employee === NULL) {
+            return view('employee.profile', [
+                "title" => "Profile",
+                "active" => "profile",
+                "already_employee" => 'FALSE',
+                "employee" => $employee,
+                "user" => $user
+            ]);
+        }
 
         return view('employee.profile', [
             "title" => "Profile",
             "active" => "profile",
-            "employee" => $user
+            "already_employee" => 'TRUE',
+            "employee" => $employee,
+            "user" => $user
         ]);
     }
 

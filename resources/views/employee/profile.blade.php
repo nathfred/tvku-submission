@@ -148,4 +148,7 @@
     </section>
 
 </div>
+
+@include('employee.alerts')
+
 @endsection

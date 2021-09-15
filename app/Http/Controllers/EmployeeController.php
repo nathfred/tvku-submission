@@ -39,11 +39,13 @@ class EmployeeController extends Controller
             "joined" => $request->joined
         ]);
 
-        return redirect(route('employee-profile', [
-            "title" => "Profile",
-            "active" => "profile",
-            "message" => "Berhasil menyimpan data."
-        ]));
+        // return view('employee.profile', [
+        //     "title" => "Profile",
+        //     "active" => "index",
+        //     "message" => "success-register"
+        // ]);
+        $message = "success-register";
+        return redirect(route('employee-profile'))->with('message', $message);
     }
 
     /**
@@ -81,7 +83,7 @@ class EmployeeController extends Controller
                 "active" => "profile",
                 "already_employee" => 'FALSE',
                 "employee" => $employee,
-                "user" => $user
+                "user" => $user,
             ]);
         }
 

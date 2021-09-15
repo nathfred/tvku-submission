@@ -407,6 +407,9 @@
     <script src="{{ asset('vendors/apexcharts/apexcharts.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard.js') }}"></script>
 
+    <script src="{{ asset('vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 

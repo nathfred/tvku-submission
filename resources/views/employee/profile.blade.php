@@ -11,7 +11,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Profil Pegawai</h3>
+                    <div class="row">
+                        <div class="col">
+                            <h3>Profil Pegawai</h3>
+                        </div>
+                        <div class="col-sm">
+                            <a href="/logout">Logout</a>
+                        </div>
+                    </div>
                     <p class="text-subtitle text-muted">Profil Diri & Data Pegawai</p>
                 </div>
             </div>
@@ -91,11 +98,15 @@
                         <div class="card-body py-4 px-5">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-xl">
-                                    <img src="{{ asset('images/faces/1.jpg') }}" alt="Face 1">
+                                    <i class="fas fa-grin-alt" style="width:50px; height:50px;"></i>
                                 </div>
                                 <div class="ms-3 name">
                                     <h5 class="font-bold">{{ $user->name }}</h5>
-                                    <h6 class="text-muted mb-0">{{ $user->email }}</h6>
+                                    <!--<h6 class="text-muted mb-0">{{ $user->email }}</h6>-->
+                                    <button class="btn btn-primary dropdown-toggle me-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"aria-haspopup="true" aria-expanded="false">{{ $user->email }}</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/logout" style="width:50px">Log Out</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

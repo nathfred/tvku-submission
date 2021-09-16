@@ -64,11 +64,11 @@
                                         </td>
                                     @elseif ($submission->division_approval == '0' && $submission->hrd_approval == '0')
                                         <td>
-                                            <span class="badge bg-warning">Ditolak</span>
+                                            <span class="badge bg-danger">Ditolak</span>
                                         </td>
                                     @else
                                         <td>
-                                            <span class="badge bg-info">Menunggu Konfirmasi</span>
+                                            <span class="badge bg-warning">Menunggu Konfirmasi</span>
                                         </td>
                                     @endif
                                 </tr>

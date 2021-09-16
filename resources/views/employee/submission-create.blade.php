@@ -21,59 +21,72 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-horizontal">
+                            <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('POST')
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label>Nama Lengkap</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" id="first-name" class="form-control" name="fname" value="{{ $user->name }}" disabled>
+                                            <input type="text" id="name" class="form-control" name="name" value="{{ $user->name }}" disabled required>
                                         </div>
                                         <div class="col-md-4">
                                             <label>NPP</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" id="npp" class="form-control" name="npp" value="{{ $employee->npp }}" disabled>
+                                            <input type="text" id="npp" class="form-control" name="npp" value="{{ $employee->npp }}" disabled required>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>No. KTP</label>
+                                            <label>Jabatan</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" id="position" class="form-control" name="position" value="{{ $employee->position }}" disabled>
+                                            <input type="text" id="position" class="form-control" name="position" value="{{ $employee->position }}" disabled required>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Divisi</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" id="division" class="form-control" name="division" value="{{ $employee->division }}" disabled>
+                                            <input type="text" id="division" class="form-control" name="division" value="{{ $employee->division }}" disabled required>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Jenis</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" id="type" class="form-control" name="type">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type" id="type" value="Sakit" required>
+                                                <label class="form-check-label" for="type">
+                                                    Sakit
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type" id="type" value="Lainnya">
+                                                <label class="form-check-label" for="type">
+                                                    Lainnya
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Tanggal Ijin</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" id="start_date" class="form-control" name="start_date">
+                                            <input type="date" id="start_date" class="form-control" name="start_date" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Tanggal Kembali</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" id="end_date" class="form-control" name="end_date">
+                                            <input type="date" id="end_date" class="form-control" name="end_date" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Keterangan</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" id="description" class="form-control" name="description">
+                                            <input type="text" id="description" class="form-control" name="description" required>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Lampiran (Opsional)</label>
+                                            <label>Lampiran (.png)</label>
                                         </div>
                                         <div class="col-md-8 form-group">
                                             <input class="form-control" type="file" id="attachment" name="attachment">

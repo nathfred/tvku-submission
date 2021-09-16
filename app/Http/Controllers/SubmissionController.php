@@ -85,10 +85,11 @@ class SubmissionController extends Controller
             return view('employee.submission-create')->with('message', 'incorrect-date');
         }
 
-        $file_name = 'Cuti_' . $employee->npp . '_' . $request->start_date . '_' . $request->end_date;
+        $file = $request->attachment;
+
+        $file_name = 'Cuti_' . $employee->npp . '_' . $request->start_date . '_' . $request->end_date . '.' . $file->getClientOriginalExtension();
         $directory = 'data_file/cuti/';
 
-        $file = $request->attachment;
         $file->move($directory, $file_name);
 
         Submission::create([

@@ -80,11 +80,30 @@ class SubmissionController extends Controller
         ]);
 
         $now = Carbon::now('GMT+7');
-        // PERIKSA REQUEST START DATE & END DATE
-        if ($request->start_date >= $request->end_date) {
-            return view('employee.submission-create')->with('message', 'incorrect-date');
+        $today = Carbon::today('GMT+7');
+
+        // PERIKSA TANGGAL IJIN DAN TANGGAL KEMBALI APAKAH VALID DENGAN TANGGAL INPUT
+        if ($today->greaterThanOrEqualTo($request->start_date) || $today->greaterThanOrEqualTo($request->end_date)) {
+            return redirect()->route('employee-submission-create')->with('message', 'incorrect-date');
         }
 
+        // PERIKSA REQUEST START DATE & END DATE
+        if ($request->start_date >= $request->end_date) {
+            return redirect()->route('employee-submission-create')->with('message', 'incorrect-date');
+        }
+
+        // JIKA SUBMISSION TANPA LAMPIRAN (ATTACHMENT)
+        if ($request->attachment === NULL) {
+            Submission::create([
+                'employee_id' => $employee->id,
+                'type' => $request->type,
+                'description' => $request->description,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'status' => 'Unresponded',
+            ]);
+            return redirect(route('employee-submission'));
+        }
         $file = $request->attachment;
 
         $file_name = 'Cuti_' . $employee->npp . '_' . $request->start_date . '_' . $request->end_date . '.' . $file->getClientOriginalExtension();

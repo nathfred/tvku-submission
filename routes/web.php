@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], fun
 
     Route::get('/submission', [SubmissionController::class, 'index'])->name('employee-submission');
     Route::get('/submission/create', [SubmissionController::class, 'create'])->name('employee-submission-create');
+    Route::post('/submission/create', [SubmissionController::class, 'store'])->name('employee-submission-create-post');
 });
 
 require __DIR__ . '/auth.php';

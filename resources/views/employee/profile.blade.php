@@ -35,14 +35,14 @@
                                             <label>Email</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="email" id="email-id" class="form-control"
-                                                name="email-id" value="{{ $user->email }}" disabled>
+                                            <input type="email" id="email" class="form-control"
+                                                name="email" value="{{ $user->email }}" disabled>
                                         </div>
                                         <div class="col-md-4">
                                             <label>No. KTP</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="ktp" id="first-name" class="form-control"
+                                            <input type="text" id="ktp" class="form-control"
                                                 name="ktp" value="{{ $user->ktp }}" disabled>
                                         </div>
                                         <div class="col-md-4">

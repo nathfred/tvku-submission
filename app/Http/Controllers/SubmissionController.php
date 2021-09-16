@@ -40,7 +40,16 @@ class SubmissionController extends Controller
      */
     public function create()
     {
-        //
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+        $employee = Employee::where('user_id', $user_id)->first();
+
+        return view('employee.submission-create', [
+            'title' => 'Buat Pengajuan',
+            'active' => 'submisison',
+            'user' => $user,
+            'employee' => $employee,
+        ]);
     }
 
     /**

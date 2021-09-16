@@ -19,13 +19,14 @@
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th class="text-center">No</th>
                             <th>Jenis</th>
                             <th>Keterangan</th>
                             <th>Tanggal Ijin</th>
                             <th>Tanggal Kembali</th>
                             <th>Acc Divisi</th>
                             <th>Acc HRD</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +39,7 @@
                                     $i++;
                                 @endphp
                                 <tr>
-                                    <td>{{ $i }}</td>
+                                    <td class="text-center">{{ $i }}</td>
                                     <td>{{ $submission->type }}</td>
                                     <td>{{ $submission->description }}</td>
                                     <td>{{ $submission->start_date }}</td>
@@ -59,21 +60,21 @@
                                     @endif
                                     @if ($submission->division_approval == '1' && $submission->hrd_approval == '1')
                                         <td>
-                                            <span class="badge bg-success">Accepted</span>
+                                            <span class="badge bg-success">Diterima</span>
                                         </td>
                                     @elseif ($submission->division_approval == '0' && $submission->hrd_approval == '0')
                                         <td>
-                                            <span class="badge bg-warning">Declined</span>
+                                            <span class="badge bg-warning">Ditolak</span>
                                         </td>
                                     @else
                                         <td>
-                                            <span class="badge bg-info">Waiting</span>
+                                            <span class="badge bg-info">Menunggu Konfirmasi</span>
                                         </td>
                                     @endif
                                 </tr>
                             @endforeach
                         @else
-                            <tr><td align='center' colspan='4'>Tidak Ada Pengajuan</td></tr>
+                            <tr><td align='center' colspan='9'>Tidak Ada Pengajuan</td></tr>
                         @endif
                     </tbody>
                 </table>

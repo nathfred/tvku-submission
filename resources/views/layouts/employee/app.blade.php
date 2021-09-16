@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 
     <link rel="stylesheet" href="{{ asset('vendors/iconly/bold.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}">
 
     <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.css') }}">

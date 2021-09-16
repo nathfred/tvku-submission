@@ -71,7 +71,7 @@
                                         @if ($submission->attachment === NULL || $submission->attachment == '')
                                             <td>-</td>
                                         @else
-                                            <td><a href="/data_file/cuti/{{ $submission->attachment }}"><img src="{{ asset('data_file/cuti/'.$submission->attachment) }}" alt="Attachment" class="text-center center" style="max-width: 50px; max-height: 50px;"></a></td>
+                                            <td><a href="/data_file/cuti/{{ $submission->attachment }}"><img src="{{ asset('data_file/cuti/'.$submission->attachment) }}" alt="Attachment" class="text-center center" style="max-width: 35px; max-height: 35px;"></a></td>
                                         @endif
                                         <!-- Status Submisison -->
                                         @if ($submission->division_approval == '1' && $submission->hrd_approval == '1')
@@ -82,6 +82,10 @@
                                             <td>
                                                 <span class="badge bg-danger">Ditolak</span>
                                             </td>
+                                        @elseif (($submission->division_approval == '1' && $submission->hrd_approval === NULL) || ($submission->division_approval === NULL && $submission->hrd_approval == '1'))
+                                        <td>
+                                            <span class="badge bg-info">Menunggu Konfirmasi</span>
+                                        </td>
                                         @else
                                             <td>
                                                 <span class="badge bg-warning">Menunggu Konfirmasi</span>
@@ -99,4 +103,11 @@
 
         </section>
     </div>
+
+    <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
 @endsection

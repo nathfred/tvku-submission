@@ -22,13 +22,14 @@ class CreateSubmissionsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             // $table->integer('duration_in_days')->nullable();
-            $table->string('status')->nullable(); // AKAN ATAU SEDANG ATAU SUDAH BERLANGSUNG
+            // $table->string('status')->nullable(); // AKAN ATAU SEDANG ATAU SUDAH BERLANGSUNG
             // $table->string('division_id')->nullable(); // ID DIVISI MANAGER
             $table->boolean('division_approval')->nullable(); // TANDA TANGAN DIVISI MANAGER
             $table->date('division_signed_date')->nullable(); // TANGGAL TANDA TANGAN DIVISI MANAGER
             // $table->string('hrd_id')->nullable(); // ID HRD MANAGER
             $table->boolean('hrd_approval')->nullable(); // TANDA TANGAN HRD MANAGER
             $table->date('hrd_signed_date')->nullable(); // TANGGAL TANDA TANGAN HRD MANAGER
+            $table->string('attachment')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

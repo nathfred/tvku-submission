@@ -26,6 +26,7 @@
                             <th>Tanggal Kembali</th>
                             <th>Acc Divisi</th>
                             <th>Acc HRD</th>
+                            <th>Lampiran</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@
                                     <td>{{ $submission->description }}</td>
                                     <td>{{ $submission->start_date }}</td>
                                     <td>{{ $submission->end_date}}</td>
+                                    <!-- Acc Divisi -->
                                     @if ($submission->division_approval === NULL)
                                         <td>Belum direspon</td>
                                     @elseif ($submission->division_approval == '0')
@@ -51,6 +53,7 @@
                                     @elseif ($submission->division_approval == '1')
                                         <td>Diterima</td>
                                     @endif
+                                    <!-- Acc HRD -->
                                     @if ($submission->hrd_approval === NULL)
                                         <td>Belum direspon</td>
                                     @elseif ($submission->hrd_approval == '0')
@@ -58,6 +61,13 @@
                                     @elseif ($submission->hrd_approval == '1')
                                         <td>Diterima</td>
                                     @endif
+                                    <!-- Lampiran (Attachment) -->
+                                    @if ($submission->attachment === NULL)
+                                        <td>-</td>
+                                    @else
+                                        <td><img src="{{ asset('data_file/cuti/'.$submission->attachment) }}" alt="Attachment" class="text-center center" style="max-width: 50px; max-height: 50px;"></td>
+                                    @endif
+                                    <!-- Status Submisison -->
                                     @if ($submission->division_approval == '1' && $submission->hrd_approval == '1')
                                         <td>
                                             <span class="badge bg-success">Diterima</span>

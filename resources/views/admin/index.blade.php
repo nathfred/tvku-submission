@@ -219,7 +219,10 @@
                             </div>
                             <div class="ms-3 name">
                                 <h5 class="font-bold">{{ $user->name }}</h5>
-                                <h6 class="text-muted mb-0">{{ $user->email }}</h6>
+                                <button class="btn btn-primary dropdown-toggle me-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"aria-haspopup="true" aria-expanded="false">{{ $user->email }}</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/logout" style="width:50px">Log Out</a>
+                                    </div>
                             </div>
                         </div>
                     </div>

@@ -41,6 +41,13 @@ class AdminHRDController extends Controller
         // dd($today->format('d-m-Y'));
         // dd(Carbon::createFromFormat('d-m-Y', '31-12-2000')->toDateString());
 
+        // CARI YANG HARI INI SEDANG CUTI (SUBMISSION YANG SUDAH DI ACC)
+        $today = Carbon::today();
+        $today = $today->format('Y-m-d');
+        // dd($today);
+        $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1');
+        dd($current_submissions->count());
+
         return view('admin.index', [
             'title' => 'Admin Index',
             'active' => 'index',

@@ -58,7 +58,7 @@ class AdminHRDController extends Controller
         $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1')->get();
         // dd($current_submissions->count());
 
-        return view('admin.index', [
+        return view('admin-hrd.index', [
             'title' => 'Admin Index',
             'active' => 'index',
             'user' => $user,
@@ -105,11 +105,11 @@ class AdminHRDController extends Controller
 
         $total_submissions = Submission::where('end_date', '>', $today)->get();
 
-        return view('admin-hrd.submissions',[
+        return view('admin-hrd.submissions', [
             'title' => 'Daftar Pengajuan Cuti',
             'active' => 'Cuti',
             'total_submissions' => $total_submissions
-        ])
+        ]);
     }
 
     /**
@@ -144,5 +144,14 @@ class AdminHRDController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function acc_submission($id, $acc)
+    {
+        $submission = Submission::find($id);
+        $submission->hrd_approval = $acc;
+        $submission->save();
+
+        return redirect()->route('adminhrd-submission')->with('message', 'success-acc');
     }
 }

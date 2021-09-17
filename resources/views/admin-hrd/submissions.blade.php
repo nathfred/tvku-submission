@@ -38,14 +38,15 @@
                                 <th>Acc HRD</th>
                                 <th>Lampiran</th>
                                 <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php
                                 $i = 0;
                             @endphp
-                            @if ($user_submissions->isNotEmpty())
-                                @foreach ($user_submissions as $submission)
+                            @if ($total_submissions->isNotEmpty())
+                                @foreach ($total_submissions as $submission)
                                     @php
                                         $i++;
                                     @endphp
@@ -91,12 +92,27 @@
                                                 <span class="badge bg-danger">Ditolak</span>
                                             </td>
                                         @elseif (($submission->division_approval == '1' && $submission->hrd_approval === NULL) || ($submission->division_approval === NULL && $submission->hrd_approval == '1'))
-                                        <td>
-                                            <span class="badge bg-info">Menunggu Konfirmasi</span>
-                                        </td>
+                                            <td>
+                                                <span class="badge bg-info">Menunggu</span>
+                                            </td>
                                         @else
                                             <td>
-                                                <span class="badge bg-warning">Menunggu Konfirmasi</span>
+                                                <span class="badge bg-warning">Menunggu</span>
+                                            </td>
+                                        @endif
+                                        <!-- Aksi HRD -->
+                                        @if ($submission->hrd_approval === NULL)
+                                            <td>
+                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-circle""></i></a>
+                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-cirle""></i></a>
+                                            </td>
+                                        @elseif ($submission->hrd_approval == '0')
+                                            <td>
+                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-cirle""></i></a>
+                                            </td>
+                                        @elseif ($submission->hrd_approval == '1')
+                                            <td>
+                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-cirle""></i></a>
                                             </td>
                                         @endif
                                     </tr>

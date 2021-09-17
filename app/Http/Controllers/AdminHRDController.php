@@ -41,18 +41,32 @@ class AdminHRDController extends Controller
         // dd($today->format('d-m-Y'));
         // dd(Carbon::createFromFormat('d-m-Y', '31-12-2000')->toDateString());
 
-        // CARI YANG HARI INI SEDANG CUTI (SUBMISSION YANG SUDAH DI ACC)
         $today = Carbon::today();
         $today = $today->format('Y-m-d');
         // dd($today);
+
+        // TOTAL PENGAJUAN (YANG BELUM KADALUARSA)
+        $total_submissions = Submission::where('end_date', '>', $today);
+
+        // TOTAL PENGAJUAN YANG SUDAH DI ACC HRD (YANG BELUM KADALUARSA)
+        $responded_submissions = Submission::where('hrd_approval', '0')->orWhere('hrd_approval', '1')->where('end_date', '>', $today);
+
+        // TOTAL PENGAJUAN YANG BELUM DI ACC HRD (YANG BELUM KADALUARSA)
+        $unresponded_submissions = Submission::whereNull('hrd_approval');
+
+        // CARI YANG HARI INI SEDANG CUTI (SUBMISSION YANG SUDAH DI ACC)
         $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1');
-        dd($current_submissions->count());
+        // dd($current_submissions->count());
 
         return view('admin.index', [
             'title' => 'Admin Index',
             'active' => 'index',
             'user' => $user,
-            'recent_submissions' => $recent_submissions
+            'recent_submissions' => $recent_submissions,
+            'total_submissions' => $total_submissions->count(),
+            'responded_submissions' => $responded_submissions->count(),
+            'unresponded_submissions' => $unresponded_submissions->count(),
+            'current_submissions' => $current_submissions->count()
         ]);
     }
 

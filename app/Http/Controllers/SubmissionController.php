@@ -102,6 +102,16 @@ class SubmissionController extends Controller
             return redirect()->route('employee-submission-create')->with('message', 'incorrect-date');
         }
 
+        // PERIKSA APAKAH EMPLOYEE SUDAH ABSEN 2X? MAX 2X SEBULAN KECUALI HAMIL
+        $today = Carbon::today();
+        $month = $today->format('m');
+        $user_month_submissions = Submission::where('employee_id', $employee->id)->whereMonth('start_date', $month)->get();
+        if ($user_month_submissions->count() >= 2 && $request->description == "Hamil") {
+            // AMAN, BOLEH IJIN
+        } elseif ($user_month_submissions->count() >= 2) {
+            return redirect()->route('employee-submission-create')->with('message', 'max-submission-month');
+        }
+
         // JIKA SUBMISSION TANPA LAMPIRAN (ATTACHMENT)
         if ($request->attachment === NULL) {
             Submission::create([

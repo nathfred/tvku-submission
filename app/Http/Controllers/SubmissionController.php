@@ -25,6 +25,16 @@ class SubmissionController extends Controller
         $user_submissions = Submission::where('employee_id', $employee->id)->get();
         // dd($user_submissions);
 
+        // UBAH FORMAT DATE (Y-m-d menjadi d-m-Y)
+        foreach ($user_submissions as $sub) {
+            // UBAH KE FORMAT CARBON
+            $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
+            $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+            // UBAH FORMAT KE d-m-Y
+            $sub->start_date = $sub->start_date->format('d-m-Y');
+            $sub->end_date = $sub->end_date->format('d-m-Y');
+        }
+
         return view('employee.submissions', [
             "title" => "Daftar Pengajuan Cuti",
             "active" => "submission",

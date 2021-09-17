@@ -33,6 +33,14 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::get('/index', [AdminController::class, 'index'])->name('admin-index');
 });
 
+Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], function () {
+    Route::get('/index', [AdminHRDController::class, 'index'])->name('adminhrd-index');
+});
+
+Route::group(['middleware' => ['auth', 'admindivisi'], 'prefix' => 'admindivisi'], function () {
+    Route::get('/index', [AdminDivisiController::class, 'index'])->name('admindivisi-index');
+});
+
 Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], function () {
     Route::get('/index', [EmployeeController::class, 'index'])->name('employee-index');
 

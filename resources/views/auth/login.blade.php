@@ -50,7 +50,7 @@
                 @endif
                 -->
 
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">Don't have account?</a>
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">Belum punya akun?</a>
 
                 <x-button class="ml-3 btn btn-primary">
                     {{ __('Log in') }}

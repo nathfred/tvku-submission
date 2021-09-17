@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminHRDController;
+use App\Http\Controllers\AdminDivisiController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;

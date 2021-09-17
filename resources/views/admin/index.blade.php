@@ -87,124 +87,93 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Profile Visit</h4>
+                                Tabel Daftar Pengajuan
                             </div>
                             <div class="card-body">
-                                <div id="chart-profile-visit"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-xl-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Profile Visit</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                                style="width:10px">
-                                                <use
-                                                    xlink:href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill') }}" />
-                                            </svg>
-                                            <h5 class="mb-0 ms-3">Europe</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <h5 class="mb-0">862</h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <div id="chart-europe"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <svg class="bi text-success" width="32" height="32" fill="blue"
-                                                style="width:10px">
-                                                <use
-                                                    xlink:href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill') }}" />
-                                            </svg>
-                                            <h5 class="mb-0 ms-3">America</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <h5 class="mb-0">375</h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <div id="chart-america"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                                style="width:10px">
-                                                <use
-                                                    xlink:href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill') }}" />
-                                            </svg>
-                                            <h5 class="mb-0 ms-3">Indonesia</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <h5 class="mb-0">1025</h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <div id="chart-indonesia"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-xl-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Latest Comments</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-lg">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Comment</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="{{ asset('images/faces/5.jpg') }}">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Congratulations on your graduation!</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="{{ asset('images/faces/2.jpg') }}">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Wow amazing design! Can you make another
-                                                        tutorial for
-                                                        this design?</p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <table class="table table-striped" id="table1">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th>Nama</th>
+                                            <th>NPP</th>
+                                            <th>Jabatan</th>
+                                            <th>Divisi</th>
+                                            <th>Jenis</th>
+                                            <th>Keterangan</th>
+                                            <th>Tanggal Ijin</th>
+                                            <th>Tanggal Kembali</th>
+                                            <th>Acc Divisi</th>
+                                            <th>Acc HRD</th>
+                                            <th>Lampiran</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $i = 0;
+                                        @endphp
+                                        @if ($all_submissions->isNotEmpty())
+                                            @foreach ($all_submissions as $submission)
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                                <tr>
+                                                    <td class="text-center">{{ $i }}</td>
+                                                    <td>{{ $submission->employee->user->name }}</td>
+                                                    <td>{{ $submission->employee->npp }}</td>
+                                                    <td>{{ $submission->employee->position }}</td>
+                                                    <td>{{ $submission->employee->division }}</td>
+                                                    <td>{{ $submission->type }}</td>
+                                                    <td>{{ $submission->description }}</td>
+                                                    <td>{{ $submission->start_date }}</td>
+                                                    <td>{{ $submission->end_date}}</td>
+                                                    <!-- Acc Divisi -->
+                                                    @if ($submission->division_approval === NULL)
+                                                        <td>Belum direspon</td>
+                                                    @elseif ($submission->division_approval == '0')
+                                                        <td>Ditolak</td>
+                                                    @elseif ($submission->division_approval == '1')
+                                                        <td>Diterima</td>
+                                                    @endif
+                                                    <!-- Acc HRD -->
+                                                    @if ($submission->hrd_approval === NULL)
+                                                        <td>Belum direspon</td>
+                                                    @elseif ($submission->hrd_approval == '0')
+                                                        <td>Ditolak</td>
+                                                    @elseif ($submission->hrd_approval == '1')
+                                                        <td>Diterima</td>
+                                                    @endif
+                                                    <!-- Lampiran (Attachment) -->
+                                                    @if ($submission->attachment === NULL || $submission->attachment == '')
+                                                        <td>-</td>
+                                                    @else
+                                                        <td><a href="/data_file/cuti/{{ $submission->attachment }}"><img src="{{ asset('data_file/cuti/'.$submission->attachment) }}" alt="Attachment" class="text-center center" style="max-width: 35px; max-height: 35px;"></a></td>
+                                                    @endif
+                                                    <!-- Status Submisison -->
+                                                    @if ($submission->division_approval == '1' && $submission->hrd_approval == '1')
+                                                        <td>
+                                                            <span class="badge bg-success">Diterima</span>
+                                                        </td>
+                                                    @elseif ($submission->division_approval == '0' && $submission->hrd_approval == '0')
+                                                        <td>
+                                                            <span class="badge bg-danger">Ditolak</span>
+                                                        </td>
+                                                    @elseif (($submission->division_approval == '1' && $submission->hrd_approval === NULL) || ($submission->division_approval === NULL && $submission->hrd_approval == '1'))
+                                                    <td>
+                                                        <span class="badge bg-info">Menunggu Konfirmasi</span>
+                                                    </td>
+                                                    @else
+                                                        <td>
+                                                            <span class="badge bg-warning">Menunggu Konfirmasi</span>
+                                                        </td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr><td align='center' colspan='9'>Tidak Ada Pengajuan</td></tr>
+                                        @endif
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -248,14 +217,6 @@
                         <div class="px-4">
                             <a href="{{ route('adminhrd-submission') }}" class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Lebih Lanjut</a>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Visitors Profile</h4>
-                    </div>
-                    <div class="card-body">
-                        <div id="chart-visitors-profile"></div>
                     </div>
                 </div>
             </div>

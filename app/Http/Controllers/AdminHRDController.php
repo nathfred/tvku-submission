@@ -46,16 +46,16 @@ class AdminHRDController extends Controller
         // dd($today);
 
         // TOTAL PENGAJUAN (YANG BELUM KADALUARSA)
-        $total_submissions = Submission::where('end_date', '>', $today);
+        $total_submissions = Submission::where('end_date', '>', $today)->get();
 
         // TOTAL PENGAJUAN YANG SUDAH DI ACC HRD (YANG BELUM KADALUARSA)
-        $responded_submissions = Submission::where('hrd_approval', '0')->orWhere('hrd_approval', '1')->where('end_date', '>', $today);
+        $responded_submissions = Submission::where('hrd_approval', '0')->orWhere('hrd_approval', '1')->where('end_date', '>', $today)->get();
 
         // TOTAL PENGAJUAN YANG BELUM DI ACC HRD (YANG BELUM KADALUARSA)
-        $unresponded_submissions = Submission::whereNull('hrd_approval');
+        $unresponded_submissions = Submission::whereNull('hrd_approval')->get();
 
         // CARI YANG HARI INI SEDANG CUTI (SUBMISSION YANG SUDAH DI ACC)
-        $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1');
+        $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1')->get();
         // dd($current_submissions->count());
 
         return view('admin.index', [
@@ -66,7 +66,8 @@ class AdminHRDController extends Controller
             'total_submissions' => $total_submissions->count(),
             'responded_submissions' => $responded_submissions->count(),
             'unresponded_submissions' => $unresponded_submissions->count(),
-            'current_submissions' => $current_submissions->count()
+            'current_submissions' => $current_submissions->count(),
+            'all_submissions' => $total_submissions
         ]);
     }
 

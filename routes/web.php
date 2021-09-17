@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 Route::get('/logout', [UserController::class, 'logout']);
 
+Route::get('/home', [UserController::class, 'home']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

@@ -47,19 +47,11 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub {{ ($active === "cuti") ? 'active' : '' }}">
-                            <a href="#" class='sidebar-link'>
+                        <li class="sidebar-item {{ ($active === "cuti") ? 'active' : '' }}">
+                            <a href="{{ route('adminhrd-submission') }}" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Daftar Pengajuan</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="{{ route('employee-submission') }}">Daftar Pengajuan</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="{{ route('employee-submission-create') }}">Buat Pengajuan</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li class="sidebar-item  has-sub">

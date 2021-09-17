@@ -98,9 +98,18 @@ class AdminHRDController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $today = Carbon::today();
+        $today = $today->format('Y-m-d');
+
+        $total_submissions = Submission::where('end_date', '>', $today)->get();
+
+        return view('admin-hrd.submissions',[
+            'title' => 'Daftar Pengajuan Cuti',
+            'active' => 'Cuti',
+            'total_submissions' => $total_submissions
+        ])
     }
 
     /**

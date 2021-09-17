@@ -87,9 +87,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                Tabel Daftar Pengajuan
+                                <p class="font-weight-bold text-uppercase">Tabel Daftar Pengajuan Cuti</p>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body mt-0 pt-0">
                                 <table class="table table-striped" id="table1">
                                     <thead>
                                         <tr>
@@ -222,4 +222,11 @@
             </div>
         </section>
     </div>
+
+    <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
 @endsection

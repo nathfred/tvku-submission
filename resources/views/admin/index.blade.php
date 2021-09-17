@@ -236,7 +236,7 @@
                                         <img src="{{ asset('images/faces/4') }}.jpg">
                                     </div>
                                     <div class="name ms-4">
-                                        <h5 class="mb-1">{{ $submission->employee->npp }}</h5>
+                                        <h5 class="mb-1">{{ $submission->employee->user->name }}</h5>
                                         <h6 class="text-muted mb-0">{{ $submission->start_date }} - {{ $submission->end_date }}</h6>
                                     </div>
                                 </div>

@@ -49,10 +49,10 @@ class AdminHRDController extends Controller
         $total_submissions = Submission::where('end_date', '>', $today)->get();
 
         // TOTAL PENGAJUAN YANG SUDAH DI ACC HRD (YANG BELUM KADALUARSA)
-        $responded_submissions = Submission::where('hrd_approval', '0')->orWhere('hrd_approval', '1')->where('end_date', '>', $today)->get();
+        $responded_submissions = Submission::where('end_date', '>', $today)->where('hrd_approval', '0')->orWhere('hrd_approval', '1')->get();
 
         // TOTAL PENGAJUAN YANG BELUM DI ACC HRD (YANG BELUM KADALUARSA)
-        $unresponded_submissions = Submission::whereNull('hrd_approval')->get();
+        $unresponded_submissions = Submission::where('end_date', '>', $today)->whereNull('hrd_approval')->get();
 
         // CARI YANG HARI INI SEDANG CUTI (SUBMISSION YANG SUDAH DI ACC)
         $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1')->get();
@@ -104,6 +104,16 @@ class AdminHRDController extends Controller
         $today = $today->format('Y-m-d');
 
         $total_submissions = Submission::where('end_date', '>', $today)->get();
+
+        // UBAH FORMAT DATE (Y-m-d menjadi d-m-Y)
+        foreach ($total_submissions as $sub) {
+            // UBAH KE FORMAT CARBON
+            $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
+            $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+            // UBAH FORMAT KE d-m-Y
+            $sub->start_date = $sub->start_date->format('d-m-Y');
+            $sub->end_date = $sub->end_date->format('d-m-Y');
+        }
 
         return view('admin-hrd.submissions', [
             'title' => 'Daftar Pengajuan Cuti',

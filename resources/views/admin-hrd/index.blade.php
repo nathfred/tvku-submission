@@ -160,11 +160,11 @@
                                                         </td>
                                                     @elseif (($submission->division_approval == '1' && $submission->hrd_approval === NULL) || ($submission->division_approval === NULL && $submission->hrd_approval == '1'))
                                                     <td>
-                                                        <span class="badge bg-info">Menunggu Konfirmasi</span>
+                                                        <span class="badge bg-info">Menunggu</span>
                                                     </td>
                                                     @else
                                                         <td>
-                                                            <span class="badge bg-warning">Menunggu Konfirmasi</span>
+                                                            <span class="badge bg-warning">Ditolak</span>
                                                         </td>
                                                     @endif
                                                 </tr>

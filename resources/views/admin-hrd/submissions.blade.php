@@ -58,8 +58,8 @@
                                         <td>{{ $submission->employee->division }}</td>
                                         <td>{{ $submission->type }}</td>
                                         <td>{{ $submission->description }}</td>
-                                        <td>{{ $submission->start_date }}</td>
-                                        <td>{{ $submission->end_date}}</td>
+                                        <td style="min-width: 107px;">{{ $submission->start_date }}</td>
+                                        <td style="min-width: 107px;">{{ $submission->end_date}}</td>
                                         <!-- Acc Divisi -->
                                         @if ($submission->division_approval === NULL)
                                             <td>Belum direspon</td>
@@ -80,7 +80,7 @@
                                         @if ($submission->attachment === NULL || $submission->attachment == '')
                                             <td>-</td>
                                         @else
-                                            <td><a href="/data_file/cuti/{{ $submission->attachment }}"><img src="{{ asset('data_file/cuti/'.$submission->attachment) }}" alt="Attachment" class="text-center center" style="max-width: 35px; max-height: 35px;"></a></td>
+                                            <td><a href="/data_file/cuti/{{ $submission->attachment }}"><img src="{{ asset('data_file/cuti/'.$submission->attachment) }}" alt="Attachment" class="text-center center" style="max-width: 50px; max-height: 50px;"></a></td>
                                         @endif
                                         <!-- Status Submisison -->
                                         @if ($submission->division_approval == '1' && $submission->hrd_approval == '1')
@@ -97,28 +97,28 @@
                                             </td>
                                         @else
                                             <td>
-                                                <span class="badge bg-warning">Menunggu</span>
+                                                <span class="badge bg-warning">Ditolak</span>
                                             </td>
                                         @endif
                                         <!-- Aksi HRD -->
                                         @if ($submission->hrd_approval === NULL)
-                                            <td>
-                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-circle""></i></a>
-                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-cirle""></i></a>
+                                            <td style="height: 70px;">
+                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
+                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
                                             </td>
                                         @elseif ($submission->hrd_approval == '0')
-                                            <td>
-                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-cirle""></i></a>
+                                            <td style="height: 70px;">
+                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
                                             </td>
                                         @elseif ($submission->hrd_approval == '1')
-                                            <td>
-                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-cirle""></i></a>
+                                            <td style="height: 70px;">
+                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
                                             </td>
                                         @endif
                                     </tr>
                                 @endforeach
                             @else
-                                <tr><td align='center' colspan='9'>Tidak Ada Pengajuan</td></tr>
+                                <tr><td align='center' colspan='14'>Tidak Ada Pengajuan</td></tr>
                             @endif
                         </tbody>
                     </table>

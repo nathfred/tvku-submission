@@ -24,7 +24,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Profile Views</h6>
+                                        <h6 class="text-muted font-semibold">Total Pengajuan</h6>
                                         <h6 class="font-extrabold mb-0">112.000</h6>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Followers</h6>
+                                        <h6 class="text-muted font-semibold">Sudah Direspon</h6>
                                         <h6 class="font-extrabold mb-0">183.000</h6>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Following</h6>
+                                        <h6 class="text-muted font-semibold">Belum Direspon</h6>
                                         <h6 class="font-extrabold mb-0">80.000</h6>
                                     </div>
                                 </div>
@@ -218,47 +218,32 @@
                                 <img src="{{ asset('images/faces/1.jpg') }}" alt="Face 1">
                             </div>
                             <div class="ms-3 name">
-                                <h5 class="font-bold">John Duck</h5>
-                                <h6 class="text-muted mb-0">@johnducky</h6>
+                                <h5 class="font-bold">{{ $user->name }}</h5>
+                                <h6 class="text-muted mb-0">{{ $user->email }}</h6>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h4>Recent Messages</h4>
+                        <h4>Pengajuan Terakhir</h4>
                     </div>
                     <div class="card-content pb-4">
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="{{ asset('images/faces/4') }}.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Hank Schrader</h5>
-                                <h6 class="text-muted mb-0">@johnducky</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="{{ asset('images/faces/5') }}.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Dean Winchester</h5>
-                                <h6 class="text-muted mb-0">@imdean</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="{{ asset('images/faces/1') }}.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">John Dodol</h5>
-                                <h6 class="text-muted mb-0">@dodoljohn</h6>
-                            </div>
-                        </div>
+                        @if ($recent_submissions->isNotEmpty())
+                            @foreach ($recent_submissions as $submission)
+                                <div class="recent-message d-flex px-4 py-3">
+                                    <div class="avatar avatar-lg">
+                                        <img src="{{ asset('images/faces/4') }}.jpg">
+                                    </div>
+                                    <div class="name ms-4">
+                                        <h5 class="mb-1">{{ $submission->employee->npp }}</h5>
+                                        <h6 class="text-muted mb-0">{{ $submission->start_date }} - {{ $submission->end_date }}</h6>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                         <div class="px-4">
-                            <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                                Conversation</button>
+                            <a href="{{ route('adminhrd-submission') }}" class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Lebih Lanjut</a>
                         </div>
                     </div>
                 </div>

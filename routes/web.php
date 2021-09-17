@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
 
 Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], function () {
     Route::get('/index', [AdminHRDController::class, 'index'])->name('adminhrd-index');
+    Route::get('/submission', [AdminHRDController::class, 'show'])->name('adminhrd-submission');
 });
 
 Route::group(['middleware' => ['auth', 'admindivisi'], 'prefix' => 'admindivisi'], function () {

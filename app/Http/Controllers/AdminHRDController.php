@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminHRDController extends Controller
 {
@@ -13,9 +16,18 @@ class AdminHRDController extends Controller
      */
     public function index()
     {
+        // AMBIL DATA USER (ADMIN-HRD)
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+
+        // AMBIL 3 PENGAJUAN TERAKHIR (BERDASARKAN TANGGAL PENGAJUAN DIBUAT)
+        $recent_submissions = Submission::orderBy('created_at', 'desc')->take(3)->get();
+
         return view('admin.index', [
             'title' => 'Admin Index',
-            'active' => 'index'
+            'active' => 'index',
+            'user' => $user,
+            'recent_submissions' => $recent_submissions
         ]);
     }
 

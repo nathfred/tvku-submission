@@ -170,7 +170,7 @@
                                                 </tr>
                                             @endforeach
                                         @else
-                                            <tr><td align='center' colspan='9'>Tidak Ada Pengajuan</td></tr>
+                                            <tr><td align='center' colspan='13'>Tidak Ada Pengajuan</td></tr>
                                         @endif
                                     </tbody>
                                 </table>
@@ -184,7 +184,7 @@
                     <div class="card-body py-4 px-5">
                         <div class="d-flex align-items-center">
                             <div class="avatar avatar-xl">
-                                <img src="{{ asset('images/faces/1.jpg') }}" alt="Face 1">
+                                <img src="{{ asset('images/faces/2.jpg') }}" alt="Face 1">
                             </div>
                             <div class="ms-3 name">
                                 <h5 class="font-bold">{{ $user->name }}</h5>

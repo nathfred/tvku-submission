@@ -22,14 +22,15 @@ class DatabaseSeeder extends Seeder
 
         // ADMIN (HRD)
         User::create([
-            'name' => 'Agung HRD',
+            'name' => 'Admin HRD',
             'role' => 'admin-hrd',
+            'gender' => 'male',
             'ktp' => $faker->unique()->nik(),
             'address' => 'Jl. Nakula 1 No. 5-11, Semarang',
             'birth' => '2000-08-25',
             'last_education' => 'Universitas HRD',
             'phone' => '08123456789',
-            'email' => 'hrd@gmail.com',
+            'email' => 'hrd@tvku.tv',
             'email_verified_at' => now(),
             'password' => bcrypt('123123'), // password
             'remember_token' => Str::random(10),
@@ -38,17 +39,19 @@ class DatabaseSeeder extends Seeder
         // ADMIN (DIVISION)
         $name_array = ['Ansori IT', 'Budi Produksi', 'Charlie Teknikal', 'Denny Marketing', 'Eko Finansial', 'Felix Umum'];
         $division_array = ['IT', 'Produksi', 'Teknikal', 'Marketing', 'Keuangan', 'Umum'];
+        $gender = $faker->randomElement(['male', 'female']);
 
         for ($i = 0; $i < 6; $i++) {
             User::create([
                 'name' => $name_array[$i],
                 'role' => 'admin-divisi',
+                'gender' => 'male',
                 'ktp' => $faker->unique()->nik(),
                 'address' => 'Jl. Pemuda ' . $i . ' No. ' . $i * 2 . ', Semarang',
                 'birth' => '2000-09-24',
                 'last_education' => 'Universitas ' . $division_array[$i],
                 'phone' => '0898765431' . $i * 2,
-                'email' => 'divisi' . trim(strtolower($division_array[$i])) . '@gmail.com',
+                'email' => 'divisi' . trim(strtolower($division_array[$i])) . '@tvku.tv',
                 'email_verified_at' => now(),
                 'password' => bcrypt('123123'), // password
                 'remember_token' => Str::random(10),

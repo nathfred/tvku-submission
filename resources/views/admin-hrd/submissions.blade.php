@@ -34,6 +34,7 @@
                                 <th>Keterangan</th>
                                 <th>Tanggal Ijin</th>
                                 <th>Tanggal Kembali</th>
+                                <th>Lama</th>
                                 <th>Acc Divisi</th>
                                 <th>Acc HRD</th>
                                 <th>Lampiran</th>
@@ -60,6 +61,7 @@
                                         <td>{{ $submission->description }}</td>
                                         <td style="min-width: 107px;">{{ $submission->start_date }}</td>
                                         <td style="min-width: 107px;">{{ $submission->end_date}}</td>
+                                        <td>{{ $submission->end_date - $submission_start_date }}</td>
                                         <!-- Acc Divisi -->
                                         @if ($submission->division_approval === NULL)
                                             <td>Belum direspon</td>

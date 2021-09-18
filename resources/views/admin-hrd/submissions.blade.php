@@ -22,7 +22,7 @@
                     Tabel Daftar Pengajuan
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" id="table1">
+                    <table class="table table-striped" id="table1" name="table1">
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>

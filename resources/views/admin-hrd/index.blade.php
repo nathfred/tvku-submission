@@ -184,7 +184,11 @@
                     <div class="card-body py-4 px-5">
                         <div class="d-flex align-items-center">
                             <div class="avatar avatar-xl">
-                                <img src="{{ asset('images/faces/2.jpg') }}" alt="Face 1">
+                                @if ($user->gender = 'male')
+                                    <i class="fas fa-grin-alt" style="width:50px; height:50px;"></i>
+                                @else
+                                    <i class="fas fa-smile-beam" style="width:50px; height:50px;"></i>
+                                @endif
                             </div>
                             <div class="ms-3 name">
                                 <h5 class="font-bold">{{ $user->name }}</h5>

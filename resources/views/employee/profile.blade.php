@@ -41,8 +41,20 @@
                                                 <label>Nama Lengkap</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="first-name" class="form-control"
-                                                    name="fname" value="{{ $user->name }}" disabled>
+                                                <input type="text" id="name" class="form-control"
+                                                    name="name" value="{{ $user->name }}" disabled>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Jenis Kelamin</label>
+                                            </div>
+                                            <div class="col-md-8 form-group">
+                                                @if ($user->gender == 'male')
+                                                    <input type="text" id="gender" class="form-control" name="gender" value="Laki-laki" disabled>
+                                                @elseif ($user->gender == 'female')
+                                                    <input type="text" id="gender" class="form-control" name="gender" value="Perempuan" disabled>
+                                                @else
+                                                    <input type="text" id="gender" class="form-control" name="gender" value="-" disabled>
+                                                @endif
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Email</label>
@@ -98,7 +110,13 @@
                         <div class="card-body py-4 px-5">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-xl">
-                                    <i class="fas fa-grin-alt" style="width:50px; height:50px;"></i>
+                                    @if ($user->gender == "male")
+                                        <i class="fas fa-grin-alt" style="width:50px; height:50px;"></i>
+                                    @elseif ($user->gender == "female")
+                                        <i class="fas fa-smile-beam" style="width:50px; height:50px;"></i>
+                                    @else
+                                        <i class="fas fa-laugh" style="width:50px; height:50px;"></i>
+                                    @endif
                                 </div>
                                 <div class="ms-3 name">
                                     <h5 class="font-bold">{{ $user->name }}</h5>

@@ -61,7 +61,7 @@
                                         <td>{{ $submission->description }}</td>
                                         <td style="min-width: 107px;">{{ $submission->start_date }}</td>
                                         <td style="min-width: 107px;">{{ $submission->end_date}}</td>
-                                        <td>{{ $submission->end_date - $submission_start_date }}</td>
+                                        <td>{{ $submission->duration }} hari</td>
                                         <!-- Acc Divisi -->
                                         @if ($submission->division_approval === NULL)
                                             <td>Belum direspon</td>
@@ -120,7 +120,7 @@
                                     </tr>
                                 @endforeach
                             @else
-                                <tr><td align='center' colspan='14'>Tidak Ada Pengajuan</td></tr>
+                                <tr><td align='center' colspan='15'>Tidak Ada Pengajuan</td></tr>
                             @endif
                         </tbody>
                     </table>

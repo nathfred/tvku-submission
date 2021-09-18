@@ -105,6 +105,17 @@ class AdminHRDController extends Controller
 
         $total_submissions = Submission::where('end_date', '>', $today)->get();
 
+        // HITUNG DURASI START DATE -> END DATE (HARI)
+        foreach ($total_submissions as $sub) {
+            // UBAH KE FORMAT CARBON
+            $start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
+            $end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+            // HITUNG DURASI DALAM FORMAT CARBON
+            $duration = $start_date->diffInDays($end_date);
+            // TAMBAHKAN ATTRIBUT BARU (DURASI)
+            $sub->duration = $duration;
+        }
+
         // UBAH FORMAT DATE (Y-m-d menjadi d-m-Y)
         foreach ($total_submissions as $sub) {
             // UBAH KE FORMAT CARBON

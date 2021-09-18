@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminHRDController;
 use App\Http\Controllers\AdminDivisiController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,5 +57,7 @@ Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], fun
     Route::get('/submission/create', [SubmissionController::class, 'create'])->name('employee-submission-create');
     Route::post('/submission/create', [SubmissionController::class, 'store'])->name('employee-submission-create-post');
 });
+
+Route::get('/pdf', [PDFController::class, 'createPDF']);
 
 require __DIR__ . '/auth.php';

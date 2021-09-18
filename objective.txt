@@ -1,2 +1,11 @@
+Objective :
+
+-Register add 'gender'
 -SweetAlert(Admin,Employee)
--
+-Admin PDF Export Button
+-Admin PDF Export per month??
+-Admin Divisi
+-Layout fixing
+-Factory & Seeder for Production
+-Local Testing
+-Deploy

@@ -22,6 +22,11 @@ class SubmissionController extends Controller
         $user = User::where('id', $user_id)->first();
         $employee = Employee::where('user_id', $user_id)->first();
 
+        // CEK APAKAH USER SUDAH DAFTAR EMPLOYEE
+        if ($employee === NULL) {
+            return redirect()->route('employee-profile')->with('message', 'register-employee-first');
+        }
+
         $user_submissions = Submission::where('employee_id', $employee->id)->get();
         // dd($user_submissions);
 
@@ -54,6 +59,11 @@ class SubmissionController extends Controller
         $user_id = Auth::id();
         $user = User::where('id', $user_id)->first();
         $employee = Employee::where('user_id', $user_id)->first();
+
+        // CEK APAKAH USER SUDAH DAFTAR EMPLOYEE
+        if ($employee === NULL) {
+            return redirect()->route('employee-profile')->with('message', 'register-employee-first');
+        }
 
         return view('employee.submission-create', [
             'title' => 'Buat Pengajuan',
@@ -92,24 +102,28 @@ class SubmissionController extends Controller
         $now = Carbon::now('GMT+7');
         $today = Carbon::today('GMT+7');
 
-        // PERIKSA TANGGAL IJIN DAN TANGGAL KEMBALI APAKAH VALID DENGAN TANGGAL INPUT
-        if ($today->greaterThanOrEqualTo($request->start_date) || $today->greaterThanOrEqualTo($request->end_date)) {
+        // UBAH REQUEST DATE KE FORMAT CARBON
+        $request->start_date = Carbon::createFromFormat('Y-m-d', $request->start_date);
+        $request->end_date = Carbon::createFromFormat('Y-m-d', $request->end_date);
+
+        // PERIKSA TANGGAL IJIN DAN TANGGAL KEMBALI APAKAH VALID DENGAN TANGGAL SUBMISSION DIBUAT
+        if ($today->greaterThan($request->start_date) || $today->greaterThan($request->end_date)) {
             return redirect()->route('employee-submission-create')->with('message', 'incorrect-date');
         }
 
         // PERIKSA REQUEST START DATE & END DATE
         if ($request->start_date >= $request->end_date) {
-            return redirect()->route('employee-submission-create')->with('message', 'incorrect-date');
+            return redirect()->route('employee-submission-create')->with('message', 'incorrect-date2');
         }
 
         // PERIKSA APAKAH EMPLOYEE SUDAH ABSEN 2X? MAX 2X SEBULAN KECUALI HAMIL
-        $today = Carbon::today();
+        $today = Carbon::today('GMT+7');
         $month = $today->format('m');
         $user_month_submissions = Submission::where('employee_id', $employee->id)->whereMonth('start_date', $month)->get();
         if ($user_month_submissions->count() >= 2 && $request->description == "Hamil") {
             // AMAN, BOLEH IJIN
         } elseif ($user_month_submissions->count() >= 2) {
-            return redirect()->route('employee-submission-create')->with('message', 'max-submission-month');
+            return redirect()->route('employee-submission-create')->with('message', 'max-submission-per-month');
         }
 
         // JIKA SUBMISSION TANPA LAMPIRAN (ATTACHMENT)
@@ -122,7 +136,7 @@ class SubmissionController extends Controller
                 'end_date' => $request->end_date,
                 'status' => 'Unresponded',
             ]);
-            return redirect(route('employee-submission'));
+            return redirect(route('employee-submission'))->with('message', 'success-submission');
         }
         $file = $request->attachment;
 
@@ -141,7 +155,7 @@ class SubmissionController extends Controller
             'attachment' => $file_name
         ]);
 
-        return redirect(route('employee-submission'));
+        return redirect(route('employee-submission'))->with('message', 'success-submission');
     }
 
     /**

@@ -173,6 +173,12 @@ class AdminHRDController extends Controller
         $submission->hrd_approval = $acc;
         $submission->save();
 
-        return redirect()->route('adminhrd-submission')->with('message', 'success-acc');
+        if ($acc == 1) {
+            return redirect()->route('adminhrd-submission')->with('message', 'success-submission-acc');
+        } elseif ($acc == 0) {
+            return redirect()->route('adminhrd-submission')->with('message', 'success-submission-dec');
+        } else {
+            return redirect()->route('adminhrd-submission')->with('message', 'success-submission-unknown');
+        }
     }
 }

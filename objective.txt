@@ -1,11 +1,13 @@
 Objective :
 
 -Register add 'gender' (DONE)
+-SweetAlert(Admin,Employee) (DONE)
 
--SweetAlert(Admin,Employee)
+-Admin Tabel Pengajuan perlu tanggal disetujui??
 -Admin PDF Export Button
 -Admin PDF Export per month??
 -Admin Divisi
+
 -Layout fixing
 -Factory & Seeder for Production
 -Local Testing

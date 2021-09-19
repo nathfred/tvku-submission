@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
         // EMPLOYEE
         // Employee::factory(env('SAMPLE_USER', 10))->create();
         $position_array = ['Manager', 'Kepala', 'Anggota'];
-        $division_array = ['IT', 'Produksi', 'Teknikal', 'Marketing', 'Keuangan', 'Umum'];
+        $division_array = ['IT', 'Produksi', 'Teknis', 'Marketing', 'Keuangan', 'Umum', 'HRD'];
         for ($i = 8; $i < env('SAMPLE_USER', 10) + 8; $i++) {
             Employee::create([
                 'user_id' => $i,

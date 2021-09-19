@@ -32,6 +32,14 @@ class EmployeeController extends Controller
     public function create(Request $request)
     {
         $user_id = Auth::id();
+
+        $request->validate([
+            'npp' => ['min:10', 'max:10', 'unique:employees', 'required'],
+            'position' => ['string', 'required'],
+            'division' => ['string', 'required'],
+            'joined' => ['integer', 'required'],
+        ]);
+
         Employee::create([
             "user_id" => $user_id,
             "npp" => $request->npp,
@@ -40,13 +48,7 @@ class EmployeeController extends Controller
             "joined" => $request->joined
         ]);
 
-        // return view('employee.profile', [
-        //     "title" => "Profile",
-        //     "active" => "index",
-        //     "message" => "success-register"
-        // ]);
-        $message = "success-register";
-        return redirect(route('employee-profile'))->with('message', $message);
+        return redirect(route('employee-profile'))->with('message', 'success-register');
     }
 
     /**

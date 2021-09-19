@@ -147,7 +147,7 @@
                                                 @if ($already_employee == "TRUE")
                                                     <input type="text" id="npp" class="form-control" name="npp" value="{{ $employee->npp }}" disabled>
                                                 @elseif ($already_employee == "FALSE")
-                                                    <input type="text" id="npp" class="form-control" name="npp">
+                                                    <input type="text" id="npp" class="form-control" name="npp" required>
                                                 @endif
                                             </div>
                                             <div class="col-md-4">
@@ -158,16 +158,12 @@
                                                     <input type="text" id="position" class="form-control" name="position" value="{{ $employee->position }}" disabled>
                                                 @elseif ($already_employee == "FALSE")
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="position" id="position" value="Manager">
-                                                        <label class="form-check-label" for="position">
-                                                            Manager
-                                                        </label>
+                                                        <input class="form-check-input" type="radio" name="position" id="position" value="Manager" required>
+                                                        <label class="form-check-label" for="position">Manager</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="position" id="position" value="Anggota">
-                                                        <label class="form-check-label" for="position">
-                                                            Anggota
-                                                        </label>
+                                                        <label class="form-check-label" for="position">Anggota</label>
                                                     </div>
                                                 @endif
                                             </div>
@@ -178,42 +174,34 @@
                                                 @if ($already_employee == "TRUE")
                                                     <input type="text" id="division" class="form-control" name="division" value="{{ $employee->division }}" disabled>
                                                 @elseif ($already_employee == "FALSE")
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="IT">
-                                                    <label class="form-check-label" for="division">
-                                                        IT
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Keuangan">
-                                                    <label class="form-check-label" for="division">
-                                                        Keuangan
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Produksi">
-                                                    <label class="form-check-label" for="division">
-                                                    Produksi
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Teknis">
-                                                    <label class="form-check-label" for="division">
-                                                        Teknis
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Marketing">
-                                                    <label class="form-check-label" for="division">
-                                                        Marketing
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Umum">
-                                                    <label class="form-check-label" for="division">
-                                                        Umum
-                                                    </label>
-                                                </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="IT" required>
+                                                        <label class="form-check-label" for="division">IT</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Keuangan">
+                                                        <label class="form-check-label" for="division">Keuangan</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Produksi">
+                                                        <label class="form-check-label" for="division">Produksi</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Teknis">
+                                                        <label class="form-check-label" for="division">Teknis</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Marketing">
+                                                        <label class="form-check-label" for="division">Marketing</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="HRD">
+                                                        <label class="form-check-label" for="division">Human Resources</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Umum">
+                                                        <label class="form-check-label" for="division">Umum</label>
+                                                    </div>
                                                 @endif
                                             </div>
                                             <div class="col-md-4">
@@ -223,7 +211,7 @@
                                                 @if ($already_employee == "TRUE")
                                                     <input type="text" id="joined" class="form-control" name="joined" value="{{ $employee->joined }}" disabled>
                                                 @elseif ($already_employee == "FALSE")
-                                                    <input type="text" id="joined" class="form-control" name="joined">
+                                                    <input type="text" id="joined" class="form-control" name="joined" required>
                                                 @endif
                                             </div>
                                             <div class="col-sm-12 d-flex justify-content-end">
@@ -233,6 +221,15 @@
                                                     <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                                                 @endif
                                             </div>
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger mt-4">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </form>

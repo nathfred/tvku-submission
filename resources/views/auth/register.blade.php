@@ -20,6 +20,28 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
+            <!---- Gender -->
+            <div class="mt-4">
+                <x-label for="gender" :value="__('Jenis Kelamin')" />
+
+                <div class="row">
+                    <div class="col">
+                        <x-input id="gender" class="mt-1" type="radio" name="gender" value="male" required />
+                    </div>
+                    <div class="col">
+                        <x-label for="gender">Laki-laki</x-label> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <x-input id="gender" class="mt-1" type="radio" name="gender" value="female" required />
+                    </div>
+                    <div class="col">
+                        <x-label for="gender">Perempuan</x-label> 
+                    </div>
+                </div>
+            </div>
+
             <!-- KTP -->
             <div class="mt-4">
                 <x-label for="ktp" :value="__('No. KTP')" />

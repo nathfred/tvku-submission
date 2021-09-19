@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'min:4', 'max:255'],
+            'gender' => ['required'],
             'ktp' => ['required', 'string', 'min:16', 'max:16', 'unique:users'],
             'address' => ['required', 'string', 'min:4', 'max:128'],
             'birth' => ['required', 'date_format:Y-m-d'],
@@ -50,6 +51,7 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'gender' => $request->gender,
             'role' => 'employee',
             'ktp' => $request->ktp,
             'address' => $request->address,

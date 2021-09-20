@@ -58,6 +58,6 @@ Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], fun
     Route::post('/submission/create', [SubmissionController::class, 'store'])->name('employee-submission-create-post');
 });
 
-Route::get('/pdf', [PDFController::class, 'createPDF']);
+Route::get('/pdf/{month}', [PDFController::class, 'createPDF']);
 
 require __DIR__ . '/auth.php';

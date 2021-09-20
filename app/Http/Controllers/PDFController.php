@@ -16,24 +16,36 @@ class PDFController extends Controller
     {
     }
 
-    public function Header()
+    public function Header($month)
     {
+        $today = Carbon::today('GMT+7');
+
+        // AMBIL BULAN DALAM TEXT
+        $month_text = $this->monthToText($month);
+
         // HEADER
         // Select Arial bold 16
         $this->fpdf->SetFont('Arial', 'B', 16);
         // Move to the right
         // $this->fpdf->Cell(80);
         // Framed title
-        $this->fpdf->Cell(80, 10, 'Pengajuan Cuti : Bulan Ini', 1, 0, 'C');
+        if ($month_text == 'All-month') {
+            $this->fpdf->Cell(100, 10, 'Pengajuan Cuti : Tahun ' . $today->year, 1, 0, 'C');
+        } elseif ($month_text == 'Non-month') {
+            $this->fpdf->Cell(100, 10, 'Pengajuan Cuti : Akan Datang ', 1, 0, 'C');
+        } else {
+            $this->fpdf->Cell(100, 10, 'Pengajuan Cuti : Bulan ' . $month_text, 1, 0, 'C');
+        }
+
         // Line break
         $this->fpdf->Ln(20);
     }
 
-    public function createPDF()
+    public function createPDF($month)
     {
         $this->fpdf = new Fpdf;
         $this->fpdf->AddPage("L", ['500', '500']);
-        $this->Header();
+        $this->Header($month);
 
         $type = ['float', 'float', 'string', 'mixed', 'int', 'string', 'bool', 'mixed'];
         $cell = ['w', 'h', 'txt', 'border', 'ln', 'align', 'fill', 'link'];
@@ -56,9 +68,8 @@ class PDFController extends Controller
         $this->fpdf->Cell(30, 10, 'Status', 1, 0, 'C', false);
         $this->fpdf->Cell(40, 10, 'Lampiran', 1, 1, 'C', false);
 
-
         // BODY (LOOP)
-        $submissions = $this->getAdminTableData();
+        $submissions = $this->getAdminTableData($month);
         $this->fpdf->SetFont('Arial', '', 10);
         $i = 1;
         foreach ($submissions as $sub) {
@@ -131,13 +142,32 @@ class PDFController extends Controller
         exit;
     }
 
-    public function getAdminTableData()
+    public function getAdminTableData($month)
     {
-        // DUPLIKASI DARI AdminHRDController->show()
-        $today = Carbon::today();
-        $today = $today->format('Y-m-d');
+        $today_carbon = Carbon::today();
+        $today = $today_carbon->format('Y-m-d');
 
-        $total_submissions = Submission::where('end_date', '>', $today)->get();
+        switch ($month) {
+            case 0: { // DATA SUBMISSION DI TABEL ADMIN
+                    $total_submissions = Submission::where('end_date', '>', $today)->get();
+                    break;
+                }
+
+            case 99: { // SEMUA DATA SUBMISSION
+                    $total_submissions = Submission::orderBy('start_date', 'asc')->get();
+                    break;
+                }
+
+            default: { // DATA SUBMISSION BULAN 1 - 12 TAHUN INI
+                    if ($month < 1 || $month > 12) { // JIKA PARAM MONTH DILUAR NALAR
+                        $total_submissions = Submission::where('end_date', '>', $today)->get();
+                    } else {
+                        $total_submissions = Submission::whereYear('start_date', $today_carbon->year)->whereMonth('start_date', $month)->orderBy('start_date', 'asc')->get();
+                    }
+                    break;
+                }
+        }
+
 
         // HITUNG DURASI START DATE -> END DATE (HARI)
         foreach ($total_submissions as $sub) {
@@ -171,5 +201,55 @@ class PDFController extends Controller
         }
 
         return $total_submissions;
+    }
+
+    public function monthToText($month)
+    {
+        $month_text = '';
+        switch ($month) {
+            case 1:
+                $month_text = 'Januari';
+                break;
+            case 2:
+                $month_text = 'Februari';
+                break;
+            case 3:
+                $month_text = 'Maret';
+                break;
+            case 4:
+                $month_text = 'April';
+                break;
+            case 5:
+                $month_text = 'Mei';
+                break;
+            case 6:
+                $month_text = 'Juni';
+                break;
+            case 7:
+                $month_text = 'July';
+                break;
+            case 8:
+                $month_text = 'Agustus';
+                break;
+            case 9:
+                $month_text = 'September';
+                break;
+            case 10:
+                $month_text = 'Oktober';
+                break;
+            case 11:
+                $month_text = 'November';
+                break;
+            case 12:
+                $month_text = 'Desember';
+                break;
+            case 99:
+                $month_text = 'All-month';
+                break;
+            default:
+                $month_text = 'Non-month';
+                break;
+        }
+        return $month_text;
     }
 }

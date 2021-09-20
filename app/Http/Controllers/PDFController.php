@@ -16,15 +16,29 @@ class PDFController extends Controller
     {
     }
 
+    public function Header()
+    {
+        // HEADER
+        // Select Arial bold 16
+        $this->fpdf->SetFont('Arial', 'B', 16);
+        // Move to the right
+        // $this->fpdf->Cell(80);
+        // Framed title
+        $this->fpdf->Cell(80, 10, 'Pengajuan Cuti : Bulan Ini', 1, 0, 'C');
+        // Line break
+        $this->fpdf->Ln(20);
+    }
+
     public function createPDF()
     {
         $this->fpdf = new Fpdf;
-        $this->fpdf->AddPage("L", ['5000', '500']);
+        $this->fpdf->AddPage("L", ['500', '500']);
+        $this->Header();
 
         $type = ['float', 'float', 'string', 'mixed', 'int', 'string', 'bool', 'mixed'];
         $cell = ['w', 'h', 'txt', 'border', 'ln', 'align', 'fill', 'link'];
 
-        // HEADER
+        // COLUMN
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->SetFillColor(193, 229, 252);
         $this->fpdf->Cell(10, 10, 'No', 1, 0, 'C', false);
@@ -33,18 +47,18 @@ class PDFController extends Controller
         $this->fpdf->Cell(30, 10, 'Jabatan', 1, 0, 'C', false);
         $this->fpdf->Cell(30, 10, 'Divisi', 1, 0, 'C', false);
         $this->fpdf->Cell(20, 10, 'Jenis', 1, 0, 'C', false);
-        $this->fpdf->Cell(40, 10, 'Keterangan', 1, 0, 'C', false);
+        $this->fpdf->Cell(50, 10, 'Keterangan', 1, 0, 'C', false);
         $this->fpdf->Cell(40, 10, 'Tanggal Ijin', 1, 0, 'C', false);
         $this->fpdf->Cell(40, 10, 'Tanggal Kembali', 1, 0, 'C', false);
         $this->fpdf->Cell(20, 10, 'Lama', 1, 0, 'C', false);
-        $this->fpdf->Cell(30, 10, 'Acc Divisi', 1, 0, 'C', false);
-        $this->fpdf->Cell(30, 10, 'Acc HRD', 1, 0, 'C', false);
+        $this->fpdf->Cell(40, 10, 'Acc Divisi', 1, 0, 'C', false);
+        $this->fpdf->Cell(40, 10, 'Acc HRD', 1, 0, 'C', false);
         $this->fpdf->Cell(30, 10, 'Status', 1, 0, 'C', false);
         $this->fpdf->Cell(40, 10, 'Lampiran', 1, 1, 'C', false);
 
 
         // BODY (LOOP)
-        $submissions = $this->getData();
+        $submissions = $this->getAdminTableData();
         $this->fpdf->SetFont('Arial', '', 10);
         $i = 1;
         foreach ($submissions as $sub) {
@@ -64,27 +78,27 @@ class PDFController extends Controller
             $this->fpdf->Cell(30, $cell_height, $sub->employee->position, 1, 0, 'L', false);
             $this->fpdf->Cell(30, $cell_height, $sub->employee->division, 1, 0, 'L', false);
             $this->fpdf->Cell(20, $cell_height, $sub->type, 1, 0, 'L', false);
-            $this->fpdf->Cell(40, $cell_height, $sub->description, 1, 0, 'L', false);
+            $this->fpdf->Cell(50, $cell_height, $sub->description, 1, 0, 'L', false);
             $this->fpdf->Cell(40, $cell_height, $sub->start_date, 1, 0, 'C', false);
             $this->fpdf->Cell(40, $cell_height, $sub->end_date, 1, 0, 'C', false);
             $this->fpdf->Cell(20, $cell_height, $sub->duration . ' hari', 1, 0, 'C', false);
 
             // ACC DIVISI
             if ($sub->division_approval == '1') {
-                $this->fpdf->Cell(30, $cell_height, 'Diterima', 1, 0, 'C', false);
+                $this->fpdf->Cell(40, $cell_height, 'Diterima (' . $sub->division_signed_date . ')', 1, 0, 'C', false);
             } elseif ($sub->division_approval == '0') {
-                $this->fpdf->Cell(30, $cell_height, 'Ditolak', 1, 0, 'C', false);
+                $this->fpdf->Cell(40, $cell_height, 'Ditolak (' . $sub->division_signed_date . ')', 1, 0, 'C', false);
             } else {
-                $this->fpdf->Cell(30, $cell_height, 'Menunggu', 1, 0, 'C', false);
+                $this->fpdf->Cell(40, $cell_height, 'Menunggu', 1, 0, 'C', false);
             }
 
             // ACC HRD
             if ($sub->hrd_approval == '1') {
-                $this->fpdf->Cell(30, $cell_height, 'Diterima', 1, 0, 'C', false);
+                $this->fpdf->Cell(40, $cell_height, 'Diterima (' . $sub->hrd_signed_date . ')', 1, 0, 'C', false);
             } elseif ($sub->hrd == '0') {
-                $this->fpdf->Cell(30, $cell_height, 'Ditolak', 1, 0, 'C', false);
+                $this->fpdf->Cell(40, $cell_height, 'Ditolak (' . $sub->hrd_signed_date . ')', 1, 0, 'C', false);
             } else {
-                $this->fpdf->Cell(30, $cell_height, 'Menunggu', 1, 0, 'C', false);
+                $this->fpdf->Cell(40, $cell_height, 'Menunggu', 1, 0, 'C', false);
             }
 
             // STATUS
@@ -117,7 +131,7 @@ class PDFController extends Controller
         exit;
     }
 
-    public function getData()
+    public function getAdminTableData()
     {
         // DUPLIKASI DARI AdminHRDController->show()
         $today = Carbon::today();
@@ -141,6 +155,16 @@ class PDFController extends Controller
             // UBAH KE FORMAT CARBON
             $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
             $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+
+            if (!($sub->division_signed_date === NULL)) {
+                $sub->division_signed_date = Carbon::createFromFormat('Y-m-d', $sub->division_signed_date);
+                $sub->division_signed_date = $sub->division_signed_date->format('d-m-Y');
+            }
+            if (!($sub->hrd_signed_date === NULL)) {
+                $sub->hrd_signed_date = Carbon::createFromFormat('Y-m-d', $sub->hrd_signed_date);
+                $sub->hrd_signed_date = $sub->hrd_signed_date->format('d-m-Y');
+            }
+
             // UBAH FORMAT KE d-m-Y
             $sub->start_date = $sub->start_date->format('d-m-Y');
             $sub->end_date = $sub->end_date->format('d-m-Y');

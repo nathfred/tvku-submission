@@ -121,6 +121,16 @@ class AdminHRDController extends Controller
             // UBAH KE FORMAT CARBON
             $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
             $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+
+            if (!($sub->division_signed_date === NULL)) {
+                $sub->division_signed_date = Carbon::createFromFormat('Y-m-d', $sub->division_signed_date);
+                $sub->division_signed_date = $sub->division_signed_date->format('d-m-Y');
+            }
+            if (!($sub->hrd_signed_date === NULL)) {
+                $sub->hrd_signed_date = Carbon::createFromFormat('Y-m-d', $sub->hrd_signed_date);
+                $sub->hrd_signed_date = $sub->hrd_signed_date->format('d-m-Y');
+            }
+
             // UBAH FORMAT KE d-m-Y
             $sub->start_date = $sub->start_date->format('d-m-Y');
             $sub->end_date = $sub->end_date->format('d-m-Y');
@@ -169,8 +179,11 @@ class AdminHRDController extends Controller
 
     public function acc_submission($id, $acc)
     {
+        $today = Carbon::today('GMT+7');
+
         $submission = Submission::find($id);
         $submission->hrd_approval = $acc;
+        $submission->hrd_signed_date = $today;
         $submission->save();
 
         if ($acc == 1) {

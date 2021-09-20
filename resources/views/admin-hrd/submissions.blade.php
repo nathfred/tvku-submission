@@ -66,17 +66,17 @@
                                         @if ($submission->division_approval === NULL)
                                             <td>Belum direspon</td>
                                         @elseif ($submission->division_approval == '0')
-                                            <td>Ditolak</td>
+                                            <td>Ditolak ({{ $submission->division_signed_date }})</td>
                                         @elseif ($submission->division_approval == '1')
-                                            <td>Diterima</td>
+                                            <td>Diterima ({{ $submission->division_signed_date }})</td>
                                         @endif
                                         <!-- Acc HRD -->
                                         @if ($submission->hrd_approval === NULL)
                                             <td>Belum direspon</td>
                                         @elseif ($submission->hrd_approval == '0')
-                                            <td>Ditolak</td>
+                                            <td>Ditolak ({{ $submission->hrd_signed_date }})</td>
                                         @elseif ($submission->hrd_approval == '1')
-                                            <td>Diterima</td>
+                                            <td>Diterima ({{ $submission->hrd_signed_date }})</td>
                                         @endif
                                         <!-- Lampiran (Attachment) -->
                                         @if ($submission->attachment === NULL || $submission->attachment == '')

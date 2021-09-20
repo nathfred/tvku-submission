@@ -44,7 +44,8 @@ class PDFController extends Controller
     public function createPDF($month)
     {
         $this->fpdf = new Fpdf;
-        $this->fpdf->AddPage("L", ['500', '500']);
+        $this->fpdf->AddPage("L", ['350', '500']);
+        // $this->fpdf->AddPage("L", "A4");
         $this->Header($month);
 
         $type = ['float', 'float', 'string', 'mixed', 'int', 'string', 'bool', 'mixed'];
@@ -70,9 +71,25 @@ class PDFController extends Controller
 
         // BODY (LOOP)
         $submissions = $this->getAdminTableData($month);
+        $current_height = 10;
         $this->fpdf->SetFont('Arial', '', 10);
         $i = 1;
         foreach ($submissions as $sub) {
+            $current_height = 10;
+            $next_page = FALSE;
+            // PERIKSA POSISI Y
+            if (!($sub->attachment === NULL)) { // JIKA ADA ATTACHMENT : PERLU SETIDAKNYA 40+10 HEIGHT
+                if ($current_height >= $this->fpdf->GetPageHeight() - 50) {
+                    $next_page = TRUE;
+                    $this->fpdf->AddPage("L", ['500', '500']);
+                }
+            } else { // JIKA TIDAK, PERLU SEIDAKNYA 10+10 HEIGHT
+                if ($current_height >= $this->fpdf->GetPageHeight() - 20) {
+                    $next_page = TRUE;
+                    $this->fpdf->AddPage("L", ['500', '500']);
+                }
+            }
+
             $this->fpdf->setTextColor(0, 0, 0); // BLACK
 
             // FILTER APAKAH SUBMISSION MEMLIKI GAMBAR
@@ -92,7 +109,9 @@ class PDFController extends Controller
             $this->fpdf->Cell(50, $cell_height, $sub->description, 1, 0, 'L', false);
             $this->fpdf->Cell(40, $cell_height, $sub->start_date, 1, 0, 'C', false);
             $this->fpdf->Cell(40, $cell_height, $sub->end_date, 1, 0, 'C', false);
-            $this->fpdf->Cell(20, $cell_height, $sub->duration . ' hari', 1, 0, 'C', false);
+            // $this->fpdf->Cell(20, $cell_height, $sub->duration . ' hari', 1, 0, 'C', false);
+            $Y = $this->fpdf->getY();
+            $this->fpdf->Cell(20, $cell_height, $Y, 1, 0, 'C', false);
 
             // ACC DIVISI
             if ($sub->division_approval == '1') {
@@ -130,8 +149,10 @@ class PDFController extends Controller
                 $this->fpdf->Image("data_file/cuti/$sub->attachment", NULL, NULL, 40, 40);
                 // $this->fpdf->Cell(40, 40, '', 1, 1, 'C', false);
                 $this->fpdf->Cell(0, 0, '', 0, 1, 'C', false); // DUMMY CELL UNTUK ENTER SETELAH GAMBAR
+                $current_height = $current_height + 40;
             } else {
-                $this->fpdf->Cell(40, $cell_height, '', 1, 1, 'C', false);
+                $this->fpdf->Cell(40, $cell_height, '-', 1, 1, 'C', false);
+                $current_height = $current_height + 10;
             }
 
             $i++;

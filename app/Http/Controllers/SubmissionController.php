@@ -103,16 +103,16 @@ class SubmissionController extends Controller
         $today = Carbon::today('GMT+7');
 
         // UBAH REQUEST DATE KE FORMAT CARBON
-        $request->start_date = Carbon::createFromFormat('Y-m-d', $request->start_date);
-        $request->end_date = Carbon::createFromFormat('Y-m-d', $request->end_date);
+        $start_date_carbon = Carbon::createFromFormat('Y-m-d', $request->start_date);
+        $end_date_carbon = Carbon::createFromFormat('Y-m-d', $request->end_date);
 
         // PERIKSA TANGGAL IJIN DAN TANGGAL KEMBALI APAKAH VALID DENGAN TANGGAL SUBMISSION DIBUAT
-        if ($today->greaterThan($request->start_date) || $today->greaterThan($request->end_date)) {
+        if ($today->greaterThan($start_date_carbon) || $today->greaterThan($end_date_carbon)) {
             return redirect()->route('employee-submission-create')->with('message', 'incorrect-date');
         }
 
         // PERIKSA REQUEST START DATE & END DATE
-        if ($request->start_date >= $request->end_date) {
+        if ($start_date_carbon >= $request->end_date) {
             return redirect()->route('employee-submission-create')->with('message', 'incorrect-date2');
         }
 

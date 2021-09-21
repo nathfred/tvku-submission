@@ -17,7 +17,7 @@ class AdminDivisiMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role == 'admin-hrd') {
+        if (Auth::user()->role == 'admin-divisi') {
             return $next($request);
         }
         return redirect(url('/'))->with('message', 'forbidden-admindivisi-access');

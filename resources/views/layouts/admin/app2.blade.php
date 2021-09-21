@@ -29,7 +29,7 @@
                     <div class="d-flex justify-content-between" style="position: relative;">
                         <div class="logo"></div>
                         <div class="logo center text-center mt-4" style="position: absolute;">
-                            <a href="{{ route('adminhrd-index') }}"><img src="{{ asset('img/tvku_logo_ori.png') }}" alt="TVKU Logo" style="width: 50%; height: 75%;"></a>
+                            <a href="{{ route('admindivisi-index') }}"><img src="{{ asset('img/tvku_logo_ori.png') }}" alt="TVKU Logo" style="width: 50%; height: 75%;"></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -41,14 +41,14 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item {{ ($active === "index") ? 'active' : '' }}">
-                            <a href="{{ route('adminhrd-index') }}" class='sidebar-link'>
+                            <a href="{{ route('admindivisi-index') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item {{ ($active === "cuti") ? 'active' : '' }}">
-                            <a href="{{ route('adminhrd-submission') }}" class='sidebar-link'>
+                            <a href="{{ route('admindivisi-submission') }}" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Daftar Pengajuan</span>
                             </a>

@@ -2,13 +2,12 @@ Objective :
 
 -Register add 'gender' (DONE)
 -SweetAlert(Admin,Employee) (DONE)
+-Pengaturan ukuran kertas & halaman PDF (DONE)
+-Admin Tabel Pengajuan perlu tanggal disetujui (DONE)
+-Admin PDF Export Button (DONE)
+-Admin PDF Export per month (DONE)
 
--Pengaturan ukuran kertas & halaman PDF
--Admin Tabel Pengajuan perlu tanggal disetujui??
--Admin PDF Export Button
--Admin PDF Export per month??
 -Admin Divisi
-
 -Layout fixing
 -Factory & Seeder for Production
 -Local Testing

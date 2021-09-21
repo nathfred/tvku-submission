@@ -19,7 +19,30 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    Tabel Daftar Pengajuan
+                    <div class="d-flex flex-row bd-highlight">
+                        <a href="{{ route('create-pdf',['month'=>0]) }}" class="btn btn-success rounded-pill me-1">Export Tabel</a>
+                        <div class="dropdown">
+                            <button class="btn btn-success rounded-pill dropdown-toggle me-1" type="button"
+                                id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Export Bulan
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>1]) }}">Januari</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>2]) }}">Februari</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>3]) }}">Maret</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>4]) }}">April</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>5]) }}">Mei</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>6]) }}">Juni</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>7]) }}">Juli</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>8]) }}">Agustus</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>9]) }}">September</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>10]) }}">Oktober</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>11]) }}">November</a>
+                                <a class="dropdown-item" href="{{ route('create-pdf',['month'=>12]) }}">Desember</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1" name="table1">

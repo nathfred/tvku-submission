@@ -46,7 +46,7 @@ class AdminHRDController extends Controller
         // dd($today);
 
         // TOTAL PENGAJUAN (YANG BELUM KADALUARSA)
-        $total_submissions = Submission::where('end_date', '>', $today)->get();
+        $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'asc')->get();
 
         // TOTAL PENGAJUAN YANG SUDAH DI ACC HRD (YANG BELUM KADALUARSA)
         $responded_submissions = Submission::where('end_date', '>', $today)->where('hrd_approval', '0')->orWhere('hrd_approval', '1')->get();
@@ -55,7 +55,7 @@ class AdminHRDController extends Controller
         $unresponded_submissions = Submission::where('end_date', '>', $today)->whereNull('hrd_approval')->get();
 
         // CARI YANG HARI INI SEDANG CUTI (SUBMISSION YANG SUDAH DI ACC)
-        $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1')->get();
+        $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1')->orderBy('created_at', 'asc')->get();
         // dd($current_submissions->count());
 
         return view('admin-hrd.index', [
@@ -103,7 +103,7 @@ class AdminHRDController extends Controller
         $today = Carbon::today();
         $today = $today->format('Y-m-d');
 
-        $total_submissions = Submission::where('end_date', '>', $today)->get();
+        $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'asc')->get();
 
         // HITUNG DURASI START DATE -> END DATE (HARI)
         foreach ($total_submissions as $sub) {

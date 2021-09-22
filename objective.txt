@@ -8,12 +8,11 @@ Objective :
 -Admin PDF Export per month (DONE)
 -Admin  (DONE)
 -Layout fixing (DONE)
-
--New tab
--Urutan tabel berdasarkan tanggal pengajuan dibuat (index & Submissions)
+-New tab (DONE)
+-Urutan tabel berdasarkan tanggal pengajuan dibuat (index & Submissions) (DONE)
 
 -Daily Execute (Delete 2 days old Submissions)
 
 -Factory & Seeder for Production
 -Local Testing
--Deploy
+-Deploy Testing

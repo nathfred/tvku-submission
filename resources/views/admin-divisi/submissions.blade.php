@@ -105,7 +105,7 @@
                                         @if ($submission->attachment === NULL || $submission->attachment == '')
                                             <td>-</td>
                                         @else
-                                            <td><a href="/data_file/cuti/{{ $submission->attachment }}"><img src="{{ asset('data_file/cuti/'.$submission->attachment) }}" alt="Attachment" class="text-center center" style="max-width: 50px; max-height: 50px;"></a></td>
+                                            <td><a href="/data_file/cuti/{{ $submission->attachment }}" target="_blank"><img src="{{ asset('data_file/cuti/'.$submission->attachment) }}" alt="Attachment" class="text-center center" style="max-width: 50px; max-height: 50px;"></a></td>
                                         @endif
                                         <!-- Status Submisison -->
                                         @if ($submission->division_approval == '1' && $submission->hrd_approval == '1')

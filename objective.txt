@@ -9,9 +9,10 @@ Objective :
 -Admin  (DONE)
 -Layout fixing (DONE)
 
--Daily Execute (Delete 2 days old Submissions)
 -New tab
 -Urutan tabel berdasarkan tanggal pengajuan dibuat (index & Submissions)
+
+-Daily Execute (Delete 2 days old Submissions)
 
 -Factory & Seeder for Production
 -Local Testing

@@ -38,7 +38,7 @@ class AdminDivisiController extends Controller
             $sub->end_date = $sub->end_date->format('d-m-Y');
         }
 
-        $today = Carbon::today();
+        $today = Carbon::today('GMT+7');
         $today = $today->format('Y-m-d');
 
         // TOTAL PENGAJUAN (YANG BELUM KADALUARSA)
@@ -147,7 +147,7 @@ class AdminDivisiController extends Controller
         }
         // dd($division);
 
-        $today = Carbon::today();
+        $today = Carbon::today('GMT+7');
         $today = $today->format('Y-m-d');
 
         $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'asc')->get();

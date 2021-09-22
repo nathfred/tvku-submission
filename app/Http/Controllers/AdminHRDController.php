@@ -41,7 +41,7 @@ class AdminHRDController extends Controller
         // dd($today->format('d-m-Y'));
         // dd(Carbon::createFromFormat('d-m-Y', '31-12-2000')->toDateString());
 
-        $today = Carbon::today();
+        $today = Carbon::today('GMT+7');
         $today = $today->format('Y-m-d');
         // dd($today);
 
@@ -100,7 +100,7 @@ class AdminHRDController extends Controller
      */
     public function show()
     {
-        $today = Carbon::today();
+        $today = Carbon::today('GMT+7');
         $today = $today->format('Y-m-d');
 
         $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'asc')->get();

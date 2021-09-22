@@ -142,6 +142,7 @@ class AdminDivisiController extends Controller
         $division = str_replace('divisi', '', $user->email);
         $division = str_replace('@tvku.tv', '', $division);
         $division = ucfirst($division);
+        // dd($division);
 
         $today = Carbon::today();
         $today = $today->format('Y-m-d');
@@ -195,7 +196,8 @@ class AdminDivisiController extends Controller
         return view('admin-divisi.submissions', [
             'title' => 'Daftar Pengajuan Cuti',
             'active' => 'Cuti',
-            'total_submissions' => $total_submissions
+            'total_submissions' => $total_submissions,
+            'division' => $division
         ]);
     }
 

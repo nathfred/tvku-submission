@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminDivisiController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\PDFController2;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,5 +62,6 @@ Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], fun
 });
 
 Route::get('/pdf/{month}', [PDFController::class, 'createPDF'])->name('create-pdf');
+Route::get('/pdf/{month}/{division}', [PDFController2::class, 'createPDF'])->name('create-pdf2');
 
 require __DIR__ . '/auth.php';

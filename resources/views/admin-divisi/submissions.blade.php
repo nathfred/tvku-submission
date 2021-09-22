@@ -125,19 +125,19 @@
                                                 <span class="badge bg-warning">Ditolak</span>
                                             </td>
                                         @endif
-                                        <!-- Aksi HRD -->
-                                        @if ($submission->hrd_approval === NULL)
+                                        <!-- Aksi Divisi -->
+                                        @if ($submission->division_approval === NULL)
                                             <td style="height: 70px;">
-                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
-                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
+                                                <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
+                                                <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
                                             </td>
-                                        @elseif ($submission->hrd_approval == '0')
+                                        @elseif ($submission->division_approval == '0')
                                             <td style="height: 70px;">
-                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
+                                                <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
                                             </td>
-                                        @elseif ($submission->hrd_approval == '1')
+                                        @elseif ($submission->division_approval == '1')
                                             <td style="height: 70px;">
-                                                <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
+                                                <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
                                             </td>
                                         @endif
                                     </tr>

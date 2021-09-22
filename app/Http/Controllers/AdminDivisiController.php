@@ -240,8 +240,8 @@ class AdminDivisiController extends Controller
         $today = Carbon::today('GMT+7');
 
         $submission = Submission::find($id);
-        $submission->hrd_approval = $acc;
-        $submission->hrd_signed_date = $today;
+        $submission->division_approval = $acc;
+        $submission->division_signed_date = $today;
         $submission->save();
 
         if ($acc == 1) {

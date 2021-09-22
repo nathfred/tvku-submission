@@ -25,7 +25,6 @@ class AdminDivisiController extends Controller
         $division = str_replace('divisi', '', $user->email);
         $division = str_replace('@tvku.tv', '', $division);
         $division = ucfirst($division);
-        // dd($division);
 
         $recent_submissions = Submission::latest()->get();
 
@@ -39,15 +38,8 @@ class AdminDivisiController extends Controller
             $sub->end_date = $sub->end_date->format('d-m-Y');
         }
 
-        // $date = '2000-12-31';
-        // $date2 = '31-12-2000';
-        // $today = Carbon::today();
-        // dd($today->format('d-m-Y'));
-        // dd(Carbon::createFromFormat('d-m-Y', '31-12-2000')->toDateString());
-
         $today = Carbon::today();
         $today = $today->format('Y-m-d');
-        // dd($today);
 
         // TOTAL PENGAJUAN (YANG BELUM KADALUARSA)
         $total_submissions = Submission::where('end_date', '>', $today)->get();
@@ -62,26 +54,43 @@ class AdminDivisiController extends Controller
         $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1')->get();
         // dd($current_submissions->count());
 
+        $all_submissions = Submission::all();
+
+        // SET KEY TO COLLECTIONS (FOR REMOVAL : FORGET METHOD NEEDS KEY)
+        $all_submissions = $all_submissions->keyBy('id');
+        $total_submissions = $total_submissions->keyBy('id');
+        $recent_submissions = $recent_submissions->keyBy('id');
+        $responded_submissions = $responded_submissions->keyBy('id');
+        $unresponded_submissions = $unresponded_submissions->keyBy('id');
+        $current_submissions = $current_submissions->keyBy('id');
+
         // FILTER SESUAI DIVISI
-        $i = 0;
-        $array = array();
-        foreach ($total_submissions as $sub) {
+        foreach ($all_submissions as $sub) {
             if (!($sub->employee->division == $division)) {
+                // if ($total_submissions->contains('id', $sub->id)) {
+                //     $total_submissions->forget($sub->id);
+                // }
+                // if ($recent_submissions->contains('id', $sub->id)) {
+                //     $recent_submissions->forget($sub->id);
+                // }
+                // if ($responded_submissions->contains('id', $sub->id)) {
+                //     $responded_submissions->forget($sub->id);
+                // }
+                // if ($unresponded_submissions->contains('id', $sub->id)) {
+                //     $unresponded_submissions->forget($sub->id);
+                // }
+                // if ($current_submissions->contains('id', $sub->id)) {
+                //     $current_submissions->forget($sub->id);
+                // }
                 $recent_submissions->forget($sub->id);
                 $total_submissions->forget($sub->id);
                 $responded_submissions->forget($sub->id);
                 $unresponded_submissions->forget($sub->id);
                 $current_submissions->forget($sub->id);
-                // unset($sub);
-                // dd($sub);
-                array_push($array, $sub->employee->division);
-                $i++;
             }
         }
 
         $recent_submissions = $recent_submissions->take(3);
-        // dd($array);
-        // dd($i);
 
         return view('admin-divisi.index', [
             'title' => 'Admin Index',
@@ -125,6 +134,15 @@ class AdminDivisiController extends Controller
      */
     public function show()
     {
+        // AMBIL DATA USER (ADMIN-DIVISI)
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+
+        // AMBIL DIVISI SESUAI ADMIN DIVISI (AMBIL DARI EMAIL)
+        $division = str_replace('divisi', '', $user->email);
+        $division = str_replace('@tvku.tv', '', $division);
+        $division = ucfirst($division);
+
         $today = Carbon::today();
         $today = $today->format('Y-m-d');
 
@@ -159,6 +177,19 @@ class AdminDivisiController extends Controller
             // UBAH FORMAT KE d-m-Y
             $sub->start_date = $sub->start_date->format('d-m-Y');
             $sub->end_date = $sub->end_date->format('d-m-Y');
+        }
+
+        $all_submissions = Submission::all();
+
+        // SET KEY TO COLLECTIONS (FOR REMOVAL : FORGET METHOD NEEDS KEY)
+        $all_submissions = $all_submissions->keyBy('id');
+        $total_submissions = $total_submissions->keyBy('id');
+
+        // FILTER SESUAI DIVISI
+        foreach ($all_submissions as $sub) {
+            if (!($sub->employee->division == $division)) {
+                $total_submissions->forget($sub->id);
+            }
         }
 
         return view('admin-divisi.submissions', [

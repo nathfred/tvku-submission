@@ -45,7 +45,8 @@ class AdminDivisiController extends Controller
         $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'asc')->get();
 
         // TOTAL PENGAJUAN YANG SUDAH DI ACC HRD (YANG BELUM KADALUARSA)
-        $responded_submissions = Submission::where('end_date', '>', $today)->where('hrd_approval', '0')->orWhere('hrd_approval', '1')->get();
+        // $responded_submissions = Submission::where('end_date', '>', $today)->where('hrd_approval', '0')->orWhere('hrd_approval', '1')->get();
+        $responded_submissions = Submission::where('end_date', '>', $today)->whereNotNull('hrd_approval')->get();
 
         // TOTAL PENGAJUAN YANG BELUM DI ACC HRD (YANG BELUM KADALUARSA)
         $unresponded_submissions = Submission::where('end_date', '>', $today)->whereNull('hrd_approval')->get();

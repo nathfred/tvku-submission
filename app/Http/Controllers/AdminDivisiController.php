@@ -142,6 +142,9 @@ class AdminDivisiController extends Controller
         $division = str_replace('divisi', '', $user->email);
         $division = str_replace('@tvku.tv', '', $division);
         $division = ucfirst($division);
+        if ($division == 'It') {
+            $division = 'IT';
+        }
         // dd($division);
 
         $today = Carbon::today();

@@ -109,9 +109,9 @@ class PDFController extends Controller
             $this->fpdf->Cell(50, $cell_height, $sub->description, 1, 0, 'L', false);
             $this->fpdf->Cell(40, $cell_height, $sub->start_date, 1, 0, 'C', false);
             $this->fpdf->Cell(40, $cell_height, $sub->end_date, 1, 0, 'C', false);
-            // $this->fpdf->Cell(20, $cell_height, $sub->duration . ' hari', 1, 0, 'C', false);
+            $this->fpdf->Cell(20, $cell_height, $sub->duration . ' hari', 1, 0, 'C', false);
             $Y = $this->fpdf->getY();
-            $this->fpdf->Cell(20, $cell_height, $Y, 1, 0, 'C', false);
+            // $this->fpdf->Cell(20, $cell_height, $Y, 1, 0, 'C', false);
 
             // ACC DIVISI
             if ($sub->division_approval == '1') {

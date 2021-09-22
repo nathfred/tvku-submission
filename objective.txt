@@ -6,9 +6,13 @@ Objective :
 -Admin Tabel Pengajuan perlu tanggal disetujui (DONE)
 -Admin PDF Export Button (DONE)
 -Admin PDF Export per month (DONE)
+-Admin  (DONE)
+-Layout fixing (DONE)
 
--Admin Divisi
--Layout fixing
+-Daily Execute (Delete 2 days old Submissions)
+-New tab
+-Urutan tabel berdasarkan tanggal pengajuan dibuat (index & Submissions)
+
 -Factory & Seeder for Production
 -Local Testing
 -Deploy

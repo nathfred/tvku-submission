@@ -15,9 +15,6 @@
                         <div class="col">
                             <h3>Profil Pegawai</h3>
                         </div>
-                        <div class="col-sm">
-                            <a href="/logout">Logout</a>
-                        </div>
                     </div>
                     <p class="text-subtitle text-muted">Profil Diri & Data Pegawai</p>
                 </div>

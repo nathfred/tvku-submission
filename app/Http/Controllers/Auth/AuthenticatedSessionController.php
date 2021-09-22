@@ -42,10 +42,10 @@ class AuthenticatedSessionController extends Controller
         // dd($user);
         if ($user->role == 'employee') {
             return redirect()->intended(RouteServiceProvider::HOME_EMPLOYEE);
-        } elseif ($user->role == 'admin') {
-            return redirect()->intended(RouteServiceProvider::HOME_ADMIN);
-        } elseif ($user->role == 'director') {
-            return redirect()->intended(RouteServiceProvider::HOME_DIRECTOR);
+        } elseif ($user->role == 'admin-hrd') {
+            return redirect()->intended(RouteServiceProvider::HOME_ADMIN_HRD);
+        } elseif ($user->role == 'admin-divisi') {
+            return redirect()->intended(RouteServiceProvider::HOME_ADMIN_DIVISI);
         } else {
             return redirect()->intended(RouteServiceProvider::HOME);
         }

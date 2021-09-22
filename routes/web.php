@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth', 'admindivisi'], 'prefix' => 'admindivisi'
 });
 
 Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], function () {
-    Route::get('/index', [EmployeeController::class, 'index'])->name('employee-index');
+    // Route::get('/index', [EmployeeController::class, 'index'])->name('employee-index');
 
     Route::get('/profile', [EmployeeController::class, 'show'])->name('employee-profile');
     Route::post('/profile', [EmployeeController::class, 'create'])->name('employee-profile-post');

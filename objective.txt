@@ -10,10 +10,10 @@ Objective :
 -Layout fixing (DONE)
 -New tab (DONE)
 -Urutan tabel berdasarkan tanggal pengajuan dibuat (index & Submissions) (DONE)
+-PDF Tahun tsb (DONE)
 
 -History Tahunan sebelumnya Tidak Perlu
 
--PDF Tahun tsb
 -PDF per employee by NPP
 
 -Daily Execute (Delete 2 days old Submissions) (Wait for Deployment)

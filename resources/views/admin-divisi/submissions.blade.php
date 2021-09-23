@@ -20,29 +20,33 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex flex-row bd-highlight">
-                        <a href="{{ route('create-pdf2',['month'=>0, 'division'=>$division]) }}" class="btn btn-success rounded-pill me-1">Export Tabel</a>
-                        <div class="dropdown">
-                            <button class="btn btn-success rounded-pill dropdown-toggle me-1" type="button"
-                                id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                Export Bulan
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>1, 'division'=>$division]) }}">Januari</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>2, 'division'=>$division]) }}">Februari</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>3, 'division'=>$division]) }}">Maret</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>4, 'division'=>$division]) }}">April</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>5, 'division'=>$division]) }}">Mei</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>6, 'division'=>$division]) }}">Juni</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>7, 'division'=>$division]) }}">Juli</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>8, 'division'=>$division]) }}">Agustus</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>9, 'division'=>$division]) }}">September</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>10, 'division'=>$division]) }}">Oktober</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>11, 'division'=>$division]) }}">November</a>
-                                <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>12, 'division'=>$division]) }}">Desember</a>
+                        <div class="buttons">
+                            <a href="{{ route('create-pdf2',['month'=>0, 'division'=>$division]) }}" class="btn btn-success rounded-pill me-1">Export Tabel</a>
+                            <a href="{{ route('create-pdf2',['month'=>100, 'division'=>$division]) }}" class="btn btn-success rounded-pill me-1">Export Tahun</a>
+                        </div>
+                        <div class="btn-group mb-1">
+                            <div class="dropdown">
+                                <button class="btn btn-success rounded-pill dropdown-toggle me-1" type="button"
+                                    id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Export Bulan
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>1, 'division'=>$division]) }}">Januari</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>2, 'division'=>$division]) }}">Februari</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>3, 'division'=>$division]) }}">Maret</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>4, 'division'=>$division]) }}">April</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>5, 'division'=>$division]) }}">Mei</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>6, 'division'=>$division]) }}">Juni</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>7, 'division'=>$division]) }}">Juli</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>8, 'division'=>$division]) }}">Agustus</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>9, 'division'=>$division]) }}">September</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>10, 'division'=>$division]) }}">Oktober</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>11, 'division'=>$division]) }}">November</a>
+                                    <a class="dropdown-item" href="{{ route('create-pdf2',['month'=>12, 'division'=>$division]) }}">Desember</a>
+                                </div>
                             </div>
                         </div>
-                        <a href="{{ route('create-pdf2',['month'=>100, 'division'=>$division]) }}" class="btn btn-success rounded-pill me-1">Export Tahun</a>
                     </div>
                 </div>
                 <div class="card-body">

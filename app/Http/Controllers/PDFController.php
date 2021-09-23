@@ -189,6 +189,15 @@ class PDFController extends Controller
                         $total_submissions = Submission::where('end_date', '>', $today)->get();
                     } else {
                         $total_submissions = Submission::whereYear('start_date', $today_carbon->year)->whereMonth('start_date', $month)->orWhereMonth('end_date', $month)->orderBy('start_date', 'asc')->get();
+                        // END DATE TANGGAL 1 PADA BULAN DEPAN TIDAK TERMASUK (HAPUS DARI COLLECTION)
+                        $total_submissions = $total_submissions->keyBy('id');
+                        foreach ($total_submissions as $sub) {
+                            $day_end_date = Carbon::parse($sub->end_date)->format('d');
+                            $month_end_date = Carbon::parse($sub->end_date)->format('m');
+                            if ($day_end_date == 1 && $month_end_date == $month) {
+                                $total_submissions->forget($sub->id);
+                            }
+                        }
                     }
                     break;
                 }

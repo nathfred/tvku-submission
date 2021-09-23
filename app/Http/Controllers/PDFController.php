@@ -165,12 +165,12 @@ class PDFController extends Controller
 
     public function getAdminTableData($month)
     {
-        $today_carbon = Carbon::today();
+        $today_carbon = Carbon::today('GMT+7');
         $today = $today_carbon->format('Y-m-d');
 
         switch ($month) {
             case 0: { // DATA SUBMISSION DI TABEL ADMIN
-                    $total_submissions = Submission::where('end_date', '>', $today)->get();
+                    $total_submissions = Submission::where('end_date', '>', $today)->orderBy('start_date', 'desc')->get();
                     break;
                 }
 
@@ -179,11 +179,16 @@ class PDFController extends Controller
                     break;
                 }
 
+            case 100: { // SEMUA DI TAHUN INI
+                    $total_submissions = Submission::whereYear('created_at', $today_carbon->year)->orderBy('start_date', 'asc')->get();
+                    break;
+                }
+
             default: { // DATA SUBMISSION BULAN 1 - 12 TAHUN INI
                     if ($month < 1 || $month > 12) { // JIKA PARAM MONTH DILUAR NALAR
                         $total_submissions = Submission::where('end_date', '>', $today)->get();
                     } else {
-                        $total_submissions = Submission::whereYear('start_date', $today_carbon->year)->whereMonth('start_date', $month)->orderBy('start_date', 'asc')->get();
+                        $total_submissions = Submission::whereYear('start_date', $today_carbon->year)->whereMonth('start_date', $month)->orWhereMonth('end_date', $month)->orderBy('start_date', 'asc')->get();
                     }
                     break;
                 }
@@ -226,6 +231,7 @@ class PDFController extends Controller
 
     public function monthToText($month)
     {
+        $today_carbon = Carbon::today('GMT+7');
         $month_text = '';
         switch ($month) {
             case 1:
@@ -265,6 +271,9 @@ class PDFController extends Controller
                 $month_text = 'Desember';
                 break;
             case 99:
+                $month_text = 'All-month';
+                break;
+            case 100:
                 $month_text = 'All-month';
                 break;
             default:

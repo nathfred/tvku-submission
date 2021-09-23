@@ -42,6 +42,7 @@
                                 <a class="dropdown-item" href="{{ route('create-pdf',['month'=>12]) }}">Desember</a>
                             </div>
                         </div>
+                        <a href="{{ route('create-pdf',['month'=>100]) }}" class="btn btn-success rounded-pill me-1">Export Tahun</a>
                     </div>
                 </div>
                 <div class="card-body">

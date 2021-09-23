@@ -28,9 +28,16 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $today = Carbon::today('GMT+7');
+
         $schedule->call(function () {
-            Submission::where('created_at', '>', Carbon::now('GMT+7')->subDays(2))->delete();
+            // HAPUS SUBMISSION YANG SUDAH 2 HARI TIDAK DIRESPON HRD
+            Submission::where('created_at', '>', Carbon::now('GMT+7')->subDays(2))->whereNull('hrd_approval')->delete();
         })->daily();
+
+        $schedule->call(function () {
+            // HAPUS SUBMISSION TIAP TAHUN BARU
+            Submission::truncate();
+        })->yearly();
     }
 
     /**

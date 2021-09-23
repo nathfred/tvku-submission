@@ -42,7 +42,7 @@ class AdminDivisiController extends Controller
         $today = $today->format('Y-m-d');
 
         // TOTAL PENGAJUAN (YANG BELUM KADALUARSA)
-        $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'asc')->get();
+        $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'desc')->get();
 
         // TOTAL PENGAJUAN YANG SUDAH DI ACC HRD (YANG BELUM KADALUARSA)
         // $responded_submissions = Submission::where('end_date', '>', $today)->where('hrd_approval', '0')->orWhere('hrd_approval', '1')->get();
@@ -52,7 +52,7 @@ class AdminDivisiController extends Controller
         $unresponded_submissions = Submission::where('end_date', '>', $today)->whereNull('hrd_approval')->get();
 
         // CARI YANG HARI INI SEDANG CUTI (SUBMISSION YANG SUDAH DI ACC)
-        $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1')->orderBy('created_at', 'asc')->get();
+        $current_submissions = Submission::where('start_date', '<=', $today)->where('end_date', '>', $today)->where('hrd_approval', '1')->where('division_approval', '1')->orderBy('created_at', 'desc')->get();
         // dd($current_submissions->count());
 
         $all_submissions = Submission::all();
@@ -151,7 +151,7 @@ class AdminDivisiController extends Controller
         $today = Carbon::today('GMT+7');
         $today = $today->format('Y-m-d');
 
-        $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'asc')->get();
+        $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'desc')->get();
 
         // HITUNG DURASI START DATE -> END DATE (HARI)
         foreach ($total_submissions as $sub) {

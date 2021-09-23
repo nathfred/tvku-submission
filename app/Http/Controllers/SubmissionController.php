@@ -27,7 +27,7 @@ class SubmissionController extends Controller
             return redirect()->route('employee-profile')->with('message', 'register-employee-first');
         }
 
-        $user_submissions = Submission::where('employee_id', $employee->id)->orderBy('created_at', 'asc')->get();
+        $user_submissions = Submission::where('employee_id', $employee->id)->orderBy('created_at', 'desc')->get();
         // dd($user_submissions);
 
         // UBAH FORMAT DATE (Y-m-d menjadi d-m-Y)

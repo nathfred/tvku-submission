@@ -28,4 +28,13 @@
             showConfirmButton: true,
         })
     </script>
+@elseif (Session::has('message') && Session::get('message') == 'npp-not-found')
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'NPP Salah!',
+        text: 'NPP Yang Dicari Tidak Ditemukan',
+        showConfirmButton: true,
+    })
+</script>
 @endif

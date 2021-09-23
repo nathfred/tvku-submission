@@ -155,6 +155,35 @@
                 </div>
             </div>
 
+            <div class="col-md-3 col-12">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title">Export Pegawai</h4>
+                    </div>
+                    <div class="card-content pt-0">
+                        <div class="card-body">
+                            <form class="form form-horizontal" method="POST" action="{{ route('create-pdf-employee') }}">
+                                @csrf
+                                @method('POST')
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>NPP</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" id="npp" class="form-control" name="npp">
+                                        </div>
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-success me-1 mb-1">Export</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </div>
 

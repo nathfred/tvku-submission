@@ -32,12 +32,12 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             // HAPUS SUBMISSION YANG SUDAH 2 HARI TIDAK DIRESPON HRD
             Submission::where('created_at', '>', Carbon::now('GMT+7')->subDays(2))->whereNull('hrd_approval')->delete();
-        })->daily();
+        })->daily()->timezone('Asia/Jakarta');
 
         $schedule->call(function () {
             // HAPUS SUBMISSION TIAP TAHUN BARU
             Submission::truncate();
-        })->yearly();
+        })->yearly()->timezone('Asia/Jakarta');
     }
 
     /**

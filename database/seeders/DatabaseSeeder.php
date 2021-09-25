@@ -59,6 +59,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // USER
+        // DISABLED FOR DEPLOYMENT
         User::factory(env('SAMPLE_USER', 10))->create();
         // for ($i = 2; $i < 12; $i++) {
         //     User::create([
@@ -80,6 +81,7 @@ class DatabaseSeeder extends Seeder
 
         // EMPLOYEE
         // Employee::factory(env('SAMPLE_USER', 10))->create();
+        // DISABLED FOR DEPLOYMENT
         $position_array = ['Manager', 'Kepala', 'Anggota'];
         $division_array = ['IT', 'Produksi', 'Teknis', 'Marketing', 'Keuangan', 'Umum', 'HRD'];
         for ($i = 8; $i < env('SAMPLE_USER', 10) + 8; $i++) {
@@ -93,6 +95,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // SUBMISSION
+        // DISABLED FOR DEPLOYMENT
         Submission::factory(5)->create();
     }
 }

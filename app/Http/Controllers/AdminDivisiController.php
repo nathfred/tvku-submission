@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Employee;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -255,5 +256,58 @@ class AdminDivisiController extends Controller
         } else {
             return redirect()->route('admindivisi-submission')->with('message', 'success-submission-unknown');
         }
+    }
+
+    public function employees()
+    {
+        // AMBIL DATA USER (ADMIN-DIVISI)
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+
+        // AMBIL DIVISI SESUAI ADMIN DIVISI (AMBIL DARI EMAIL)
+        $division = str_replace('divisi', '', $user->email);
+        $division = str_replace('@tvku.tv', '', $division);
+        $division = ucfirst($division);
+        if ($division == 'It') {
+            $division = 'IT';
+        }
+
+        $employees = Employee::orderBy('division', 'asc')->get();
+        // $approved_submissions = Submission::where('hrd_approval', 1)->where('division_approval', 1)->get();
+
+        $today = Carbon::today('GMT+7');
+        $month = $today->format('m');
+        $approved_submissions_month = Submission::where('hrd_approval', 1)->where('division_approval', 1)->whereMonth('start_date', $month)->get();
+
+        // SET KEY TO COLLECTIONS (FOR REMOVAL : FORGET METHOD NEEDS KEY)
+        $employees = $employees->keyBy('id');
+        // FILTER EMPLOYEE SESUAI DIVISI
+        foreach ($employees as $employee) {
+            if (!($employee->division == $division)) {
+                $employees->forget($employee->id);
+            }
+        }
+
+        // HITUNG BERAPA KALI EMPLOYEE SUDAH CUTI BULAN INI
+        foreach ($employees as $employee) {
+            // CARA 1 (WORKED BUT NOT EFFICIENT)
+            // $employee_month_submissions = Submission::where('employee_id', $employee->id)->where('hrd_approval', 1)->where('division_approval', 1)->whereMonth('start_date', $month)->get();
+            // $employee->total = $employee_month_submissions->count();
+
+            // CARA 2
+            $total_cuti = 0;
+            foreach ($approved_submissions_month as $sub) {
+                if ($sub->employee_id == $employee->id) {
+                    $total_cuti++;
+                }
+            }
+            $employee->total = $total_cuti;
+        }
+
+        return view('admin-divisi.employees', [
+            'title' => 'Daftar Pegawai',
+            'active' => 'employees',
+            'employees' => $employees,
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Submission;
@@ -194,5 +195,37 @@ class AdminHRDController extends Controller
         } else {
             return redirect()->route('adminhrd-submission')->with('message', 'success-submission-unknown');
         }
+    }
+
+    public function employees()
+    {
+        $employees = Employee::orderBy('division', 'asc')->get();
+        // $approved_submissions = Submission::where('hrd_approval', 1)->where('division_approval', 1)->get();
+
+        $today = Carbon::today('GMT+7');
+        $month = $today->format('m');
+        $approved_submissions_month = Submission::where('hrd_approval', 1)->where('division_approval', 1)->whereMonth('start_date', $month)->get();
+
+        // HITUNG BERAPA KALI EMPLOYEE SUDAH CUTI BULAN INI
+        foreach ($employees as $employee) {
+            // CARA 1 (WORKED BUT NOT EFFICIENT)
+            // $employee_month_submissions = Submission::where('employee_id', $employee->id)->where('hrd_approval', 1)->where('division_approval', 1)->whereMonth('start_date', $month)->get();
+            // $employee->total = $employee_month_submissions->count();
+
+            // CARA 2
+            $total_cuti = 0;
+            foreach ($approved_submissions_month as $sub) {
+                if ($sub->employee_id == $employee->id) {
+                    $total_cuti++;
+                }
+            }
+            $employee->total = $total_cuti;
+        }
+
+        return view('admin-hrd.employees', [
+            'title' => 'Daftar Pegawai',
+            'active' => 'employees',
+            'employees' => $employees,
+        ]);
     }
 }

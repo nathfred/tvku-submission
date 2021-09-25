@@ -47,6 +47,13 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item {{ ($active === "employees") ? 'active' : '' }}">
+                            <a href="{{ route('admindivisi-employee') }}" class='sidebar-link'>
+                                <i class="bi bi-file-person-fill"></i>
+                                <span>Daftar Pegawai</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item {{ ($active === "cuti") ? 'active' : '' }}">
                             <a href="{{ route('admindivisi-submission') }}" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>

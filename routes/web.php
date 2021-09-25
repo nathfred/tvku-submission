@@ -39,14 +39,20 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
 
 Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], function () {
     Route::get('/index', [AdminHRDController::class, 'index'])->name('adminhrd-index');
+
     Route::get('/submission', [AdminHRDController::class, 'show'])->name('adminhrd-submission');
     Route::get('/submission/{id}/{acc}', [AdminHRDController::class, 'acc_submission'])->name('adminhrd-submission-acc');
+
+    Route::get('/employee', [AdminHRDController::class, 'employees'])->name('adminhrd-employee');
 });
 
 Route::group(['middleware' => ['auth', 'admindivisi'], 'prefix' => 'admindivisi'], function () {
     Route::get('/index', [AdminDivisiController::class, 'index'])->name('admindivisi-index');
+
     Route::get('/submission', [AdminDivisiController::class, 'show'])->name('admindivisi-submission');
     Route::get('/submission/{id}/{acc}', [AdminDivisiController::class, 'acc_submission'])->name('admindivisi-submission-acc');
+
+    Route::get('/employee', [AdminDivisiController::class, 'employees'])->name('admindivisi-employee');
 });
 
 Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], function () {

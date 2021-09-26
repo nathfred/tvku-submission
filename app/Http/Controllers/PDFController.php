@@ -424,7 +424,7 @@ class PDFController extends Controller
         $today = Carbon::today('GMT+7');
 
         $this->fpdf->SetFont('Arial', 'B', 16);
-        $this->fpdf->Cell(150, 10, 'Pengajuan Cuti : ' . $employee->user->name . '(' . $today->year . ' )', 1, 0, 'C');
+        $this->fpdf->Cell(150, 10, 'Pengajuan Cuti : ' . $employee->user->name . ' (' . $today->year . ')', 1, 0, 'C');
 
         // Line break
         $this->fpdf->Ln(20);

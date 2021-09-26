@@ -26,24 +26,24 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th>Nama Lengkap</th>
-                                <th>I</th>
-                                <th>II</th>
-                                <th>III</th>
-                                <th>IV</th>
-                                <th>V</th>
-                                <th>VI</th>
-                                <th>VII</th>
-                                <th>VIII</th>
-                                <th>IX</th>
-                                <th>X</th>
-                                <th>XI</th>
-                                <th>XII</th>
+                                <th>Jan</th>
+                                <th>Feb</th>
+                                <th>Mar</th>
+                                <th>Apr</th>
+                                <th>Mei</th>
+                                <th>Jun</th>
+                                <th>Jul</th>
+                                <th>Ags</th>
+                                <th>Sep</th>
+                                <th>Okt</th>
+                                <th>Nov</th>
+                                <th>Des</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php
-                                $i = -1;
+                                $i = 0;
                             @endphp
                             @if ($employees->isNotEmpty())
                                 @foreach ($employees as $employee)
@@ -53,22 +53,17 @@
                                     <tr>
                                         <td class="text-center">{{ $i }}</td>
                                         <td>{{ $employee->user->name }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
-                                        <td>{{ $employee->month_sub[$i] }}</td>
+                                        @for ($j = 0; $j < 12; $j++)
+                                            @if ($employee->month_sub[$j] == 0)
+                                                <td class="text-center">-</td>
+                                            @else
+                                                <td class="text-center">{{ $employee->month_sub[$j] }}</td>
+                                            @endif
+                                        @endfor
                                         @if ($employee->total == 0)
-                                            <td>-</td> 
+                                            <td class="text-center">-</td> 
                                         @else
-                                            <td>{{ $employee->total }} Kali</td>
+                                            <td class="text-center">{{ $employee->total }} Kali</td>
                                         @endif
                                     </tr>
                                 @endforeach

@@ -236,20 +236,25 @@ class AdminHRDController extends Controller
 
         foreach ($employees as $employee) {
             $month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            // $month_sub[12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             $total = 0;
-            for ($i = 0; $i < 11; $i++) {
+            for ($i = 0; $i < 12; $i++) {
                 foreach ($approved_submissions as $sub) {
-                    if ($sub->employee_id == $employee->id) {
+                    $sub_month = Carbon::parse($sub->start_date);
+                    $sub_month = $sub_month->format('m');
+                    if ($sub->employee_id == $employee->id && $sub_month == $i + 1) {
                         $month_sub[$i] = $month_sub[$i] + 1;
                         $total++;
                     }
                 }
             }
             $employee->month_sub = $month_sub;
+            // dd($employee->month_sub);
             $employee->total = $total;
         }
 
-        dd($employees);
+        // dd($month_sub);
+        // dd($employees);
 
         return view('admin-hrd.archive', [
             'title' => 'Arsip Bulanan',

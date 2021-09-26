@@ -228,4 +228,33 @@ class AdminHRDController extends Controller
             'employees' => $employees,
         ]);
     }
+
+    public function archive()
+    {
+        $employees = Employee::orderBy('division', 'asc')->get();
+        $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->orderBy('employee_id', 'asc')->get();
+
+        foreach ($employees as $employee) {
+            $month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            $total = 0;
+            for ($i = 0; $i < 11; $i++) {
+                foreach ($approved_submissions as $sub) {
+                    if ($sub->employee_id == $employee->id) {
+                        $month_sub[$i] = $month_sub[$i] + 1;
+                        $total++;
+                    }
+                }
+            }
+            $employee->month_sub = $month_sub;
+            $employee->total = $total;
+        }
+
+        dd($employees);
+
+        return view('admin-hrd.archive', [
+            'title' => 'Arsip Bulanan',
+            'active' => 'archive',
+            'employees' => $employees
+        ]);
+    }
 }

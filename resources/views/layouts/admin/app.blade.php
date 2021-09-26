@@ -61,6 +61,13 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item {{ ($active === "archive") ? 'active' : '' }}">
+                            <a href="{{ route('adminhrd-archive') }}" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Rekap Bulanan</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

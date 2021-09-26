@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], fun
 
     Route::get('/submission', [AdminHRDController::class, 'show'])->name('adminhrd-submission');
     Route::get('/submission/{id}/{acc}', [AdminHRDController::class, 'acc_submission'])->name('adminhrd-submission-acc');
+    Route::get('/archive', [AdminHRDController::class, 'archive'])->name('adminhrd-archive');
 
     Route::get('/employee', [AdminHRDController::class, 'employees'])->name('adminhrd-employee');
 });

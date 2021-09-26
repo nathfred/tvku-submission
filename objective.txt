@@ -15,6 +15,8 @@ Objective :
 -Show Employees for AdminHRD&Divisi (DONE)
 -Update Register Page (Tanggal Lahir) (DONE)
 
+-Rekap Submission per Employee per Bulan
+
 -History Tahunan sebelumnya Tidak Perlu
 -Daily Execute (Delete 2 days old Submissions) (Wait for Deployment)
 -Yearly Excecute (Delete All Submissions)

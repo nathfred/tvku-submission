@@ -14,8 +14,7 @@ Objective :
 -PDF per employee by NPP (DONE)
 -Show Employees for AdminHRD&Divisi (DONE)
 -Update Register Page (Tanggal Lahir) (DONE)
-
--Rekap Submission per Employee per Bulan
+-Rekap Submission per Employee per Bulan (DONE)
 
 -History Tahunan sebelumnya Tidak Perlu
 -Daily Execute (Delete 2 days old Submissions) (Wait for Deployment)

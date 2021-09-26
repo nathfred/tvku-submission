@@ -200,7 +200,7 @@ class AdminDivisiController extends Controller
 
         return view('admin-divisi.submissions', [
             'title' => 'Daftar Pengajuan Cuti',
-            'active' => 'Cuti',
+            'active' => 'cuti',
             'total_submissions' => $total_submissions,
             'division' => $division
         ]);
@@ -308,6 +308,56 @@ class AdminDivisiController extends Controller
             'title' => 'Daftar Pegawai',
             'active' => 'employees',
             'employees' => $employees,
+        ]);
+    }
+
+    public function archive()
+    {
+        $employees = Employee::orderBy('division', 'asc')->get();
+        $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->orderBy('employee_id', 'asc')->get();
+
+        // AMBIL DATA USER (ADMIN-DIVISI)
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+
+        // AMBIL DIVISI SESUAI ADMIN DIVISI (AMBIL DARI EMAIL)
+        $division = str_replace('divisi', '', $user->email);
+        $division = str_replace('@tvku.tv', '', $division);
+        $division = ucfirst($division);
+        if ($division == 'It') {
+            $division = 'IT';
+        }
+
+        // SET KEY TO COLLECTIONS (FOR REMOVAL : FORGET METHOD NEEDS KEY)
+        $employees = $employees->keyBy('id');
+        // FILTER EMPLOYEE SESUAI DIVISI
+        foreach ($employees as $employee) {
+            if (!($employee->division == $division)) {
+                $employees->forget($employee->id);
+            }
+        }
+
+        foreach ($employees as $employee) {
+            $month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            $total = 0;
+            for ($i = 0; $i < 12; $i++) {
+                foreach ($approved_submissions as $sub) {
+                    $sub_month = Carbon::parse($sub->start_date);
+                    $sub_month = $sub_month->format('m');
+                    if ($sub->employee_id == $employee->id && $sub_month == $i + 1) {
+                        $month_sub[$i] = $month_sub[$i] + 1;
+                        $total++;
+                    }
+                }
+            }
+            $employee->month_sub = $month_sub;
+            $employee->total = $total;
+        }
+
+        return view('admin-divisi.archive', [
+            'title' => 'Arsip Bulanan',
+            'active' => 'archive',
+            'employees' => $employees
         ]);
     }
 }

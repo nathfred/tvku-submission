@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth', 'admindivisi'], 'prefix' => 'admindivisi'
 
     Route::get('/submission', [AdminDivisiController::class, 'show'])->name('admindivisi-submission');
     Route::get('/submission/{id}/{acc}', [AdminDivisiController::class, 'acc_submission'])->name('admindivisi-submission-acc');
+    Route::get('/archive', [AdminDivisiController::class, 'archive'])->name('admindivisi-archive');
 
     Route::get('/employee', [AdminDivisiController::class, 'employees'])->name('admindivisi-employee');
 });

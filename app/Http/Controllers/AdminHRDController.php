@@ -140,7 +140,7 @@ class AdminHRDController extends Controller
 
         return view('admin-hrd.submissions', [
             'title' => 'Daftar Pengajuan Cuti',
-            'active' => 'Cuti',
+            'active' => 'cuti',
             'total_submissions' => $total_submissions
         ]);
     }
@@ -236,7 +236,6 @@ class AdminHRDController extends Controller
 
         foreach ($employees as $employee) {
             $month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            // $month_sub[12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             $total = 0;
             for ($i = 0; $i < 12; $i++) {
                 foreach ($approved_submissions as $sub) {
@@ -249,12 +248,8 @@ class AdminHRDController extends Controller
                 }
             }
             $employee->month_sub = $month_sub;
-            // dd($employee->month_sub);
             $employee->total = $total;
         }
-
-        // dd($month_sub);
-        // dd($employees);
 
         return view('admin-hrd.archive', [
             'title' => 'Arsip Bulanan',

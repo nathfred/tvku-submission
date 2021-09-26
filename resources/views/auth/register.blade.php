@@ -25,18 +25,18 @@
                 <x-label for="gender" :value="__('Jenis Kelamin')" />
 
                 <div class="row">
-                    <div class="col">
-                        <x-input id="gender" class="mt-1" type="radio" name="gender" value="male" required />
+                    <div class="col col-1 mt-1">
+                        <x-input id="gender" type="radio" name="gender" value="male" required />
                     </div>
-                    <div class="col">
+                    <div class="col col-4 mt-1">
                         <x-label for="gender">Laki-laki</x-label> 
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <x-input id="gender" class="mt-1" type="radio" name="gender" value="female" required />
+                    <div class="col col-1 mt-1">
+                        <x-input id="gender" type="radio" name="gender" value="female" required />
                     </div>
-                    <div class="col">
+                    <div class="col col-4 mt-1">
                         <x-label for="gender">Perempuan</x-label> 
                     </div>
                 </div>
@@ -58,9 +58,9 @@
 
             <!-- Birth -->
             <div class="mt-4">
-                <x-label for="birth" :value="__('Tanggal Lahir (Contoh: 1990-05-31)')" />
+                <x-label for="birth" :value="__('Tanggal Lahir')" />
 
-                <x-input id="birth" class="block mt-1 w-full" type="text" name="birth" :value="old('birth')" required />
+                <x-input id="birth" class="block mt-1 w-full" type="date" name="birth" :value="old('birth')" required />
             </div>
 
             <!-- Last Education -->

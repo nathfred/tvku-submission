@@ -202,14 +202,18 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h4>Pengajuan Terakhir</h4>
+                        <h4>Pengajuan Terbaru</h4>
                     </div>
                     <div class="card-content pb-4">
                         @if ($recent_submissions->isNotEmpty())
                             @foreach ($recent_submissions as $submission)
                                 <div class="recent-message d-flex px-4 py-3">
                                     <div class="avatar avatar-lg">
-                                        <img src="{{ asset('images/faces/4') }}.jpg">
+                                        @if ($submission->employee->user->gender == 'female')
+                                            <img src="{{ asset('images/faces/female') }}.png">
+                                        @else
+                                            <img src="{{ asset('images/faces/male') }}.png">
+                                        @endif
                                     </div>
                                     <div class="name ms-4">
                                         <h5 class="mb-1">{{ $submission->employee->user->name }}</h5>

@@ -108,11 +108,14 @@
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-xl">
                                     @if ($user->gender == "male")
-                                        <i class="fas fa-grin-alt" style="width:50px; height:50px;"></i>
+                                        <img src="{{ asset('images/faces/male') }}.png">
+                                        {{-- <i class="fas fa-grin-alt" style="width:50px; height:50px;"></i> --}}
                                     @elseif ($user->gender == "female")
-                                        <i class="fas fa-smile-beam" style="width:50px; height:50px;"></i>
+                                        <img src="{{ asset('images/faces/female') }}.png">
+                                        {{-- <i class="fas fa-smile-beam" style="width:50px; height:50px;"></i> --}}
                                     @else
-                                        <i class="fas fa-laugh" style="width:50px; height:50px;"></i>
+                                        <img src="{{ asset('images/faces/male') }}.png">
+                                        {{-- <i class="fas fa-laugh" style="width:50px; height:50px;"></i> --}}
                                     @endif
                                 </div>
                                 <div class="ms-3 name">

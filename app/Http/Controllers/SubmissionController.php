@@ -35,6 +35,9 @@ class SubmissionController extends Controller
             // UBAH KE FORMAT CARBON
             $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
             $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+            // HITUNG DURASI
+            $duration = $sub->start_date->diffInDays($sub->end_date);
+            $sub->duration = $duration;
             // UBAH FORMAT KE d-m-Y
             $sub->start_date = $sub->start_date->format('d-m-Y');
             $sub->end_date = $sub->end_date->format('d-m-Y');
@@ -113,7 +116,7 @@ class SubmissionController extends Controller
 
         // PERIKSA REQUEST START DATE & END DATE
         if ($start_date_carbon >= $request->end_date) {
-            return redirect()->route('employee-submission-create')->with('message', 'incorrect-date2');
+            return redirect()->route('employee-submission-create')->with('message', 'incorrect-date');
         }
 
         // PERIKSA APAKAH EMPLOYEE SUDAH ABSEN 2X? MAX 2X SEBULAN KECUALI HAMIL

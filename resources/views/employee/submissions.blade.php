@@ -30,6 +30,7 @@
                                 <th>Keterangan</th>
                                 <th>Tanggal Ijin</th>
                                 <th>Tanggal Kembali</th>
+                                <th>Lama</th>
                                 <th>Acc Divisi</th>
                                 <th>Acc HRD</th>
                                 <th>Lampiran</th>
@@ -50,7 +51,8 @@
                                         <td>{{ $submission->type }}</td>
                                         <td>{{ $submission->description }}</td>
                                         <td>{{ $submission->start_date }}</td>
-                                        <td>{{ $submission->end_date}}</td>
+                                        <td>{{ $submission->end_date }}</td>
+                                        <td>{{ $submission->duration }} Hari</td>
                                         <!-- Acc Divisi -->
                                         @if ($submission->division_approval === NULL)
                                             <td>Belum direspon</td>
@@ -110,4 +112,7 @@
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
+
+@include('employee.alerts')
+
 @endsection

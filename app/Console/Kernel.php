@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
             // HAPUS SUBMISSION YANG SUDAH 2 HARI TIDAK DIRESPON HRD
-            Submission::where('created_at', '>', Carbon::now('GMT+7')->subDays(2))->whereNull('hrd_approval')->delete();
+            Submission::where('created_at', '>', Carbon::now('GMT+7')->subDays(2))->whereNull('hrd_approval')->orWhereNull('division_approval')->orWhere('hrd_approval', 0)->orWhere('division_approval', 0)->delete();
         })->daily()->timezone('Asia/Jakarta');
 
         $schedule->call(function () {

@@ -264,7 +264,7 @@ class PDFController extends Controller
                 $month_text = 'Juni';
                 break;
             case 7:
-                $month_text = 'July';
+                $month_text = 'Juli';
                 break;
             case 8:
                 $month_text = 'Agustus';
@@ -433,6 +433,37 @@ class PDFController extends Controller
     public function getEmployeeData($employee)
     {
         $submissions = Submission::where('employee_id', $employee->id)->orderBy('created_at', 'asc')->get();
+
+        // HITUNG DURASI START DATE -> END DATE (HARI)
+        foreach ($submissions as $sub) {
+            // UBAH KE FORMAT CARBON
+            $start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
+            $end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+            // HITUNG DURASI DALAM FORMAT CARBON
+            $duration = $start_date->diffInDays($end_date);
+            // TAMBAHKAN ATTRIBUT BARU (DURASI)
+            $sub->duration = $duration;
+        }
+
+        // UBAH FORMAT DATE (Y-m-d menjadi d-m-Y)
+        foreach ($submissions as $sub) {
+            // UBAH KE FORMAT CARBON
+            $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
+            $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+
+            if (!($sub->division_signed_date === NULL)) {
+                $sub->division_signed_date = Carbon::createFromFormat('Y-m-d', $sub->division_signed_date);
+                $sub->division_signed_date = $sub->division_signed_date->format('d-m-Y');
+            }
+            if (!($sub->hrd_signed_date === NULL)) {
+                $sub->hrd_signed_date = Carbon::createFromFormat('Y-m-d', $sub->hrd_signed_date);
+                $sub->hrd_signed_date = $sub->hrd_signed_date->format('d-m-Y');
+            }
+
+            // UBAH FORMAT KE d-m-Y
+            $sub->start_date = $sub->start_date->format('d-m-Y');
+            $sub->end_date = $sub->end_date->format('d-m-Y');
+        }
         return $submissions;
     }
 }

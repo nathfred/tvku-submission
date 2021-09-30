@@ -16,11 +16,13 @@ Objective :
 -Update Register Page (Tanggal Lahir) (DONE)
 -Rekap Submission per Employee per Bulan (DONE)
 
+-Fix Minor PDF Employee (DONE)
+
 REVISI:
--Jabatan : Manager, Kepala, Staff
--Divisi : Teknis -> Teknikal Support
--NPP : Validasi min 10 : max 15
--Password admin : TVKU1234
+-Jabatan : Manager, Kepala, Staff (DONE)
+-Divisi : Teknis -> Teknikal Support | Update filter per divisi (DONE)
+-NPP : Validasi min 10 : max 15 (DONE)
+-Password admin : TVKU1234 (DONE)
 
 -History Tahunan sebelumnya Tidak Perlu
 -Daily Execute (Delete 2 days old Submissions) (Wait for Deployment)

@@ -34,7 +34,7 @@ class EmployeeController extends Controller
         $user_id = Auth::id();
 
         $request->validate([
-            'npp' => ['min:10', 'max:10', 'unique:employees', 'required'],
+            'npp' => ['min:10', 'max:15', 'unique:employees', 'required'],
             'position' => ['string', 'required'],
             'division' => ['string', 'required'],
             'joined' => ['integer', 'required'],

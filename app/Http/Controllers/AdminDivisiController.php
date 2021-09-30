@@ -146,6 +146,10 @@ class AdminDivisiController extends Controller
         $division = ucfirst($division);
         if ($division == 'It') {
             $division = 'IT';
+        } elseif ($division == 'Teknikalsupport') {
+            $division = 'Teknikal Support';
+        } elseif ($division == 'Humanresources') {
+            $division = 'Human Resources';
         }
         // dd($division);
 
@@ -270,6 +274,10 @@ class AdminDivisiController extends Controller
         $division = ucfirst($division);
         if ($division == 'It') {
             $division = 'IT';
+        } elseif ($division == 'Teknikalsupport') {
+            $division = 'Teknikal Support';
+        } elseif ($division == 'Humanresources') {
+            $division = 'Human Resources';
         }
 
         $employees = Employee::orderBy('division', 'asc')->get();
@@ -326,6 +334,10 @@ class AdminDivisiController extends Controller
         $division = ucfirst($division);
         if ($division == 'It') {
             $division = 'IT';
+        } elseif ($division == 'Teknikalsupport') {
+            $division = 'Teknikal Support';
+        } elseif ($division == 'Humanresources') {
+            $division = 'Human Resources';
         }
 
         // SET KEY TO COLLECTIONS (FOR REMOVAL : FORGET METHOD NEEDS KEY)

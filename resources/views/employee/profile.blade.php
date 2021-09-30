@@ -162,8 +162,12 @@
                                                         <label class="form-check-label" for="position">Manager</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="position" id="position" value="Anggota">
-                                                        <label class="form-check-label" for="position">Anggota</label>
+                                                        <input class="form-check-input" type="radio" name="position" id="position" value="Kepala">
+                                                        <label class="form-check-label" for="position">Kepala</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="position" id="position" value="Staff">
+                                                        <label class="form-check-label" for="position">Staff</label>
                                                     </div>
                                                 @endif
                                             </div>
@@ -187,15 +191,15 @@
                                                         <label class="form-check-label" for="division">Produksi</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Teknis">
-                                                        <label class="form-check-label" for="division">Teknis</label>
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Teknikal Support">
+                                                        <label class="form-check-label" for="division">Teknikal Support</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="division" id="division" value="Marketing">
                                                         <label class="form-check-label" for="division">Marketing</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="HRD">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Human Resources">
                                                         <label class="form-check-label" for="division">Human Resources</label>
                                                     </div>
                                                     <div class="form-check">

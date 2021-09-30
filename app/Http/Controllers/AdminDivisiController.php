@@ -164,7 +164,9 @@ class AdminDivisiController extends Controller
             $start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
             $end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
             // HITUNG DURASI DALAM FORMAT CARBON
-            $duration = $start_date->diffInDays($end_date);
+            $duration = $start_date->diffInDaysFiltered(function (Carbon $date) {
+                return !$date->isWeekend();
+            }, $end_date);
             // TAMBAHKAN ATTRIBUT BARU (DURASI)
             $sub->duration = $duration;
         }

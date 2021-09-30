@@ -192,7 +192,7 @@
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="division" id="division" value="Teknikal Support">
-                                                        <label class="form-check-label" for="division">Teknikal Support</label>
+                                                        <label class="form-check-label" for="division">Teknik</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="division" id="division" value="Marketing">
@@ -201,6 +201,10 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="division" id="division" value="Human Resources">
                                                         <label class="form-check-label" for="division">Human Resources</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="division" id="division" value="News">
+                                                        <label class="form-check-label" for="division">News</label>
                                                     </div>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="division" id="division" value="Umum">

@@ -37,11 +37,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // ADMIN (DIVISION)
-        $name_array = ['Divisi IT', 'Divisi Produksi', 'Divisi Teknikal Support', 'Divisi Marketing', 'Divisi Keuangan', 'Divisi Umum', 'Divisi Human Resources'];
-        $division_array = ['IT', 'Produksi', 'Teknikal Support', 'Marketing', 'Keuangan', 'Umum', 'Human Resources'];
+        $name_array = ['Divisi IT', 'Divisi Produksi', 'Divisi Teknikal Support', 'Divisi Marketing', 'Divisi Keuangan', 'Divisi Umum', 'Divisi Human Resources', 'Divisi News'];
+        $division_array = ['IT', 'Produksi', 'Teknikal Support', 'Marketing', 'Keuangan', 'Umum', 'Human Resources', 'News'];
         $gender = $faker->randomElement(['male', 'female']);
 
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             User::create([
                 'name' => $name_array[$i],
                 'role' => 'admin-divisi',

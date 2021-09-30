@@ -36,7 +36,9 @@ class SubmissionController extends Controller
             $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
             $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
             // HITUNG DURASI
-            $duration = $sub->start_date->diffInDays($sub->end_date);
+            $duration = $sub->start_date->diffInDaysFiltered(function (Carbon $date) {
+                return !$date->isWeekend();
+            }, $sub->end_date);
             $sub->duration = $duration;
             // UBAH FORMAT KE d-m-Y
             $sub->start_date = $sub->start_date->format('d-m-Y');

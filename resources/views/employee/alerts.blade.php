@@ -59,4 +59,13 @@
             showConfirmButton: true,
         })
     </script>
+@elseif (Session::has('message') && Session::get('message') == 'incorrect-sub-id')
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Pengajuan Cuti Tidak Valid',
+            text: 'ID Pengajuan Cuti Tidak Ditemukan',
+            showConfirmButton: true,
+        })
+    </script>
 @endif

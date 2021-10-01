@@ -35,6 +35,7 @@
                                 <th>Acc HRD</th>
                                 <th>Lampiran</th>
                                 <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,6 +94,10 @@
                                                 <span class="badge bg-warning">Menunggu Konfirmasi</span>
                                             </td>
                                         @endif
+                                        <!-- Aksi -->
+                                        <td>
+                                            <a href="{{ route('create-pdf-submission', ['id' => $submission->id]) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else

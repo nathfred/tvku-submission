@@ -139,10 +139,12 @@
                                         @elseif ($submission->hrd_approval == '0')
                                             <td style="height: 70px;">
                                                 <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
+                                                <a href="{{ route('create-pdf-submission', ['id' => $submission->id]) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
                                             </td>
                                         @elseif ($submission->hrd_approval == '1')
                                             <td style="height: 70px;">
                                                 <a href="{{ route('adminhrd-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
+                                                <a href="{{ route('create-pdf-submission', ['id' => $submission->id]) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
                                             </td>
                                         @endif
                                     </tr>

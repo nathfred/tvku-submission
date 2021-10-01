@@ -470,4 +470,164 @@ class PDFController extends Controller
         }
         return $submissions;
     }
+
+    public function createPDFSubmission($id)
+    {
+        $submission = Submission::where('id', $id)->first();
+        if ($submission === NULL) {
+            return redirect()->route('employee-submission')->with('message', 'incorrect-sub-id');
+        }
+
+        // HITUNG DURASI START DATE -> END DATE (HARI)
+        // UBAH KE FORMAT CARBON
+        $start_date = Carbon::createFromFormat('Y-m-d', $submission->start_date);
+        $end_date = Carbon::createFromFormat('Y-m-d', $submission->end_date);
+        // HITUNG DURASI DALAM FORMAT CARBON
+        $duration = $start_date->diffInDaysFiltered(function (Carbon $date) {
+            return !$date->isWeekend();
+        }, $end_date);
+        // TAMBAHKAN ATTRIBUT BARU (DURASI)
+        $submission->duration = $duration;
+
+        // UBAH FORMAT DATE (Y-m-d menjadi d-m-Y)
+        // UBAH KE FORMAT CARBON
+        $submission->start_date = Carbon::createFromFormat('Y-m-d', $submission->start_date);
+        $submission->end_date = Carbon::createFromFormat('Y-m-d', $submission->end_date);
+        // UBAH FORMAT KE d-m-Y
+        $submission->start_date = $submission->start_date->format('d-m-Y');
+        $submission->end_date = $submission->end_date->format('d-m-Y');
+        if (!($submission->division_signed_date === NULL)) {
+            $submission->division_signed_date = Carbon::createFromFormat('Y-m-d', $submission->division_signed_date);
+            $submission->division_signed_date = $submission->division_signed_date->format('d-m-Y');
+        }
+        if (!($submission->hrd_signed_date === NULL)) {
+            $submission->hrd_signed_date = Carbon::createFromFormat('Y-m-d', $submission->hrd_signed_date);
+            $submission->hrd_signed_date = $submission->hrd_signed_date->format('d-m-Y');
+        }
+        // CONVERT TIMESTAMP TO STRING FORMAT (created_at ALWAYS IN TIMESTAMP FORMAT, USE OTHER VARIABLE -> created_date)
+        $created_at = Carbon::parse($submission->created_at);
+        $submission->created_date = $created_at->format('d-m-Y');
+
+        // UBAH APPROVAL HRD & DIVISI (BOOLEAN -> STRING)
+        if ($submission->division_approval === NULL) {
+            $submission->division_approval = 'Belum Direspon';
+        } elseif ($submission->division_approval == '0') {
+            $submission->division_approval = 'Ditolak';
+        } elseif ($submission->division_approval == '1') {
+            $submission->division_approval = 'Diterima';
+        }
+        if ($submission->hrd_approval === NULL) {
+            $submission->hrd_approval = 'Belum Direspon';
+        } elseif ($submission->hrd_approval == '0') {
+            $submission->hrd_approval = 'Ditolak';
+        } elseif ($submission->hrd_approval == '1') {
+            $submission->hrd_approval = 'Diterima';
+        }
+
+        $this->fpdf = new Fpdf;
+        $this->fpdf->AddPage("P", "A4");
+
+        $this->HeaderSubmission();
+
+        // COLUMN
+        $this->fpdf->SetFont('Arial', 'B', 14);
+        $this->fpdf->SetFillColor(193, 229, 252);
+        $this->fpdf->Cell(50, 10, 'Nama', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->employee->user->name, 0, 1, 'L', false);
+        $this->fpdf->Cell(50, 10, 'NPP', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->employee->npp, 0, 1, 'L', false);
+        $this->fpdf->Cell(50, 10, 'Jabatan', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->employee->position, 0, 1, 'L', false);
+        $this->fpdf->Cell(50, 10, 'Divisi', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->employee->division, 0, 1, 'L', false);
+        $this->fpdf->Cell(50, 10, 'Jenis Ijin', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->type, 0, 1, 'L', false);
+        $this->fpdf->Cell(50, 10, 'Tanggal Ijin', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->start_date, 0, 1, 'L', false);
+        $this->fpdf->Cell(50, 10, 'Tanggal Kembali', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->end_date, 0, 1, 'L', false);
+        $this->fpdf->Cell(50, 10, 'Lama Ijin', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->duration . ' Hari', 0, 1, 'L', false);
+        $this->fpdf->Cell(50, 10, 'Lampiran', 0, 0, 'L', false);
+        if ($submission->attachment === NULL) {
+            $this->fpdf->Cell(80, 10, ': Tanpa Lampiran', 0, 1, 'L', false);
+        } else {
+            $this->fpdf->Cell(80, 10, ': Ada Lampiran', 0, 1, 'L', false);
+        }
+        $this->fpdf->Cell(50, 10, 'Keterangan', 0, 0, 'L', false);
+        $this->fpdf->Cell(80, 10, ': ' . $submission->description, 0, 1, 'L', false);
+
+        // Line break
+        $this->fpdf->Ln(30);
+        $this->fpdf->Cell(20, 10, '', 0, 0, 'C'); // DUMMY SUPAYA KE KANAN
+        $this->fpdf->Cell(30, 10, 'Diajukan Oleh', 0, 0, 'L', false);
+        $this->fpdf->Cell(40, 10, '', 0, 0, 'C'); // DUMMY SUPAYA KE KANAN
+        $this->fpdf->Cell(40, 10, 'Disetujui Oleh', 0, 1, 'L', false);
+
+        // Line break
+        $this->fpdf->Ln(5);
+        $this->fpdf->Cell(20, 10, '', 0, 0, 'C'); // DUMMY SUPAYA KE KANAN
+        $this->fpdf->Cell(30, 10, 'Pegawai', 0, 0, 'L', false);
+        $this->fpdf->Cell(40, 10, '', 0, 0, 'C'); // DUMMY SUPAYA KE KANAN
+        $this->fpdf->Cell(40, 10, 'Manager Divisi', 0, 0, 'L', false);
+        $this->fpdf->Cell(40, 10, ' Manager HRD', 0, 1, 'L', false);
+
+        // Line break
+        $this->fpdf->Ln(10);
+        $this->fpdf->Cell(20, 10, '', 0, 0, 'C'); // DUMMY SUPAYA KE KANAN
+        // $this->fpdf->Cell(30, 10, $submission->employee->user->name, 0, 0, 'L', false);
+        $this->fpdf->Cell(30, 10, 'SETUJU', 1, 0, 'C', false);
+        $this->fpdf->Cell(40, 10, '', 0, 0, 'C'); // DUMMY SUPAYA KE KANAN
+        $this->fpdf->Cell(40, 10, $submission->division_approval, 1, 0, 'C', false);
+        $this->fpdf->Cell(40, 10, $submission->hrd_approval, 1, 1, 'C', false);
+
+        // Line break
+        $this->fpdf->Ln(10);
+        $this->fpdf->Cell(20, 10, '', 0, 0, 'C'); // DUMMY SUPAYA KE KANAN
+        $this->fpdf->Cell(30, 10, '(' . $submission->created_date . ')', 0, 0, 'C', false);
+        $this->fpdf->Cell(40, 10, '', 0, 0, 'C'); // DUMMY SUPAYA KE KANAN
+        if ($submission->division_approval == 'Belum Direspon') {
+            $this->fpdf->Cell(40, 10, '', 0, 0, 'C', false);
+        } else {
+            $this->fpdf->Cell(40, 10, '(' . $submission->division_signed_date . ')', 0, 0, 'C', false);
+        }
+        if ($submission->hrd_approval == 'Belum Direspon') {
+            $this->fpdf->Cell(40, 10, '', 0, 1, 'C', false);
+        } else {
+            $this->fpdf->Cell(40, 10, '(' . $submission->hrd_signed_date . ')', 0, 1, 'C', false);
+        }
+
+        // APAKAH ADA LAMPIRAN?
+        if (!($submission->attachment === NULL)) {
+            $this->fpdf->AddPage("P", "A4");
+
+            $this->fpdf->SetFont('Arial', 'B', 16);
+            $this->fpdf->Cell(50, 10, '', 0, 0, 'C'); // DUMMY SUPAYA JUDUL CENTER
+            $this->fpdf->Cell(80, 10, 'LAMPIRAN CUTI', 1, 1, 'C');
+            // Line break
+            $this->fpdf->Ln(10);
+
+            $this->fpdf->Image("data_file/cuti/$submission->attachment", NULL, NULL, 190, 190);
+        }
+
+        // PRINT
+        $this->fpdf->Output();
+        exit;
+    }
+
+    public function HeaderSubmission()
+    {
+        $this->fpdf->Image("img/tvku_logo_ori.png", NULL, NULL, 30, 17);
+        $this->fpdf->Cell(0, 0, '', 0, 1, 'C', false); // DUMMY CELL UNTUK ENTER SETELAH GAMBAR
+
+        // Line break
+        $this->fpdf->Ln(5);
+
+        $this->fpdf->SetFont('Arial', 'B', 16);
+        $this->fpdf->Cell(50, 10, '', 0, 0, 'C'); // DUMMY SUPAYA JUDUL CENTER
+        $this->fpdf->Cell(100, 10, 'IJIN TIDAK MASUK BEKERJA', 1, 0, 'C');
+
+        // Line break
+        $this->fpdf->Ln(20);
+    }
 }

@@ -19,6 +19,11 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
+                    <div class="d-flex flex-row bd-highlight">
+                        <div class="buttons">
+                            <a href="{{ route('create-pdf-archive2',['division'=>$division]) }}" class="btn btn-success rounded-pill me-1">Export Tabel</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1" name="table1">

@@ -156,7 +156,8 @@ class AdminDivisiController extends Controller
         $today = Carbon::today('GMT+7');
         $today = $today->format('Y-m-d');
 
-        $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'desc')->get();
+        // $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'desc')->get();
+        $total_submissions = Submission::orderBy('created_at', 'desc')->get();
 
         // HITUNG DURASI START DATE -> END DATE (HARI)
         foreach ($total_submissions as $sub) {
@@ -371,7 +372,8 @@ class AdminDivisiController extends Controller
         return view('admin-divisi.archive', [
             'title' => 'Arsip Bulanan',
             'active' => 'archive',
-            'employees' => $employees
+            'employees' => $employees,
+            'division' => $division
         ]);
     }
 }

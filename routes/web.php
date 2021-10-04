@@ -76,6 +76,9 @@ Route::group(['middleware' => ['auth',]], function () {
     Route::post('/pdf-employee', [PDFController::class, 'createPDFEmployee'])->name('create-pdf-employee');
 
     Route::get('/pdf-submission/{id}', [PDFController::class, 'createPDFSubmission'])->name('create-pdf-submission');
+
+    Route::get('/pdf-archive', [PDFController::class, 'createPDFArchive'])->name('create-pdf-archive');
+    Route::get('/pdf-archive/{division}', [PDFController2::class, 'createPDFArchive'])->name('create-pdf-archive2');
 });
 
 

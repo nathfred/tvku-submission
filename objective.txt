@@ -15,8 +15,8 @@ Objective :
 -Show Employees for AdminHRD&Divisi (DONE)
 -Update Register Page (Tanggal Lahir) (DONE)
 -Rekap Submission per Employee per Bulan (DONE)
-
 -Fix Minor PDF Employee (DONE)
+-PDF for Archive HRD&Divisi (DONE)
 
 REVISI:
 -Jabatan : Manager, Kepala, Staff (DONE)

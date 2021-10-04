@@ -630,4 +630,127 @@ class PDFController extends Controller
         // Line break
         $this->fpdf->Ln(20);
     }
+
+    public function createPDFArchive()
+    {
+        $this->fpdf = new Fpdf;
+        $this->fpdf->AddPage("P", "A4");
+
+        $this->HeaderArchive();
+
+        // COLUMN
+        $this->fpdf->SetFont('Arial', 'B', 12);
+        $this->fpdf->SetFillColor(193, 229, 252);
+        $this->fpdf->Cell(10, 10, 'No', 1, 0, 'C', false);
+        $this->fpdf->Cell(40, 10, 'Nama Lengkap', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Jan', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Feb', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Mar', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Apr', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Mei', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Jun', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Jul', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Ags', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Sep', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Okt', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Nov', 1, 0, 'C', false);
+        $this->fpdf->Cell(10, 10, 'Des', 1, 0, 'C', false);
+        $this->fpdf->Cell(20, 10, 'Total', 1, 1, 'C', false);
+
+        // BODY (LOOP)
+        $employees = $this->getArchiveData();
+        $current_height = 60;
+        $this->fpdf->SetFont('Arial', '', 12);
+        $i = 1;
+        foreach ($employees as $employee) {
+            // CEK HALAMAN UNTUK POSISI ENTRY PALING ATAS HALAMAN TSB
+            if ($i == 1) { // HALAMAN PERTAMA
+                $current_height = 60;
+            } else { // SELAIN HALAMAN PERTAMA
+                $current_height = 30;
+            }
+            // PERIKSA POSISI Y (NEXT PAGE)
+            if ($current_height >= $this->fpdf->GetPageHeight() - 30) {
+                $this->fpdf->AddPage("P", "A4");
+            }
+
+            $cell_height = 10;
+            $cell_width = 40;
+            $font_size = 12;
+
+            // NO
+            $this->fpdf->Cell(10, $cell_height, $i, 1, 0, 'C', false);
+
+            // EMPLOYEE NAME
+            $temp_font_size = $font_size;
+            while ($this->fpdf->GetStringWidth($employee->user->name) > $cell_width) {
+                $this->fpdf->SetFontSize($temp_font_size);
+                $temp_font_size = $temp_font_size - 1;
+            }
+            $this->fpdf->Cell(40, $cell_height, $employee->user->name, 1, 0, 'C', false);
+            $this->fpdf->SetFontSize($font_size);
+
+            // MONTH SUBS (LOOP)
+            for ($j = 0; $j < 12; $j++) {
+                if ($employee->month_sub[$j] == 0) {
+                    $this->fpdf->Cell(10, $cell_height, '-', 1, 0, 'C', false);
+                } else {
+                    $this->fpdf->Cell(10, $cell_height, $employee->month_sub[$j], 1, 0, 'C', false);
+                }
+            }
+
+            // TOTAL
+            $this->fpdf->Cell(20, $cell_height, $employee->total . ' kali', 1, 1, 'C', false);
+
+            $current_height = $current_height + $cell_height;
+            $i++;
+        }
+
+        // PRINT
+        $this->fpdf->Output();
+        exit;
+    }
+
+    public function HeaderArchive()
+    {
+        $year = Carbon::today('GMT+7')->year;
+
+        $this->fpdf->Image("img/tvku_logo_ori.png", NULL, NULL, 30, 17);
+        $this->fpdf->Cell(0, 0, '', 0, 1, 'C', false); // DUMMY CELL UNTUK ENTER SETELAH GAMBAR
+
+        // Line break
+        $this->fpdf->Ln(5);
+
+        $this->fpdf->SetFont('Arial', 'B', 16);
+        $this->fpdf->Cell(50, 10, '', 0, 0, 'C'); // DUMMY SUPAYA JUDUL CENTER
+        $this->fpdf->Cell(100, 10, 'REKAP CUTI PEGAWAI ' . '(' . $year . ')', 1, 0, 'C');
+
+        // Line break
+        $this->fpdf->Ln(20);
+    }
+
+    public function getArchiveData()
+    {
+        $employees = Employee::orderBy('division', 'asc')->get();
+        $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->orderBy('employee_id', 'asc')->get();
+
+        foreach ($employees as $employee) {
+            $month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            $total = 0;
+            for ($i = 0; $i < 12; $i++) {
+                foreach ($approved_submissions as $sub) {
+                    $sub_month = Carbon::parse($sub->start_date);
+                    $sub_month = $sub_month->format('m');
+                    if ($sub->employee_id == $employee->id && $sub_month == $i + 1) {
+                        $month_sub[$i] = $month_sub[$i] + 1;
+                        $total++;
+                    }
+                }
+            }
+            $employee->month_sub = $month_sub;
+            $employee->total = $total;
+        }
+
+        return $employees;
+    }
 }

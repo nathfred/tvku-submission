@@ -34,7 +34,7 @@ class PDFController extends Controller
         if ($month_text == 'All-month') {
             $this->fpdf->Cell(100, 10, 'Pengajuan Cuti : Tahun ' . $today->year, 1, 0, 'C');
         } elseif ($month_text == 'Non-month') {
-            $this->fpdf->Cell(100, 10, 'Pengajuan Cuti : Akan Datang ', 1, 0, 'C');
+            $this->fpdf->Cell(100, 10, 'Pengajuan Cuti : Total ', 1, 0, 'C');
         } else {
             $this->fpdf->Cell(100, 10, 'Pengajuan Cuti : Bulan ' . $month_text, 1, 0, 'C');
         }
@@ -172,7 +172,8 @@ class PDFController extends Controller
 
         switch ($month) {
             case 0: { // DATA SUBMISSION DI TABEL ADMIN
-                    $total_submissions = Submission::where('end_date', '>', $today)->orderBy('start_date', 'desc')->get();
+                    // $total_submissions = Submission::where('end_date', '>', $today)->orderBy('start_date', 'desc')->get();
+                    $total_submissions = Submission::orderBy('created_at', 'desc')->get();
                     break;
                 }
 
@@ -188,7 +189,7 @@ class PDFController extends Controller
 
             default: { // DATA SUBMISSION BULAN 1 - 12 TAHUN INI
                     if ($month < 1 || $month > 12) { // JIKA PARAM MONTH DILUAR NALAR
-                        $total_submissions = Submission::where('end_date', '>', $today)->get();
+                        $total_submissions = Submission::where('end_date', '>', $today)->orderBy('start_date', 'desc')->get();
                     } else {
                         $total_submissions = Submission::whereYear('start_date', $today_carbon->year)->whereMonth('start_date', $month)->orWhereMonth('end_date', $month)->orderBy('start_date', 'asc')->get();
                         // END DATE TANGGAL 1 PADA BULAN DEPAN TIDAK TERMASUK (HAPUS DARI COLLECTION)

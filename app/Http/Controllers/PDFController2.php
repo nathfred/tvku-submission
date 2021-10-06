@@ -172,8 +172,9 @@ class PDFController2 extends Controller
         $today = $today_carbon->format('Y-m-d');
 
         switch ($month) {
-            case 0: { // DATA SUBMISSION DI TABEL ADMIN
-                    $total_submissions = Submission::where('end_date', '>', $today)->get();
+            case 0: { // DATA SUBMISSION DI TABEL ADMIN DIVISI
+                    // $total_submissions = Submission::where('end_date', '>', $today)->orderBy('start_date', 'desc')->get();
+                    $total_submissions = Submission::orderBy('created_at', 'desc')->get();
                     break;
                 }
 

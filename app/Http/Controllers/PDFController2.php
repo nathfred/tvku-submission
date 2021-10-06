@@ -33,7 +33,7 @@ class PDFController2 extends Controller
         if ($month_text == 'All-month') {
             $this->fpdf->Cell(150, 10, 'Pengajuan Cuti : Tahun ' . $today->year . ' (' . $division . ')', 1, 0, 'C');
         } elseif ($month_text == 'Non-month') {
-            $this->fpdf->Cell(150, 10, 'Pengajuan Cuti : Akan Datang ' . ' (' . $division . ')', 1, 0, 'C');
+            $this->fpdf->Cell(150, 10, 'Pengajuan Cuti : Total ' . ' (' . $division . ')', 1, 0, 'C');
         } else {
             $this->fpdf->Cell(150, 10, 'Pengajuan Cuti : Bulan ' . $month_text . ' (' . $division . ')', 1, 0, 'C');
         }

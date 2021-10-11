@@ -21,6 +21,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME_EMPLOYEE = '/employee/profile';
     public const HOME_ADMIN_HRD = '/adminhrd/index';
     public const HOME_ADMIN_DIVISI = '/admindivisi/index';
+    public const HOME_SUPER = '/super/index';
 
     /**
      * The controller namespace for the application.

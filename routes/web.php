@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminHRDController;
 use App\Http\Controllers\AdminDivisiController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\SuperController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PDFController2;
 use Illuminate\Support\Facades\Route;
@@ -33,8 +34,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function () {
-    Route::get('/index', [AdminController::class, 'index'])->name('admin-index');
+Route::group(['middleware' => ['auth', 'super'], 'prefix' => 'super'], function () {
+    Route::get('/index', [SuperController::class, 'index'])->name('super-index');
 });
 
 Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], function () {

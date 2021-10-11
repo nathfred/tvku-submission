@@ -78,7 +78,6 @@ class DatabaseSeeder extends Seeder
         //     ]);
         // }
 
-
         // EMPLOYEE
         // Employee::factory(env('SAMPLE_USER', 10))->create();
         // DISABLED FOR DEPLOYMENT

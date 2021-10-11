@@ -47,27 +47,6 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ ($active === "employees") ? 'active' : '' }}">
-                            <a href="{{ route('adminhrd-employee') }}" class='sidebar-link'>
-                                <i class="bi bi-file-person-fill"></i>
-                                <span>Daftar Pegawai</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item {{ ($active === "cuti") ? 'active' : '' }}">
-                            <a href="{{ route('adminhrd-submission') }}" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Daftar Pengajuan</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item {{ ($active === "archive") ? 'active' : '' }}">
-                            <a href="{{ route('adminhrd-archive') }}" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-bar-graph-fill"></i>
-                                <span>Rekap Bulanan</span>
-                            </a>
-                        </li>
-
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

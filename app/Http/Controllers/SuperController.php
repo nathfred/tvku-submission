@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SuperController extends Controller
 {
@@ -13,9 +16,14 @@ class SuperController extends Controller
      */
     public function index()
     {
+        $users = User::all();
+        $employees = Employee::all();
+
         return view('super.index', [
             'title' => 'Super Index',
             'active' => 'index',
+            'users' => $users,
+            'employees' => $employees
         ]);
     }
 
@@ -83,5 +91,38 @@ class SuperController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function show_user($id)
+    {
+        $user = User::where('id', $id)->first();
+        $employee = Employee::where('user_id', $id)->first();
+
+        // PERIKSA APAKAH USER SUDAH DAFTAR EMPLOYEE
+        if ($employee === NULL) {
+            $already_employee = 'FALSE';
+        } else {
+            $already_employee = 'TRUE';
+        }
+
+        return view('super.user_profile', [
+            'title' => 'Super Index',
+            'active' => 'index',
+            'user' => $user,
+            'employee' => $employee,
+            'already_employee' => $already_employee
+        ]);
+    }
+
+    public function edit_user($id)
+    {
+    }
+
+    public function edit_employee($id)
+    {
+    }
+
+    public function delete_user($id)
+    {
     }
 }

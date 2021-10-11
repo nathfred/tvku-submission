@@ -36,6 +36,13 @@ Route::get('/dashboard', function () {
 
 Route::group(['middleware' => ['auth', 'super'], 'prefix' => 'super'], function () {
     Route::get('/index', [SuperController::class, 'index'])->name('super-index');
+
+    Route::get('/show/user/{id}', [SuperController::class, 'show_user'])->name('super-show-user');
+
+    Route::post('/edit/user/{id}', [SuperController::class, 'edit_user'])->name('super-edit-user');
+    Route::post('/edit/employee/{id}', [SuperController::class, 'edit_employee'])->name('super-edit-employee');
+
+    Route::get('/delete/user/{id}', [SuperController::class, 'delete_user'])->name('super-delete-user');
 });
 
 Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], function () {

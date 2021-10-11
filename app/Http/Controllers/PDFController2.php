@@ -161,8 +161,20 @@ class PDFController2 extends Controller
             $i++;
         }
 
+        $today = Carbon::today('GMT+7');
+        // AMBIL BULAN DALAM TEXT
+        $month_text = $this->monthToText($month);
+        $file_name = '';
+        if ($month_text == 'All-month') {
+            $file_name = 'Tahun_' . $today->year;
+        } elseif ($month_text == 'Non-month') {
+            $file_name = 'Total';
+        } else {
+            $file_name = 'Bulan_' . $month_text . '_Tahun_' . $today->year;
+        }
+
         // PRINT
-        $this->fpdf->Output();
+        $this->fpdf->Output('D', 'Rekap_' . $file_name . '_' . $division . '.pdf');
         exit;
     }
 
@@ -379,8 +391,10 @@ class PDFController2 extends Controller
             $i++;
         }
 
+        $today = Carbon::today('GMT+7');
+        $file_name = 'Jumlah_Total_Pengajuan_Pegawai';
         // PRINT
-        $this->fpdf->Output();
+        $this->fpdf->Output('D', 'Rekap_' . $file_name  . '_' . $division . '.pdf');
         exit;
     }
 

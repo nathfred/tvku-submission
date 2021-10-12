@@ -165,63 +165,55 @@
                                                 <label>Jabatan</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                @if ($already_employee == "TRUE")
-                                                    <input type="text" id="position" class="form-control" name="position" value="{{ $employee->position }}" >
-                                                @elseif ($already_employee == "FALSE")
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="position" id="position" value="Manager" required>
-                                                        <label class="form-check-label" for="position">Manager</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="position" id="position" value="Kepala">
-                                                        <label class="form-check-label" for="position">Kepala</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="position" id="position" value="Staff">
-                                                        <label class="form-check-label" for="position">Staff</label>
-                                                    </div>
-                                                @endif
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="position" id="position" value="Manager" required {{ ($employee->position == "Manager") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="position">Manager</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="position" id="position" value="Kepala" {{ ($employee->position == "Kepala") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="position">Kepala</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="position" id="position" value="Staff" {{ ($employee->position == "Staff") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="position">Staff</label>
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Divisi</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                @if ($already_employee == "TRUE")
-                                                    <input type="text" id="division" class="form-control" name="division" value="{{ $employee->division }}" >
-                                                @elseif ($already_employee == "FALSE")
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="IT" required>
-                                                        <label class="form-check-label" for="division">IT</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Keuangan">
-                                                        <label class="form-check-label" for="division">Keuangan</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Produksi">
-                                                        <label class="form-check-label" for="division">Produksi</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Teknikal Support">
-                                                        <label class="form-check-label" for="division">Teknik</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Marketing">
-                                                        <label class="form-check-label" for="division">Marketing</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Human Resources">
-                                                        <label class="form-check-label" for="division">Human Resources</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="News">
-                                                        <label class="form-check-label" for="division">News</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="division" id="division" value="Umum">
-                                                        <label class="form-check-label" for="division">Umum</label>
-                                                    </div>
-                                                @endif
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="IT" required {{ ($employee->division == "IT") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="division">IT</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Keuangan" {{ ($employee->division == "Keuangan") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="division">Keuangan</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Produksi" {{ ($employee->division == "Produksi") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="division">Produksi</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Teknikal Support" {{ ($employee->division == "Teknikal Support") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="division">Teknik</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Marketing" {{ ($employee->division == "Marketing") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="division">Marketing</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Human Resources" {{ ($employee->division == "Human Resources") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="division">Human Resources</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="News" {{ ($employee->division == "News") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="division">News</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="division" id="division" value="Umum" {{ ($employee->division == "Umum") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="division">Umum</label>
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Tahun Bergabung</label>
@@ -258,6 +250,6 @@
 
     </div>
 
-@include('employee.alerts')
+@include('super.alerts')
 
 @endsection

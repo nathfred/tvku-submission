@@ -30,7 +30,7 @@ TAMBAHAN: SUPER USER
 -Create,Read,Update,Delete : User (Read, Update, Delete)
 -Create,Read,Update,Delete : Employee (Read, Update, Delete)
 -Create,Read,Update,Delete : Submission (Delete)
--Alerts
+-Alerts (DONE)
 
 -History Tahunan sebelumnya Tidak Perlu
 -Daily Execute (Delete 2 days old Submissions) (NOT WORKED)

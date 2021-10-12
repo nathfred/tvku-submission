@@ -122,24 +122,24 @@ class SuperController extends Controller
 
         // CEK APAKAH ADA
         if ($user === NULL) {
-            return back()->with('message', 'failed-update');
+            return back()->with('message', 'user-not-found');
         }
 
         // VALIDASI
-        if ($user->email == $request->email) {
+        if ($user->email == $request->email) { // JIKA GANTI EMAIL
             $request->validate([
                 'email' => ['required', 'string', 'email', 'max:64']
             ]);
-        } else {
+        } else { // JIKA EMAIL TETAP SAMA
             $request->validate([
                 'email' => ['required', 'string', 'email', 'max:64', 'unique:users']
             ]);
         }
-        if ($user->ktp == $request->ktp) {
+        if ($user->ktp == $request->ktp) { // JIKA GANTI KTP
             $request->validate([
                 'ktp' => ['required', 'string', 'min:16', 'max:16']
             ]);
-        } else {
+        } else { // JIKA KTP TETAP SAMA
             $request->validate([
                 'ktp' => ['required', 'string', 'min:16', 'max:16', 'unique:users']
             ]);
@@ -166,7 +166,7 @@ class SuperController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        return redirect(route('super-show-user', ['id' => $user->id]))->with('message', 'success-update');
+        return redirect(route('super-show-user', ['id' => $user->id]))->with('message', 'success-update-user');
     }
 
     public function edit_employee(Request $request, $id)
@@ -175,12 +175,21 @@ class SuperController extends Controller
 
         // CEK APAKAH ADA
         if ($employee === NULL) {
-            return back()->with('message', 'failed-update');
+            return back()->with('message', 'user-not-found');
         }
 
         // VALIDASI
+        if ($employee->npp == $request->npp) { // JIKA GANTI NPP
+            $request->validate([
+                'npp' => ['min:10', 'max:15', 'required'],
+            ]);
+        } else { // JIKA NPP TETAP SAMA
+            $request->validate([
+                'npp' => ['min:10', 'max:15', 'unique:employees', 'required']
+            ]);
+        }
         $request->validate([
-            'npp' => ['min:10', 'max:15', 'unique:employees', 'required'],
+            'npp' => ['min:10', 'max:15', 'required'],
             'position' => ['string', 'required'],
             'division' => ['string', 'required'],
             'joined' => ['integer', 'required'],
@@ -193,7 +202,7 @@ class SuperController extends Controller
         $employee->joined = $request->joined;
         $employee->save();
 
-        return redirect(route('super-show-user', ['id' => $employee->user->id]))->with('message', 'success-update');
+        return redirect(route('super-show-user', ['id' => $employee->user->id]))->with('message', 'success-update-employee');
     }
 
     public function delete_user($id)
@@ -203,7 +212,7 @@ class SuperController extends Controller
 
         // CEK APAKAH ADA
         if ($user === NULL) {
-            return back()->with('message', 'failed-update');
+            return back()->with('message', 'user-not-found');
         }
 
         if ($employee_target === NULL) {

@@ -66,12 +66,13 @@
                                         @endif
                                         <td style="height: 70px;">
                                             <a href="{{ route('super-show-user', ['id' => $employee->user->id]) }}" class="btn btn-info"><i class="bi bi-arrow-left-square"></i></a>
-                                            <a href="{{ route('super-delete-user', ['id' => $employee->user->id]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
+                                            {{-- <a href="{{ route('super-delete-user', ['id' => $employee->user->id]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a> --}}
+                                            <button class="btn btn-danger" onclick="delete_confirm3()"><i class="bi bi-x-square"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
                             @else
-                                <tr><td align='center' colspan='15'>Tidak Ada Pengajuan</td></tr>
+                                <tr><td align='center' colspan='15'>Tidak Ada Data</td></tr>
                             @endif
                         </tbody>
                     </table>
@@ -86,6 +87,86 @@
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+    <script>
+        function delete_confirm() {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Aksi ini tidak dapat diulangi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus data!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Terhapus!',
+                        'Data berhasil terhapus.',
+                        'success'
+                    )
+                    // window.location.href = "{{ route('super-delete-user', ['id' => $employee->user->id]) }}";
+                }
+            })
+        }
+    </script>
+    <script>
+        function delete_confirm2() {
+            const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+                )
+            }
+            })
+        }
+    </script>
+    <script>
+        function delete_confirm3() {
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                showConfirmButton: true,
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: 'Dont save',
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('super-delete-user', ['id' => $employee->user->id]) }}";
+                    Swal.fire('Saved!', '', 'success')
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                }
+            })
+        }
     </script>
 
 @include('admin-hrd.alerts')

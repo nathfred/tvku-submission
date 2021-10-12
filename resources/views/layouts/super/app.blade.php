@@ -75,6 +75,8 @@
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
 
     <script src="{{ asset('js/main.js') }}"></script>
+    {{-- <script src="{{ asset('js/super_confirms.js') }}"></script> --}}
+    
 </body>
 
 </html>

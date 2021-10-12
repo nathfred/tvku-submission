@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class SuperController extends Controller
@@ -114,15 +116,107 @@ class SuperController extends Controller
         ]);
     }
 
-    public function edit_user($id)
+    public function edit_user(Request $request, $id)
     {
+        $user = User::find($id);
+
+        // CEK APAKAH ADA
+        if ($user === NULL) {
+            return back()->with('message', 'failed-update');
+        }
+
+        // VALIDASI
+        if ($user->email == $request->email) {
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:64']
+            ]);
+        } else {
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:64', 'unique:users']
+            ]);
+        }
+        if ($user->ktp == $request->ktp) {
+            $request->validate([
+                'ktp' => ['required', 'string', 'min:16', 'max:16']
+            ]);
+        } else {
+            $request->validate([
+                'ktp' => ['required', 'string', 'min:16', 'max:16', 'unique:users']
+            ]);
+        }
+        $request->validate([
+            'name' => ['required', 'string', 'min:4', 'max:255'],
+            'gender' => ['required'],
+            'ktp' => ['required', 'string', 'min:16', 'max:16'],
+            'address' => ['required', 'string', 'min:4', 'max:128'],
+            'birth' => ['required', 'date_format:Y-m-d'],
+            'last_education' => ['required', 'string'],
+            'phone' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'max:64'],
+        ]);
+
+        // UPDATE ATTRIBUTE
+        $user->name = $request->name;
+        $user->gender = $request->gender;
+        $user->ktp = $request->ktp;
+        $user->address = $request->address;
+        $user->birth = $request->birth;
+        $user->last_education = $request->last_education;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect(route('super-show-user', ['id' => $user->id]))->with('message', 'success-update');
     }
 
-    public function edit_employee($id)
+    public function edit_employee(Request $request, $id)
     {
+        $employee = Employee::find($id);
+
+        // CEK APAKAH ADA
+        if ($employee === NULL) {
+            return back()->with('message', 'failed-update');
+        }
+
+        // VALIDASI
+        $request->validate([
+            'npp' => ['min:10', 'max:15', 'unique:employees', 'required'],
+            'position' => ['string', 'required'],
+            'division' => ['string', 'required'],
+            'joined' => ['integer', 'required'],
+        ]);
+
+        // UPDATE ATTRIBUTE
+        $employee->npp = $request->npp;
+        $employee->position = $request->position;
+        $employee->division = $request->division;
+        $employee->joined = $request->joined;
+        $employee->save();
+
+        return redirect(route('super-show-user', ['id' => $employee->user->id]))->with('message', 'success-update');
     }
 
     public function delete_user($id)
     {
+        $user = User::find($id);
+        $employee_target = Employee::where('user_id', $id)->first();
+
+        // CEK APAKAH ADA
+        if ($user === NULL) {
+            return back()->with('message', 'failed-update');
+        }
+
+        if ($employee_target === NULL) {
+        } else {
+            // HAPUS SUBMISSION
+            DB::table('submissions')->where('employee_id', $employee_target->id)->delete();
+            // HAPUS EMPLOYEE
+            $employee = Employee::find($employee_target->id);
+            $employee->delete();
+        }
+        // HAPUS USER
+        $user->delete();
+
+        return redirect(route('super-index'))->with('message', 'success-delete');
     }
 }

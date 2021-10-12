@@ -13,6 +13,7 @@
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <h3>Daftar Pegawai</h3>
                     <p class="text-subtitle text-muted">Tabel Daftar Pegawai TVKU</p>
+                    <a href="/logout" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>

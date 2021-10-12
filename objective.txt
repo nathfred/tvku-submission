@@ -27,9 +27,10 @@ REVISI:
 TAMBAHAN: SUPER USER
 -role = 'super' (DONE)
 -Routing, Middleware, Kernel, RouteServiceProvider (DONE)
--Create,Read,Update,Delete : User
--Create,Read,Update,Delete : Employee
--Create,Read,Update,Delete : Submission
+-Create,Read,Update,Delete : User (Read, Update, Delete)
+-Create,Read,Update,Delete : Employee (Read, Update, Delete)
+-Create,Read,Update,Delete : Submission (Delete)
+-Alerts
 
 -History Tahunan sebelumnya Tidak Perlu
 -Daily Execute (Delete 2 days old Submissions) (NOT WORKED)

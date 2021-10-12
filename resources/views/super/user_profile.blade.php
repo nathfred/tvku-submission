@@ -31,7 +31,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form form-horizontal" method="POST" action="{{ route('super-edit-user')}}">
+                                <form class="form form-horizontal" method="POST" action="{{ route('super-edit-user', ['id' => $user->id]) }}">
                                     @csrf
                                     @method('POST')
                                     <div class="form-body">
@@ -47,13 +47,21 @@
                                                 <label>Jenis Kelamin</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                @if ($user->gender == 'male')
+                                                {{-- @if ($user->gender == 'male')
                                                     <input type="text" id="gender" class="form-control" name="gender" value="Laki-laki" >
                                                 @elseif ($user->gender == 'female')
                                                     <input type="text" id="gender" class="form-control" name="gender" value="Perempuan" >
                                                 @else
                                                     <input type="text" id="gender" class="form-control" name="gender" value="-" >
-                                                @endif
+                                                @endif --}}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gender" id="gender" value="male" {{ ($user->gender == "male") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="gender">Laki-laki</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gender" id="gender" value="female" {{ ($user->gender == "female") ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="gender">Perempuan</label>
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Email</label>
@@ -73,7 +81,7 @@
                                                 <label>Tanggal Lahir</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                <input type="text" id="birth" class="form-control"
+                                                <input type="date" id="birth" class="form-control"
                                                     name="birth" value="{{ $user->birth }}" >
                                             </div>
                                             <div class="col-md-4">
@@ -96,6 +104,10 @@
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="phone" class="form-control"
                                                     name="phone" value="{{ $user->phone }}" >
+                                            </div>
+                                            <input type="hidden" name="id" value="{{ $user->id }}">
+                                            <div class="col-sm-12 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary me-1 mb-1">Confirm</button>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +146,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form form-horizontal" method="POST" action="{{ route('super-edit-employee') }}">
+                                <form class="form form-horizontal" method="POST" action="{{ route('super-edit-employee', ['id' => $employee->id]) }}">
                                     @csrf
                                     @method('POST')
                                     <div class="form-body">
@@ -221,13 +233,9 @@
                                                     <input type="text" id="joined" class="form-control" name="joined" required>
                                                 @endif
                                             </div>
-                                            <input type="hidden" name="id" value="{{ $employee->id }}"
+                                            <input type="hidden" name="id" value="{{ $employee->id }}">
                                             <div class="col-sm-12 d-flex justify-content-end">
-                                                @if ($already_employee == "TRUE")
-                                                    {{-- <a href="{{ route('employee-profile-edit') }}" class="btn btn-light-secondary me-1 mb-1">Reset</a> --}}
-                                                @elseif($already_employee == "FALSE")
-                                                    <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                                @endif
+                                                <button type="submit" class="btn btn-primary me-1 mb-1">Confirm</button>
                                             </div>
                                             @if ($errors->any())
                                                 <div class="alert alert-danger mt-4">

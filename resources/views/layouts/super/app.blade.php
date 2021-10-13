@@ -40,10 +40,17 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
+                        <li class="sidebar-item {{ ($active === "admin") ? 'active' : '' }}">
+                            <a href="{{ route('super-admin') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Admin</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item {{ ($active === "index") ? 'active' : '' }}">
                             <a href="{{ route('super-index') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                                <span>Employee</span>
                             </a>
                         </li>
 

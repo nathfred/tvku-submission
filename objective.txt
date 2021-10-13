@@ -24,7 +24,7 @@ REVISI:
 -NPP : Validasi min 10 : max 15 (DONE)
 -Password admin : TVKU1234 (DONE)
 
-TAMBAHAN: SUPER USER
+TAMBAHAN: SUPER USER (root@tvku.tv : TvkuCuti123!@$)
 -role = 'super' (DONE)
 -Routing, Middleware, Kernel, RouteServiceProvider (DONE)
 -Create,Read,Update,Delete : User (Read, Update, Delete)

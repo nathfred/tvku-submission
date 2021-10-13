@@ -13,10 +13,10 @@
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <div class="row">
                         <div class="col">
-                            <h3>Profil Pegawai</h3>
+                            <h3>Data Admin</h3>
                         </div>
                     </div>
-                    <p class="text-subtitle text-muted">Profil Diri & Data Pegawai</p>
+                    <p class="text-subtitle text-muted">Data Admin (Non-Employee)</p>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Profil Diri</h4>
+                            <h4 class="card-title">Profil Admin</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">

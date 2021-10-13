@@ -36,8 +36,14 @@ Route::get('/dashboard', function () {
 
 Route::group(['middleware' => ['auth', 'super'], 'prefix' => 'super'], function () {
     Route::get('/index', [SuperController::class, 'index'])->name('super-index');
+    Route::get('/admin', [SuperController::class, 'admin'])->name('super-admin');
+
+    Route::get('/create/user', [SuperController::class, 'create_user'])->name('super-create-user');
+    Route::post('/save/user', [SuperController::class, 'save_user'])->name('super-save-user');
+    Route::post('/save/employee', [SuperController::class, 'save_employee'])->name('super-save-employee');
 
     Route::get('/show/user/{id}', [SuperController::class, 'show_user'])->name('super-show-user');
+    Route::get('/show/admin/{id}', [SuperController::class, 'show_admin'])->name('super-show-admin');
 
     Route::post('/edit/user/{id}', [SuperController::class, 'edit_user'])->name('super-edit-user');
     Route::post('/edit/employee/{id}', [SuperController::class, 'edit_employee'])->name('super-edit-employee');

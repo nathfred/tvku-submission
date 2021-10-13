@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\Submission;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+
+
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 
 class SuperController extends Controller
 {
@@ -114,6 +123,72 @@ class SuperController extends Controller
             'employee' => $employee,
             'already_employee' => $already_employee
         ]);
+    }
+
+    public function create_user()
+    {
+        return view('super.create_user', [
+            'title' => 'Create User',
+            'active' => 'index',
+        ]);
+    }
+
+    public function save_user(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'min:4', 'max:255'],
+            'gender' => ['required'],
+            'ktp' => ['required', 'string', 'min:16', 'max:16', 'unique:users'],
+            'address' => ['required', 'string', 'min:4', 'max:128'],
+            'birth' => ['required', 'date_format:Y-m-d'],
+            'last_education' => ['required', 'string'],
+            'phone' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'max:64', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'role' => 'employee',
+            'ktp' => $request->ktp,
+            'address' => $request->address,
+            'birth' => $request->birth,
+            'last_education' => $request->last_education,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'remember_token' => Str::random(10),
+        ]);
+
+        event(new Registered($user));
+
+        $new_user = User::orderBy('created_at', 'desc')->first();
+        Session::put('new_user_id', $new_user->id);
+        session(['new_user_id2' => $new_user->id]);
+
+        return back()->with('message', 'success-create-user')->with('new_user_id', $new_user->id);
+    }
+
+    public function save_employee(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['integer', 'required', 'unique:employees'],
+            'npp' => ['min:10', 'max:15', 'unique:employees', 'required'],
+            'position' => ['string', 'required'],
+            'division' => ['string', 'required'],
+            'joined' => ['integer', 'required'],
+        ]);
+
+        Employee::create([
+            "user_id" => $request->user_id,
+            "npp" => $request->npp,
+            "position" => $request->position,
+            "division" => $request->division,
+            "joined" => $request->joined
+        ]);
+
+        return redirect(route('super-index'))->with('message', 'success-create-employee');
     }
 
     public function edit_user(Request $request, $id)
@@ -227,5 +302,39 @@ class SuperController extends Controller
         $user->delete();
 
         return redirect(route('super-index'))->with('message', 'success-delete');
+    }
+
+    public function admin()
+    {
+        $users = User::where('role', '!=', 'employee')->orderBy('id', 'asc')->get();
+        $employees = NULL;
+
+        return view('super.admin', [
+            'title' => 'Super Index',
+            'active' => 'admin',
+            'users' => $users,
+            'employees' => $employees
+        ]);
+    }
+
+    public function show_admin($id)
+    {
+        $user = User::where('id', $id)->first();
+        $employee = Employee::where('user_id', $id)->first();
+
+        // PERIKSA APAKAH USER SUDAH DAFTAR EMPLOYEE
+        if ($employee === NULL) {
+            $already_employee = 'FALSE';
+        } else {
+            $already_employee = 'TRUE';
+        }
+
+        return view('super.admin_profile', [
+            'title' => 'Super Admin',
+            'active' => 'admin',
+            'user' => $user,
+            'employee' => $employee,
+            'already_employee' => $already_employee
+        ]);
     }
 }

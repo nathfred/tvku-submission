@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\Submission;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
+
 use Illuminate\Validation\Rules;
-
-
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -221,6 +222,7 @@ class SuperController extends Controller
         }
         $request->validate([
             'name' => ['required', 'string', 'min:4', 'max:255'],
+            'role' => ['required', ' string'],
             'gender' => ['required'],
             'ktp' => ['required', 'string', 'min:16', 'max:16'],
             'address' => ['required', 'string', 'min:4', 'max:128'],
@@ -242,6 +244,41 @@ class SuperController extends Controller
         $user->save();
 
         return redirect(route('super-show-user', ['id' => $user->id]))->with('message', 'success-update-user');
+    }
+
+    public function edit_user_password($id)
+    {
+        $user = User::find($id);
+
+        // CEK APAKAH ADA
+        if ($user === NULL) {
+            return back()->with('message', 'user-not-found');
+        }
+
+        return view('super.user_password', [
+            'title' => 'Edit Password',
+            'active' => 'admin',
+            'user' => $user,
+        ]);
+    }
+
+    public function save_user_password(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        // CEK APAKAH ADA
+        if ($user === NULL) {
+            return back()->with('message', 'user-not-found');
+        }
+
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect(route('super-show-user', ['id' => $user->id]))->with('message', 'success-update-user-password');
     }
 
     public function edit_employee(Request $request, $id)
@@ -336,5 +373,115 @@ class SuperController extends Controller
             'employee' => $employee,
             'already_employee' => $already_employee
         ]);
+    }
+
+    public function submissions()
+    {
+        $today = Carbon::today('GMT+7');
+        $today = $today->format('Y-m-d');
+
+        // $total_submissions = Submission::where('end_date', '>', $today)->orderBy('created_at', 'desc')->get();
+        $total_submissions = Submission::orderBy('created_at', 'desc')->get();
+
+        // HITUNG DURASI START DATE -> END DATE (HARI)
+        foreach ($total_submissions as $sub) {
+            // UBAH KE FORMAT CARBON
+            $start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
+            $end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+            // HITUNG DURASI DALAM FORMAT CARBON
+            $duration = $start_date->diffInDaysFiltered(function (Carbon $date) {
+                return !$date->isWeekend();
+            }, $end_date);
+            // TAMBAHKAN ATTRIBUT BARU (DURASI)
+            $sub->duration = $duration;
+        }
+
+        // UBAH FORMAT DATE (Y-m-d menjadi d-m-Y)
+        foreach ($total_submissions as $sub) {
+            // UBAH KE FORMAT CARBON
+            $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
+            $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+
+            if (!($sub->division_signed_date === NULL)) {
+                $sub->division_signed_date = Carbon::createFromFormat('Y-m-d', $sub->division_signed_date);
+                $sub->division_signed_date = $sub->division_signed_date->format('d-m-Y');
+            }
+            if (!($sub->hrd_signed_date === NULL)) {
+                $sub->hrd_signed_date = Carbon::createFromFormat('Y-m-d', $sub->hrd_signed_date);
+                $sub->hrd_signed_date = $sub->hrd_signed_date->format('d-m-Y');
+            }
+
+            // UBAH FORMAT KE d-m-Y
+            $sub->start_date = $sub->start_date->format('d-m-Y');
+            $sub->end_date = $sub->end_date->format('d-m-Y');
+        }
+
+        return view('super.submissions', [
+            'title' => 'Daftar Pengajuan Cuti',
+            'active' => 'submission',
+            'total_submissions' => $total_submissions
+        ]);
+    }
+
+    public function acc_submission($id, $acc)
+    {
+        $today = Carbon::today('GMT+7');
+
+        $submission = Submission::find($id);
+        $submission->hrd_approval = $acc;
+        $submission->hrd_signed_date = $today;
+        $submission->division_approval = $acc;
+        $submission->division_signed_date = $today;
+        $submission->save();
+
+        if ($acc == 1) {
+            return redirect()->route('super-submissions')->with('message', 'success-submission-acc');
+        } elseif ($acc == 0) {
+            return redirect()->route('super-submissions')->with('message', 'success-submission-dec');
+        } else {
+            return redirect()->route('super-submissions')->with('message', 'success-submission-unknown');
+        }
+    }
+
+    public function show_submission($id)
+    {
+        $submission = Submission::find($id);
+
+        // CEK APAKAH ADA
+        if ($submission === NULL) {
+            return back()->with('message', 'submission-not-found');
+        }
+
+        return view('super.submission', [
+            'title' => 'Show Submission',
+            'active' => 'submission',
+            'submission' => $submission,
+        ]);
+    }
+
+    public function edit_submission(Request $request, $id)
+    {
+        $submission = Submission::find($id);
+
+        // CEK APAKAH ADA
+        if ($submission === NULL) {
+            return back()->with('message', 'submission-not-found');
+        }
+
+        $request->validate([
+            'employee_id' => 'required|integer',
+            'type' => 'required|max:32',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'description' => 'required|max:255',
+        ]);
+
+        $submission->employee_id = $request->employee_id;
+        $submission->type = $request->type;
+        $submission->start_date = $request->start_date;
+        $submission->end_date = $request->end_date;
+        $submission->save();
+
+        return redirect(route('super-show-submission', ['id' => $submission->id]))->with('message', 'success-submission-edit');
     }
 }

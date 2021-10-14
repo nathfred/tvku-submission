@@ -37,6 +37,7 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => ['auth', 'super'], 'prefix' => 'super'], function () {
     Route::get('/index', [SuperController::class, 'index'])->name('super-index');
     Route::get('/admin', [SuperController::class, 'admin'])->name('super-admin');
+    Route::get('/submissions', [SuperController::class, 'submissions'])->name('super-submissions');
 
     Route::get('/create/user', [SuperController::class, 'create_user'])->name('super-create-user');
     Route::post('/save/user', [SuperController::class, 'save_user'])->name('super-save-user');
@@ -46,9 +47,16 @@ Route::group(['middleware' => ['auth', 'super'], 'prefix' => 'super'], function 
     Route::get('/show/admin/{id}', [SuperController::class, 'show_admin'])->name('super-show-admin');
 
     Route::post('/edit/user/{id}', [SuperController::class, 'edit_user'])->name('super-edit-user');
+    Route::get('/edit/user/password/{id}', [SuperController::class, 'edit_user_password'])->name('super-edit-user-password');
+    Route::post('/save/user/password/{id}', [SuperController::class, 'save_user_password'])->name('super-save-user-password');
     Route::post('/edit/employee/{id}', [SuperController::class, 'edit_employee'])->name('super-edit-employee');
 
     Route::get('/delete/user/{id}', [SuperController::class, 'delete_user'])->name('super-delete-user');
+    Route::get('/delete/submission/{id}', [SuperController::class, 'delete_submission'])->name('super-delete-submission');
+
+    Route::get('/show/submission/{id}', [SuperController::class, 'show_submission'])->name('super-show-submission');
+    Route::post('/edit/submission/{id}', [SuperController::class, 'edit_submission'])->name('super-edit-submission');
+    Route::get('/acc/submission/{id}/{acc}', [SuperController::class, 'acc_submission'])->name('super-acc-submission');
 });
 
 Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], function () {

@@ -42,15 +42,22 @@
 
                         <li class="sidebar-item {{ ($active === "admin") ? 'active' : '' }}">
                             <a href="{{ route('super-admin') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-code-square"></i>
                                 <span>Admin</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item {{ ($active === "index") ? 'active' : '' }}">
                             <a href="{{ route('super-index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-file-person-fill"></i>
                                 <span>Employee</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item {{ ($active === "submission") ? 'active' : '' }}">
+                            <a href="{{ route('super-submissions') }}" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Submission</span>
                             </a>
                         </li>
 

@@ -37,6 +37,13 @@
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-md-4">
+                                                <label>ID</label>
+                                            </div>
+                                            <div class="col-md-8 form-group">
+                                                <input type="text" id="id" class="form-control"
+                                                    name="id" value="{{ $user->id }}" disabled>
+                                            </div>
+                                            <div class="col-md-4">
                                                 <label>Nama Lengkap</label>
                                             </div>
                                             <div class="col-md-8 form-group">
@@ -54,13 +61,6 @@
                                                 <label>Jenis Kelamin</label>
                                             </div>
                                             <div class="col-md-8 form-group">
-                                                {{-- @if ($user->gender == 'male')
-                                                    <input type="text" id="gender" class="form-control" name="gender" value="Laki-laki" >
-                                                @elseif ($user->gender == 'female')
-                                                    <input type="text" id="gender" class="form-control" name="gender" value="Perempuan" >
-                                                @else
-                                                    <input type="text" id="gender" class="form-control" name="gender" value="-" >
-                                                @endif --}}
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gender" id="gender" value="male" {{ ($user->gender == "male") ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="gender">Laki-laki</label>
@@ -117,11 +117,12 @@
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="password" class="form-control"
-                                                    name="password" value="{{ $user->password }}" >
+                                                    name="password" value="{{ $user->password }}" disabled>
                                             </div>
                                             <input type="hidden" name="id" value="{{ $user->id }}">
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Confirm</button>
+                                                <a href="{{ route('super-edit-user-password', ['id' => $user->id]) }}" class="btn btn-info me-1 mb-1">Edit Password</a>
                                             </div>
                                         </div>
                                     </div>

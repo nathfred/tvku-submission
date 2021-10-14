@@ -41,14 +41,14 @@
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="name" class="form-control"
-                                                    name="name" value="Andreas Yulianto" required >
+                                                    name="name" value="" required >
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Role</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="role" class="form-control"
-                                                    name="role" placeholder="employee / admin-hrd / admin-divisi / super" value="employee" required >
+                                                    name="role" placeholder="employee / admin-hrd / admin-divisi / super" value="" required >
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Jenis Kelamin</label>
@@ -75,14 +75,14 @@
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="email" id="email" class="form-control"
-                                                    name="email" value="sample2@gmail.com" required >
+                                                    name="email" value="" required >
                                             </div>
                                             <div class="col-md-4">
                                                 <label>No. KTP</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="ktp" class="form-control"
-                                                    name="ktp" value="1234567890123456" required >
+                                                    name="ktp" value="" required >
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Tanggal Lahir</label>
@@ -96,35 +96,35 @@
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="address" class="form-control"
-                                                    name="address" value="Nakula 3" required >
+                                                    name="address" value="" required >
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Pendidikan Terakhir</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="last_education" class="form-control"
-                                                    name="last_education" value="UDNIS" required >
+                                                    name="last_education" value="" required >
                                             </div>
                                             <div class="col-md-4">
                                                 <label>No. HP</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="text" id="phone" class="form-control"
-                                                    name="phone" value="08184586511" required>
+                                                    name="phone" value="" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Password</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="password" id="password" class="form-control"
-                                                    name="password" value="123123" required >
+                                                    name="password" value="" required >
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Password Confirm</label>
                                             </div>
                                             <div class="col-md-8 form-group">
                                                 <input type="password" id="password_confirmation" class="form-control"
-                                                    name="password_confirmation" value="123123" required >
+                                                    name="password_confirmation" value="" required >
                                             </div>
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Confirm</button>

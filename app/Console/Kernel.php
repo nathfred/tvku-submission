@@ -2,10 +2,11 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
+use App\Models\Submission;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Models\Submission;
-use Carbon\Carbon;
 
 class Kernel extends ConsoleKernel
 {
@@ -27,17 +28,24 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $today = Carbon::today('GMT+7');
 
         $schedule->call(function () {
+            $today = Carbon::now('GMT+7');
+
             // HAPUS SUBMISSION YANG SUDAH 2 HARI TIDAK DIRESPON HRD
             Submission::where('created_at', '<', Carbon::now('GMT+7')->subDays(2))->whereNull('hrd_approval')->orWhereNull('division_approval')->delete();
             Submission::where('created_at', '<', Carbon::now('GMT+7')->subDays(2))->Where('hrd_approval', 0)->orWhere('division_approval', 0)->delete();
+
+            Log::info('Daily Cronjob Successfully Run : ' . $today->toDateTimeString());
         })->daily()->timezone('Asia/Jakarta');
 
         $schedule->call(function () {
+            $today = Carbon::now('GMT+7');
+
             // HAPUS SUBMISSION TIAP TAHUN BARU
             Submission::truncate();
+
+            Log::info('Yearly Cronjob Successfully Run : ' . $today->toDateTimeString());
         })->yearly()->timezone('Asia/Jakarta');
     }
 

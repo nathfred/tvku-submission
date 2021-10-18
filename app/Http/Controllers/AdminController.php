@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -83,5 +85,11 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test()
+    {
+        Submission::where('created_at', '<=', Carbon::now('GMT+7')->subDays(2))->whereNull('hrd_approval')->orWhereNull('division_approval')->delete();
+        Submission::where('created_at', '<=', Carbon::now('GMT+7')->subDays(2))->Where('hrd_approval', 0)->orWhere('division_approval', 0)->delete();
     }
 }

@@ -26,6 +26,15 @@ class AdminDivisiController extends Controller
         $division = str_replace('divisi', '', $user->email);
         $division = str_replace('@tvku.tv', '', $division);
         $division = ucfirst($division);
+        if ($division == 'It') {
+            $division = 'IT';
+        } elseif ($division == 'Teknikalsupport') {
+            $division = 'Teknikal Support';
+        } elseif ($division == 'Humanresources') {
+            $division = 'Human Resources';
+        } elseif ($division == 'Hrdkeuangan') {
+            $division = 'HRD Keuangan';
+        }
 
         $recent_submissions = Submission::latest()->get();
 
@@ -67,28 +76,25 @@ class AdminDivisiController extends Controller
         $current_submissions = $current_submissions->keyBy('id');
 
         // FILTER SESUAI DIVISI
-        foreach ($all_submissions as $sub) {
-            if (!($sub->employee->division == $division)) {
-                // if ($total_submissions->contains('id', $sub->id)) {
-                //     $total_submissions->forget($sub->id);
-                // }
-                // if ($recent_submissions->contains('id', $sub->id)) {
-                //     $recent_submissions->forget($sub->id);
-                // }
-                // if ($responded_submissions->contains('id', $sub->id)) {
-                //     $responded_submissions->forget($sub->id);
-                // }
-                // if ($unresponded_submissions->contains('id', $sub->id)) {
-                //     $unresponded_submissions->forget($sub->id);
-                // }
-                // if ($current_submissions->contains('id', $sub->id)) {
-                //     $current_submissions->forget($sub->id);
-                // }
-                $recent_submissions->forget($sub->id);
-                $total_submissions->forget($sub->id);
-                $responded_submissions->forget($sub->id);
-                $unresponded_submissions->forget($sub->id);
-                $current_submissions->forget($sub->id);
+        if ($division == 'HRD Keuangan') { // HRD KEUANGAN
+            foreach ($all_submissions as $sub) {
+                if (!($sub->employee->division == 'Human Resources' || $sub->employee->division == 'Keuangan' || $sub->employee->division == 'Umum')) {
+                    $recent_submissions->forget($sub->id);
+                    $total_submissions->forget($sub->id);
+                    $responded_submissions->forget($sub->id);
+                    $unresponded_submissions->forget($sub->id);
+                    $current_submissions->forget($sub->id);
+                }
+            }
+        } else {
+            foreach ($all_submissions as $sub) {
+                if (!($sub->employee->division == $division)) {
+                    $recent_submissions->forget($sub->id);
+                    $total_submissions->forget($sub->id);
+                    $responded_submissions->forget($sub->id);
+                    $unresponded_submissions->forget($sub->id);
+                    $current_submissions->forget($sub->id);
+                }
             }
         }
 
@@ -150,6 +156,8 @@ class AdminDivisiController extends Controller
             $division = 'Teknikal Support';
         } elseif ($division == 'Humanresources') {
             $division = 'Human Resources';
+        } elseif ($division == 'Hrdkeuangan') {
+            $division = 'HRD Keuangan';
         }
         // dd($division);
 
@@ -199,9 +207,17 @@ class AdminDivisiController extends Controller
         $total_submissions = $total_submissions->keyBy('id');
 
         // FILTER SESUAI DIVISI
-        foreach ($all_submissions as $sub) {
-            if (!($sub->employee->division == $division)) {
-                $total_submissions->forget($sub->id);
+        if ($division == 'HRD Keuangan') { // HRD KEUANGAN
+            foreach ($all_submissions as $sub) {
+                if (!($sub->employee->division == 'Human Resources' || $sub->employee->division == 'Keuangan' || $sub->employee->division == 'Umum')) {
+                    $total_submissions->forget($sub->id);
+                }
+            }
+        } else {
+            foreach ($all_submissions as $sub) {
+                if (!($sub->employee->division == $division)) {
+                    $total_submissions->forget($sub->id);
+                }
             }
         }
 
@@ -281,6 +297,8 @@ class AdminDivisiController extends Controller
             $division = 'Teknikal Support';
         } elseif ($division == 'Humanresources') {
             $division = 'Human Resources';
+        } elseif ($division == 'Hrdkeuangan') {
+            $division = 'HRD Keuangan';
         }
 
         $employees = Employee::orderBy('division', 'asc')->get();
@@ -293,11 +311,20 @@ class AdminDivisiController extends Controller
         // SET KEY TO COLLECTIONS (FOR REMOVAL : FORGET METHOD NEEDS KEY)
         $employees = $employees->keyBy('id');
         // FILTER EMPLOYEE SESUAI DIVISI
-        foreach ($employees as $employee) {
-            if (!($employee->division == $division)) {
-                $employees->forget($employee->id);
+        if ($division == 'HRD Keuangan') { // HRD KEUANGAN
+            foreach ($employees as $employee) {
+                if (!($employee->division == 'Human Resources' || $employee->division == 'Keuangan' || $employee->division == 'Umum')) {
+                    $employees->forget($employee->id);
+                }
+            }
+        } else { // DILUAR HRD KEUANGAN
+            foreach ($employees as $employee) {
+                if (!($employee->division == $division)) {
+                    $employees->forget($employee->id);
+                }
             }
         }
+
 
         // HITUNG BERAPA KALI EMPLOYEE SUDAH CUTI BULAN INI
         foreach ($employees as $employee) {
@@ -341,14 +368,24 @@ class AdminDivisiController extends Controller
             $division = 'Teknikal Support';
         } elseif ($division == 'Humanresources') {
             $division = 'Human Resources';
+        } elseif ($division == 'Hrdkeuangan') {
+            $division = 'HRD Keuangan';
         }
 
         // SET KEY TO COLLECTIONS (FOR REMOVAL : FORGET METHOD NEEDS KEY)
         $employees = $employees->keyBy('id');
         // FILTER EMPLOYEE SESUAI DIVISI
-        foreach ($employees as $employee) {
-            if (!($employee->division == $division)) {
-                $employees->forget($employee->id);
+        if ($division == 'HRD Keuangan') { // HRD KEUANGAN
+            foreach ($employees as $employee) {
+                if (!($employee->division == 'Human Resources' || $employee->division == 'Keuangan' || $employee->division == 'Umum')) {
+                    $employees->forget($employee->id);
+                }
+            }
+        } else { // DILUAR HRD KEUANGAN
+            foreach ($employees as $employee) {
+                if (!($employee->division == $division)) {
+                    $employees->forget($employee->id);
+                }
             }
         }
 

@@ -221,9 +221,17 @@ class PDFController2 extends Controller
 
         $total_submissions = $total_submissions->keyBy('id');
         // FILTER SESUAI DIVISI
-        foreach ($total_submissions as $sub) {
-            if (!($sub->employee->division == $division)) {
-                $total_submissions->forget($sub->id);
+        if ($division == 'HRD Keuangan') { // HRD KEUANGAN
+            foreach ($total_submissions as $sub) {
+                if (!($sub->employee->division == 'Human Resources' || $sub->employee->division == 'Keuangan' || $sub->employee->division == 'Umum')) {
+                    $total_submissions->forget($sub->id);
+                }
+            }
+        } else {
+            foreach ($total_submissions as $sub) {
+                if (!($sub->employee->division == $division)) {
+                    $total_submissions->forget($sub->id);
+                }
             }
         }
 
@@ -418,7 +426,11 @@ class PDFController2 extends Controller
 
     public function getArchiveData($division)
     {
-        $employees = Employee::where('division', $division)->get();
+        if ($division == 'HRD Keuangan') {
+            $employees = Employee::where('division', 'Human Resources')->orWhere('division', 'Keuangan')->orWhere('division', 'Umum')->get();
+        } else {
+            $employees = Employee::where('division', $division)->get();
+        }
         $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->orderBy('employee_id', 'asc')->get();
 
         foreach ($employees as $employee) {

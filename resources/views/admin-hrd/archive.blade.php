@@ -62,13 +62,13 @@
                                             @if ($employee->month_sub[$j] == 0)
                                                 <td class="text-center">-</td>
                                             @else
-                                                <td class="text-center">{{ $employee->month_sub[$j] }}</td>
+                                                <td class="text-center">{{ $employee->day_month_sub[$j] }}</td>
                                             @endif
                                         @endfor
                                         @if ($employee->total == 0)
                                             <td class="text-center">-</td> 
                                         @else
-                                            <td class="text-center">{{ $employee->total }} Kali</td>
+                                            <td class="text-center">{{ $employee->total_duration }} Hari</td>
                                         @endif
                                     </tr>
                                 @endforeach

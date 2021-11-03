@@ -755,19 +755,34 @@ class PDFController extends Controller
 
         foreach ($employees as $employee) {
             $month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            $day_month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             $total = 0;
+            $total_duration = 0;
             for ($i = 0; $i < 12; $i++) {
                 foreach ($approved_submissions as $sub) {
                     $sub_month = Carbon::parse($sub->start_date);
                     $sub_month = $sub_month->format('m');
                     if ($sub->employee_id == $employee->id && $sub_month == $i + 1) {
                         $month_sub[$i] = $month_sub[$i] + 1;
+
+                        // UBAH KE FORMAT CARBON
+                        $sub->start_date = Carbon::createFromFormat('Y-m-d', $sub->start_date);
+                        $sub->end_date = Carbon::createFromFormat('Y-m-d', $sub->end_date);
+                        // HITUNG DURASI DALAM FORMAT CARBON
+                        $duration = $sub->start_date->diffInDaysFiltered(function (Carbon $date) {
+                            return !$date->isWeekend();
+                        }, $sub->end_date);
+
+                        $day_month_sub[$i] = $day_month_sub[$i] + $duration;
                         $total++;
+                        $total_duration = $total_duration + $duration;
                     }
                 }
             }
             $employee->month_sub = $month_sub;
+            $employee->day_month_sub = $day_month_sub;
             $employee->total = $total;
+            $employee->total_duration = $total_duration;
         }
 
         return $employees;

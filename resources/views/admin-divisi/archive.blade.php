@@ -68,7 +68,7 @@
                                         @if ($employee->total == 0)
                                             <td class="text-center">-</td> 
                                         @else
-                                            <td class="text-center">{{ $employee->total }} Kali</td>
+                                            <td class="text-center">{{ $employee->total }} Hari</td>
                                         @endif
                                     </tr>
                                 @endforeach

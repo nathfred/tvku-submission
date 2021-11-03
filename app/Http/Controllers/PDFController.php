@@ -717,7 +717,7 @@ class PDFController extends Controller
             }
 
             // TOTAL
-            $this->fpdf->Cell(20, $cell_height, $employee->total . ' kali', 1, 1, 'C', false);
+            $this->fpdf->Cell(20, $cell_height, $employee->total . ' Hari', 1, 1, 'C', false);
 
             $current_height = $current_height + $cell_height;
             $i++;

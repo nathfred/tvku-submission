@@ -1,4 +1,4 @@
-<title>TVKU | {{ $title }}</title>
+<title>TVKU Cuti | {{ $title }}</title>
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">

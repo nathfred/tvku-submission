@@ -97,6 +97,10 @@
                                         <!-- Aksi -->
                                         <td>
                                             <a href="{{ route('create-pdf-submission', ['id' => $submission->id]) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
+                                            <!-- Jika belum di acc keduanya -->
+                                            @if (!($submission->division_approval == '1' && $submission->hrd_approval == '1'))
+                                                <button class="btn btn-danger" onclick="delete_confirm('{{ $submission->id }}')"><i class="bi bi-x-square"></i></button>
+                                            @endif            
                                         </td>
                                     </tr>
                                 @endforeach
@@ -116,6 +120,33 @@
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+
+    <script>
+        function delete_confirm(submission_id) {
+            var submission_id = submission_id;
+            var url = '{{ route("employee-delete-submission", ":slug") }}';
+            url = url.replace(':slug', submission_id);
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Aksi ini tidak dapat diulangi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus pengajuan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Pengajuan Terhapus!',
+                        text: 'Berhasil Menghapus Permohonan Ijin & Cuti',
+                        showConfirmButton: true,
+                    })
+                }
+            })
+        }
     </script>
 
 @include('employee.alerts')

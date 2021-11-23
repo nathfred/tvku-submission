@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], fun
     Route::get('/archive', [AdminHRDController::class, 'archive'])->name('adminhrd-archive');
 
     Route::get('/employee', [AdminHRDController::class, 'employees'])->name('adminhrd-employee');
+
+    Route::get('/delete/{id}', [SubmissionController::class, 'delete_submission'])->name('adminhrd-delete-submission');
 });
 
 Route::group(['middleware' => ['auth', 'admindivisi'], 'prefix' => 'admindivisi'], function () {
@@ -77,6 +79,8 @@ Route::group(['middleware' => ['auth', 'admindivisi'], 'prefix' => 'admindivisi'
     Route::get('/archive', [AdminDivisiController::class, 'archive'])->name('admindivisi-archive');
 
     Route::get('/employee', [AdminDivisiController::class, 'employees'])->name('admindivisi-employee');
+
+    Route::get('/delete/{id}', [SubmissionController::class, 'delete_submission'])->name('admindivisi-delete-submission');
 });
 
 Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], function () {
@@ -89,6 +93,8 @@ Route::group(['middleware' => ['auth', 'employee'], 'prefix' => 'employee'], fun
     Route::get('/submission', [SubmissionController::class, 'index'])->name('employee-submission');
     Route::get('/submission/create', [SubmissionController::class, 'create'])->name('employee-submission-create');
     Route::post('/submission/create', [SubmissionController::class, 'store'])->name('employee-submission-create-post');
+
+    Route::get('/delete/{id}', [SubmissionController::class, 'delete_submission'])->name('employee-delete-submission');
 });
 
 Route::group(['middleware' => ['auth',]], function () {

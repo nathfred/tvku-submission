@@ -28,12 +28,22 @@
             showConfirmButton: true,
         })
     </script>
-@elseif (Session::has('message') && Session::get('message') == 'npp-not-found')
+@elseif (Session::has('message') && Session::get('message') == 'submission-not-found')
     <script>
         Swal.fire({
             icon: 'error',
-            title: 'NPP Salah!',
-            text: 'NPP Yang Dicari Tidak Ditemukan',
+            title: 'Terjadi Kesalahan!',
+            text: 'ID Pengajuan Tidak Ditemukan!',
+            showConfirmButton: true,
+        })
+    </script>
+
+@elseif (Session::has('message') && Session::get('message') == 'success-delete-submission')
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Menghapus Pengajuan!',
+            text: 'Berhasil Menghapus Data Permohonan Cuti',
             showConfirmButton: true,
         })
     </script>

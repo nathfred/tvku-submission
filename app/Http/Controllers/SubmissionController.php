@@ -212,4 +212,19 @@ class SubmissionController extends Controller
     {
         return $this->belongsTo(Employee::class);
     }
+
+    public function delete_submission($id)
+    {
+        // dd($id);
+        $submission = Submission::find($id);
+        // dd($submission);
+
+        // VALIDASI APAKAH SUBMISSION ADA
+        if ($submission === NULL || is_null($submission)) {
+            return back()->with('message', 'submission-not-found');
+        }
+
+        $submission->delete();
+        return back()->with('message', 'success-delete-submission');
+    }
 }

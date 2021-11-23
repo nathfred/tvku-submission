@@ -31,6 +31,7 @@ TAMBAHAN: SUPER USER (root@tvku.tv : TvkuCuti123!@$) (DONE)
 -Employee (Create, Read, Update, Delete)
 -Submission (Read, Update, Delete)
 -Alerts (DONE)
+-Delete Button utk Submission (DONE)
 
 -History Tahunan sebelumnya Tidak Perlu
 -Daily Execute (Delete 2 days old Submissions) (NOT WORKED)

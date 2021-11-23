@@ -68,4 +68,22 @@
             showConfirmButton: true,
         })
     </script>
+@elseif (Session::has('message') && Session::get('message') == 'submission-not-found')
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Terjadi Kesalahan!',
+            text: 'ID Pengajuan Tidak Ditemukan!',
+            showConfirmButton: true,
+        })
+    </script>
+@elseif (Session::has('message') && Session::get('message') == 'success-delete-submission')
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Menghapus Pengajuan!',
+            text: 'Berhasil Menghapus Data Permohonan Cuti',
+            showConfirmButton: true,
+        })
+    </script>
 @endif

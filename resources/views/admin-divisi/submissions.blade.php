@@ -131,22 +131,22 @@
                                             </td>
                                         @endif
                                         <!-- Aksi Divisi -->
-                                        @if ($submission->division_approval === NULL)
-                                            <td style="height: 70px;">
-                                                <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
-                                                <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
-                                            </td>
-                                        @elseif ($submission->division_approval == '0')
-                                            <td style="height: 70px;">
-                                                <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
-                                                <a href="{{ route('create-pdf-submission', ['id' => $submission->id]) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
-                                            </td>
-                                        @elseif ($submission->division_approval == '1')
-                                            <td style="height: 70px;">
-                                                <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
-                                                <a href="{{ route('create-pdf-submission', ['id' => $submission->id]) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
-                                            </td>
-                                        @endif
+                                        <td style="height: 70px;">
+                                            @if ($submission->division_approval === NULL)
+                                                    <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
+                                                    <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-warning"><i class="bi bi-slash-square"></i></a>
+                                            @elseif ($submission->division_approval == '0')
+                                                    <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 1]) }}" class="btn btn-primary"><i class="bi bi-check-square"></i></a>
+                                                    <a href="{{ route('create-pdf-submission', ['id' => $submission->id]) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
+                                            @elseif ($submission->division_approval == '1')
+                                                    <a href="{{ route('admindivisi-submission-acc', ['id' => $submission->id, 'acc' => 0]) }}" class="btn btn-warning"><i class="bi bi-slash-square"></i></a>
+                                                    <a href="{{ route('create-pdf-submission', ['id' => $submission->id]) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
+                                            @endif
+                                            <!-- Jika belum di acc keduanya -->
+                                            @if (!($submission->division_approval == '1' && $submission->hrd_approval == '1'))
+                                                <button class="btn btn-danger" onclick="delete_confirm('{{ $submission->id }}')"><i class="bi bi-x-square"></i></button>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else
@@ -195,6 +195,33 @@
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
+
+<script>
+    function delete_confirm(submission_id) {
+        var submission_id = submission_id;
+        var url = '{{ route("admindivisi-delete-submission", ":slug") }}';
+        url = url.replace(':slug', submission_id);
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Aksi ini tidak dapat diulangi!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus pengajuan!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Pengajuan Terhapus!',
+                    text: 'Berhasil Menghapus Permohonan Ijin & Cuti',
+                    showConfirmButton: true,
+                })
+            }
+        })
+    }
+</script>
 
 @include('admin-hrd.alerts')
 

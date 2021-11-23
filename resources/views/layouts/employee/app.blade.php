@@ -89,6 +89,10 @@
     <script src="{{ asset('vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
 
+    {{-- SweetAlert2 New : CDN (V11) --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 

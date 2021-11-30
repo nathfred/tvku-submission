@@ -72,7 +72,7 @@ class SubmissionController extends Controller
 
         return view('employee.submission-create', [
             'title' => 'Buat Pengajuan',
-            'active' => 'submisison',
+            'active' => 'submission',
             'user' => $user,
             'employee' => $employee,
         ]);

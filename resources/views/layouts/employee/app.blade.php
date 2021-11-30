@@ -47,7 +47,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub {{ ($active === "cuti") ? 'active' : '' }}">
+                        <li class="sidebar-item has-sub {{ ($active === "submission") ? 'active' : '' }}">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
                                 <span>Pengajuan Cuti</span>

@@ -232,10 +232,20 @@ class AdminHRDController extends Controller
         ]);
     }
 
-    public function archive()
+    public function archive($year = NULL)
     {
+        $now = Carbon::now('GMT+7');
+        $this_year = $now->year;
+        if ($year === NULL) {
+            $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->whereYear('created_at', $this_year)->orderBy('employee_id', 'asc')->get();
+        } else {
+            $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->whereYear('created_at', $year)->orderBy('employee_id', 'asc')->get();
+        }
+        // dd($approved_submissions);
+
+        $today = Carbon::today('GMT+7');
         $employees = Employee::orderBy('division', 'asc')->get();
-        $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->orderBy('employee_id', 'asc')->get();
+        // $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->whereYear($today->year, '=')->orderBy('employee_id', 'asc')->get();
 
         foreach ($employees as $employee) {
             $month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -269,10 +279,15 @@ class AdminHRDController extends Controller
             $employee->total_duration = $total_duration;
         }
 
+        // ARRAY TAHUN DARI 2021 SAMPAI SAAT INI (DYNAMIC)
+        $years = range(2021, $this_year);
+
         return view('admin-hrd.archive', [
             'title' => 'Arsip Bulanan',
             'active' => 'archive',
-            'employees' => $employees
+            'employees' => $employees,
+            'years' => $years,
+            'target_year' => $year,
         ]);
     }
 }

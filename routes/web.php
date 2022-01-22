@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth', 'adminhrd'], 'prefix' => 'adminhrd'], fun
 
     Route::get('/submission', [AdminHRDController::class, 'show'])->name('adminhrd-submission');
     Route::get('/submission/{id}/{acc}', [AdminHRDController::class, 'acc_submission'])->name('adminhrd-submission-acc');
-    Route::get('/archive', [AdminHRDController::class, 'archive'])->name('adminhrd-archive');
+    Route::get('/archive/{year?}', [AdminHRDController::class, 'archive'])->name('adminhrd-archive');
 
     Route::get('/employee', [AdminHRDController::class, 'employees'])->name('adminhrd-employee');
 
@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth', 'admindivisi'], 'prefix' => 'admindivisi'
 
     Route::get('/submission', [AdminDivisiController::class, 'show'])->name('admindivisi-submission');
     Route::get('/submission/{id}/{acc}', [AdminDivisiController::class, 'acc_submission'])->name('admindivisi-submission-acc');
-    Route::get('/archive', [AdminDivisiController::class, 'archive'])->name('admindivisi-archive');
+    Route::get('/archive/{year?}', [AdminDivisiController::class, 'archive'])->name('admindivisi-archive');
 
     Route::get('/employee', [AdminDivisiController::class, 'employees'])->name('admindivisi-employee');
 
@@ -105,8 +105,8 @@ Route::group(['middleware' => ['auth',]], function () {
 
     Route::get('/pdf-submission/{id}', [PDFController::class, 'createPDFSubmission'])->name('create-pdf-submission');
 
-    Route::get('/pdf-archive', [PDFController::class, 'createPDFArchive'])->name('create-pdf-archive');
-    Route::get('/pdf-archive/{division}', [PDFController2::class, 'createPDFArchive'])->name('create-pdf-archive2');
+    Route::get('/pdf-archive/{year?}', [PDFController::class, 'createPDFArchive'])->name('create-pdf-archive');
+    Route::get('/pdf-archive/{division}/{year?}', [PDFController2::class, 'createPDFArchive'])->name('create-pdf-archive2');
 });
 
 Route::get('/test', [AdminController::class, 'test'])->name('test-1');

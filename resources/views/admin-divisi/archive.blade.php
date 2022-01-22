@@ -11,7 +11,11 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Rekap Bulanan</h3>
+                    @if (!empty($target_year))
+                        <h3>Rekap Bulanan ({{ $target_year }})</h3>
+                    @else
+                        <h3>Rekap Bulanan</h3>
+                    @endif
                     <p class="text-subtitle text-muted">Rekap Pengajuan Cuti Pegawai Bulanan</p>
                 </div>
             </div>
@@ -21,7 +25,21 @@
                 <div class="card-header">
                     <div class="d-flex flex-row bd-highlight">
                         <div class="buttons">
-                            <a href="{{ route('create-pdf-archive2',['division'=>$division]) }}" class="btn btn-success rounded-pill me-1">Export Tabel</a>
+                            <a href="{{ route('create-pdf-archive2',['division'=>$division,'year'=>$target_year]) }}" class="btn btn-success rounded-pill me-1">Export Tabel</a>
+                        </div>
+                        <div class="btn-group mb-1">
+                            <div class="dropdown">
+                                <button class="btn btn-success rounded-pill dropdown-toggle me-1" type="button"
+                                    id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Rekap Tahunan
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    @foreach ($years as $year)
+                                        <a class="dropdown-item" href="{{ route('admindivisi-archive',['year'=>$year]) }}">{{ $year }}</a>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,13 +80,13 @@
                                             @if ($employee->month_sub[$j] == 0)
                                                 <td class="text-center">-</td>
                                             @else
-                                                <td class="text-center">{{ $employee->month_sub[$j] }}</td>
+                                                <td class="text-center">{{ $employee->day_month_sub[$j] }}</td>
                                             @endif
                                         @endfor
                                         @if ($employee->total == 0)
                                             <td class="text-center">-</td> 
                                         @else
-                                            <td class="text-center">{{ $employee->total }} Hari</td>
+                                            <td class="text-center">{{ $employee->total_duration }} Hari</td>
                                         @endif
                                     </tr>
                                 @endforeach

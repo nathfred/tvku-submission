@@ -648,12 +648,12 @@ class PDFController extends Controller
         $this->fpdf->Ln(20);
     }
 
-    public function createPDFArchive()
+    public function createPDFArchive($year = NULL)
     {
         $this->fpdf = new Fpdf;
         $this->fpdf->AddPage("P", "A4");
 
-        $this->HeaderArchive();
+        $this->HeaderArchive($year);
 
         // COLUMN
         $this->fpdf->SetFont('Arial', 'B', 12);
@@ -674,8 +674,16 @@ class PDFController extends Controller
         $this->fpdf->Cell(10, 10, 'Des', 1, 0, 'C', false);
         $this->fpdf->Cell(20, 10, 'Total', 1, 1, 'C', false);
 
+        $now = Carbon::now('GMT+7');
+        $this_year = $now->year;
+        if ($year === NULL) {
+            $employees = $this->getArchiveData();
+        } else {
+            $employees = $this->getArchiveData($year);
+        }
+        // dd($employees);
+
         // BODY (LOOP)
-        $employees = $this->getArchiveData();
         $current_height = 60;
         $this->fpdf->SetFont('Arial', '', 12);
         $i = 1;
@@ -712,12 +720,12 @@ class PDFController extends Controller
                 if ($employee->month_sub[$j] == 0) {
                     $this->fpdf->Cell(10, $cell_height, '-', 1, 0, 'C', false);
                 } else {
-                    $this->fpdf->Cell(10, $cell_height, $employee->month_sub[$j], 1, 0, 'C', false);
+                    $this->fpdf->Cell(10, $cell_height, $employee->day_month_sub[$j], 1, 0, 'C', false);
                 }
             }
 
             // TOTAL
-            $this->fpdf->Cell(20, $cell_height, $employee->total . ' Hari', 1, 1, 'C', false);
+            $this->fpdf->Cell(20, $cell_height, $employee->total_duration . ' Hari', 1, 1, 'C', false);
 
             $current_height = $current_height + $cell_height;
             $i++;
@@ -730,9 +738,9 @@ class PDFController extends Controller
         exit;
     }
 
-    public function HeaderArchive()
+    public function HeaderArchive($year = NULL)
     {
-        $year = Carbon::today('GMT+7')->year;
+        $current_year = Carbon::today('GMT+7')->year;
 
         $this->fpdf->Image("img/tvku_logo_ori.png", NULL, NULL, 30, 17);
         $this->fpdf->Cell(0, 0, '', 0, 1, 'C', false); // DUMMY CELL UNTUK ENTER SETELAH GAMBAR
@@ -742,16 +750,20 @@ class PDFController extends Controller
 
         $this->fpdf->SetFont('Arial', 'B', 16);
         $this->fpdf->Cell(50, 10, '', 0, 0, 'C'); // DUMMY SUPAYA JUDUL CENTER
-        $this->fpdf->Cell(100, 10, 'REKAP CUTI PEGAWAI ' . '(' . $year . ')', 1, 0, 'C');
+        if ($year === NULL) {
+            $this->fpdf->Cell(100, 10, 'REKAP CUTI PEGAWAI ' . '(' . $current_year . ')', 1, 0, 'C');
+        } else {
+            $this->fpdf->Cell(100, 10, 'REKAP CUTI PEGAWAI ' . '(' . $year . ')', 1, 0, 'C');
+        }
 
         // Line break
         $this->fpdf->Ln(20);
     }
 
-    public function getArchiveData()
+    public function getArchiveData($year = NULL)
     {
         $employees = Employee::orderBy('division', 'asc')->get();
-        $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->orderBy('employee_id', 'asc')->get();
+        $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->whereYear('created_at', $year)->orderBy('employee_id', 'asc')->get();
 
         foreach ($employees as $employee) {
             $month_sub = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);

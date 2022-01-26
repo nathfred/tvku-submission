@@ -39,14 +39,14 @@ class Kernel extends ConsoleKernel
             Log::info('Daily Cronjob Successfully Run : ' . $today->toDateTimeString());
         })->daily()->timezone('Asia/Jakarta');
 
-        $schedule->call(function () {
-            $today = Carbon::now('GMT+7');
+        // $schedule->call(function () {
+        //     $today = Carbon::now('GMT+7');
 
-            // HAPUS SUBMISSION TIAP TAHUN BARU
-            Submission::truncate();
+        //     // HAPUS SUBMISSION TIAP TAHUN BARU
+        //     Submission::truncate();
 
-            Log::info('Yearly Cronjob Successfully Run : ' . $today->toDateTimeString());
-        })->yearly()->timezone('Asia/Jakarta');
+        //     Log::info('Yearly Cronjob Successfully Run : ' . $today->toDateTimeString());
+        // })->yearly()->timezone('Asia/Jakarta');
     }
 
     /**

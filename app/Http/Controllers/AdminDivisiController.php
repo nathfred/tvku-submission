@@ -340,6 +340,10 @@ class AdminDivisiController extends Controller
                 }
             }
             $employee->total = $total_cuti;
+
+            // BIRTH
+            $birth = Carbon::createFromFormat('Y-m-d', $employee->user->birth);
+            $employee->user->birth = $birth->format('d-m-Y');
         }
 
         return view('admin-divisi.employees', [

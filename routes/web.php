@@ -109,6 +109,6 @@ Route::group(['middleware' => ['auth',]], function () {
     Route::get('/pdf-archive/{division}/{year?}', [PDFController2::class, 'createPDFArchive'])->name('create-pdf-archive2');
 });
 
-Route::get('/test', [AdminController::class, 'test'])->name('test-1');
+// Route::get('/test', [AdminController::class, 'test'])->name('test-1');
 
 require __DIR__ . '/auth.php';

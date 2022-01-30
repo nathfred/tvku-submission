@@ -195,7 +195,7 @@ class PDFController extends Controller
                 }
 
             case 100: { // SEMUA DI TAHUN INI
-                    $total_submissions = Submission::whereYear('created_at', $today_carbon->year)->orderBy('start_date', 'asc')->get();
+                    $total_submissions = Submission::whereYear('start_date', $today_carbon->year)->orderBy('start_date', 'asc')->get();
                     break;
                 }
 
@@ -762,6 +762,11 @@ class PDFController extends Controller
 
     public function getArchiveData($year = NULL)
     {
+        $current_year = Carbon::today('GMT+7')->year;
+        if ($year === NULL) {
+            $year = $current_year;
+        }
+
         $employees = Employee::orderBy('division', 'asc')->get();
         $approved_submissions = Submission::where('division_approval', 1)->where('hrd_approval', 1)->whereYear('created_at', $year)->orderBy('employee_id', 'asc')->get();
 

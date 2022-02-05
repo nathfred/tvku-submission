@@ -141,6 +141,9 @@ class SubmissionController extends Controller
                 'end_date' => $request->end_date,
                 'status' => 'Unresponded',
             ]);
+
+            return redirect(route('confirm-submission'));
+
             return redirect(route('employee-submission'))->with('message', 'success-submission');
         }
         $file = $request->attachment;
@@ -159,6 +162,9 @@ class SubmissionController extends Controller
             'status' => 'Unresponded',
             'attachment' => $file_name
         ]);
+
+        // KIRIM EMAIL KE HRD DAN DIVISI
+        return redirect(route('confirm-submission'));
 
         return redirect(route('employee-submission'))->with('message', 'success-submission');
     }

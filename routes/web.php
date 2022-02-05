@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminHRDController;
 use App\Http\Controllers\AdminDivisiController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SuperController;
@@ -109,6 +110,11 @@ Route::group(['middleware' => ['auth',]], function () {
     Route::get('/pdf-archive/{division}/{year?}', [PDFController2::class, 'createPDFArchive'])->name('create-pdf-archive2');
 });
 
+Route::group(['middleware' => ['auth',], 'prefix' => 'email'], function () {
+    Route::get('/confirm-submission/{recipient?}', [EmailController::class, 'confirm_submission'])->name('confirm-submission');
+});
+
 // Route::get('/test', [AdminController::class, 'test'])->name('test-1');
+Route::get('/test2', [EmailController::class, 'preview_email'])->name('test-2');
 
 require __DIR__ . '/auth.php';

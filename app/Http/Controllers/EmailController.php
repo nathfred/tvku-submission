@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ApprovedSubmission;
 use App\Models\User;
 use App\Mail\SendMail;
 use App\Models\Employee;
@@ -52,6 +53,15 @@ class EmailController extends Controller
         }
 
         return redirect(route('employee-submission'))->with('message', 'success-submission');
+    }
+
+    public function approved_submission($id, $acc, $recepient = NULL)
+    {
+        $submisison = Submission::find($id);
+        $employee = Employee::find($submisison->employee->id);
+        $user = User::find($employee->user->id);
+
+        Mail::to($user->email)->send(new ApprovedSubmission($user->id, $acc, 'TESTING SISTEM'));
     }
 
     public function preview_email()

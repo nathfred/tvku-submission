@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Employee;
 use App\Models\Submission;
 use Illuminate\Http\Request;
+use App\Mail\ApprovedSubmission;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AdminDivisiController extends Controller
 {
@@ -271,6 +273,11 @@ class AdminDivisiController extends Controller
         $submission->division_approval = $acc;
         $submission->division_signed_date = $today;
         $submission->save();
+
+        $employee = Employee::find($submission->employee_id);
+        $employee_user = User::find($employee->user_id);
+
+        Mail::to($employee_user->email)->send(new ApprovedSubmission($employee_user->id, $acc, 'Kepala Divisi'));
 
         if ($acc == 1) {
             return redirect()->route('admindivisi-submission')->with('message', 'success-submission-acc');

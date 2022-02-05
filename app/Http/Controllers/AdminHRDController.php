@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Employee;
 use App\Models\Submission;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Empty_;
+use App\Mail\ApprovedSubmission;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AdminHRDController extends Controller
 {
@@ -190,6 +193,11 @@ class AdminHRDController extends Controller
         $submission->hrd_approval = $acc;
         $submission->hrd_signed_date = $today;
         $submission->save();
+
+        $employee = Employee::find($submission->employee_id);
+        $employee_user = User::find($employee->user_id);
+
+        Mail::to($employee_user->email)->send(new ApprovedSubmission($employee_user->id, $acc, 'HRD'));
 
         if ($acc == 1) {
             return redirect()->route('adminhrd-submission')->with('message', 'success-submission-acc');

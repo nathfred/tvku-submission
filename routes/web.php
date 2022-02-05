@@ -112,6 +112,7 @@ Route::group(['middleware' => ['auth',]], function () {
 
 Route::group(['middleware' => ['auth',], 'prefix' => 'email'], function () {
     Route::get('/confirm-submission/{recipient?}', [EmailController::class, 'confirm_submission'])->name('confirm-submission');
+    Route::get('/approved-submission/{id}/{acc}/{recipient?}', [EmailController::class, 'approved_submission'])->name('approved-submission');
 });
 
 // Route::get('/test', [AdminController::class, 'test'])->name('test-1');

@@ -126,7 +126,9 @@ a[x-apple-data-detectors='true'] {
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="v-text-align" style="padding-right: 0px;padding-left: 0px;" align="center">
+      
       <img align="center" border="0" src="http://103.30.1.14:7200/img/tvku_logo_ori.png" alt="Logo" title="Logo" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 29%;max-width: 168.2px;" width="168.2" class="v-src-width v-src-max-width"/>
+      
     </td>
   </tr>
 </table>
@@ -224,7 +226,7 @@ a[x-apple-data-detectors='true'] {
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:20px 25px;font-family:'Rubik',sans-serif;" align="left">
         
   <h1 class="v-text-align v-font-size" style="margin: 0px; color: #ffffff; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: 'Raleway',sans-serif; font-size: 27px;">
-    Pengajuan Permohonan Cuti
+    Respon Pengajuan Cuti
   </h1>
 
       </td>
@@ -259,9 +261,9 @@ a[x-apple-data-detectors='true'] {
           <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:40px 50px 50px;font-family:'Rubik',sans-serif;" align="left">
             
       <div class="v-text-align" style="color: #5c5c5c; line-height: 170%; text-align: left; word-wrap: break-word;">
-        <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;"><strong>Kepada Yth,<br> HRD dan Kepala Divisi {{ $employee->division }}, </strong></span></p>
+        <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;"><strong>Kepada Yth,<br> {{ $user->name }}. </strong></span></p>
     <p style="font-size: 14px; line-height: 170%;">&nbsp;</p>
-    <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Dengan email ini, saya mengajukan permohonan cuti karena berhalangan, adapun detail permohonan cuti yakni:&nbsp;</span></p>
+    <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Sistem ingin menginformasikan bahwa pengajuan cuti anda @if($acc==1)diterima @elseif($acc==0)ditolak @endif oleh {{ $approver }}, adapun detail pengajuan yag telah dibuat yakni :&nbsp;</span></p>
     <p style="font-size: 14px; line-height: 170%;">&nbsp;</p>
     <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">ID Pengajuan : {{ $submission->id }}</span></p>
     <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Nama Lengkap : {{ $user->name }}</span></p>
@@ -269,10 +271,9 @@ a[x-apple-data-detectors='true'] {
     <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Tanggal Ijin : {{ date('d M Y',strtotime($submission->start_date)) }}</span></p>
     <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Tanggal Kembali : {{ date('d M Y',strtotime($submission->end_date)) }}</span></p>
     <p style="font-size: 14px; line-height: 170%;">&nbsp;</p>
-    <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Demikian permohonan cuti/ijin saya ajukan, sekiranya dapat dipertimbangkan untuk diterima</span></p>
+    <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Demikian pesan otomatis ini dibuat oleh sistem,</span></p>
     <p style="font-size: 14px; line-height: 170%;">&nbsp;</p>
-    <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Terima kasih,</span></p>
-    <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;"><strong>{{ $user->name }}</strong></span></p>
+    <p style="font-size: 14px; line-height: 170%;"><span style="font-size: 16px; line-height: 27.2px;">Terima kasih</span></p>
       </div>
     
           </td>

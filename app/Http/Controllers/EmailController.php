@@ -41,10 +41,11 @@ class EmailController extends Controller
 
         // GET HRD & DIVISION EMAIL
         $hrd = User::where('role', 'admin-hrd')->first();
+        $hrd_email = env('EMAIL_HRD', $hrd->email);
         $division_email = 'divisi' . $division . '@tvku.tv';
 
         // SEND EMAIL
-        Mail::to($hrd->email)->send(new SendMail());
+        Mail::to($hrd_email)->send(new SendMail());
         Mail::to($division2_email)->send(new SendMail());
 
         if ($recepient === NULL) {
